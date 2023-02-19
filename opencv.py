@@ -28,8 +28,8 @@ def capimage(camindex, imagepath):
 
 
 def DetectFace(camindex, camname):
-    eye_cap = cv2.CascadeClassifier("eye.xml")
-    face_cap = cv2.CascadeClassifier("face.xml")
+    eye_cap = cv2.CascadeClassifier("xml/eye.xml")
+    face_cap = cv2.CascadeClassifier("xml/face.xml")
     video_cap = cv2.VideoCapture(camindex)
     while True:
         ret, video_data = video_cap.read()
@@ -55,7 +55,7 @@ def DetectFace(camindex, camname):
         )
         for (fx, fy, fw, fh) in face:
             cv2.rectangle(video_data, (fx, fy),
-                          (fx+fw, fy+fh), (0, 155, 120), 2)
+                          (fx+fw, fy+fh), (127, 0, 255), 2)
 
         cv2.imshow(camname, video_data)
         if cv2.waitKey(1) & 0xFF == ord('q'):
