@@ -36,8 +36,9 @@ def DetectFace(camindex, camname):
         color = cv2.cvtColor(video_data, cv2.COLOR_BGR2GRAY)
         eye = eye_cap.detectMultiScale(
             color,
-            scaleFactor=2,  # The smaller this value, the finer the scale and the slower the detection
-            minNeighbors=10,  # A higher value will result in fewer detections but with higher accuracy. The default value is 3
+            # The smaller this value, the finer the scale and the slower the detection
+            scaleFactor=1.0485258,
+            minNeighbors=6,  # A higher value will result in fewer detections but with higher accuracy. The default value is 3
             minSize=(40, 40),  # Hight Width
             flags=cv2.CASCADE_SCALE_IMAGE
         )
@@ -46,14 +47,15 @@ def DetectFace(camindex, camname):
             cv2.rectangle(video_data, (x, y), (x+w, y+h), (0, 255, 255), 2)
         face = face_cap.detectMultiScale(
             color,
-            scaleFactor=2,  # The smaller this value, the finer the scale and the slower the detection
-            minNeighbors=10,  # A higher value will result in fewer detections but with higher accuracy. The default value is 3
-            minSize=(100, 100),  # Hight Width
+            # The smaller this value, the finer the scale and the slower the detection
+            scaleFactor=1.0485258,
+            minNeighbors=6,  # A higher value will result in fewer detections but with higher accuracy. The default value is 3
+            minSize=(200, 100),  # Hight Width
             flags=cv2.CASCADE_SCALE_IMAGE
         )
         for (fx, fy, fw, fh) in face:
             cv2.rectangle(video_data, (fx, fy),
-                          (fx+fw, fy+fh), (0, 155, 255), 2)
+                          (fx+fw, fy+fh), (0, 155, 120), 2)
 
         cv2.imshow(camname, video_data)
         if cv2.waitKey(1) & 0xFF == ord('q'):
