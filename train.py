@@ -3,6 +3,7 @@ import os
 import numpy as np
 import tkinter as tk
 import tkinter.font as font
+import time
 
 
 def train_data():
@@ -32,6 +33,10 @@ def train_data():
             cv2.putText(frm, f"{count}", (20, 20),
                         cv2.FONT_HERSHEY_PLAIN, 2, (0, 255, 0), 3)
             cv2.imshow("new", roi)
+        if cv2.waitKey(1) == 27:
+            cv2.destroyAllWindows()
+            cap.release()
+            break
 
         cv2.imshow("identify", frm)
 
@@ -58,6 +63,7 @@ def train():
     recog.train(faces, np.array(ids))
 
     recog.save('xml/model.yml')
+    
     print("Finished")
 
 
@@ -69,8 +75,8 @@ def result():
     paths = [os.path.join("train", im) for im in os.listdir("train")]
     labelslist = {}
     for path in paths:
-        labelslist[path.split('/')[-1].split('-')[2].split('.')
-                   [0]] = path.split('/')[-1].split('-')[0]
+        labelslist[path.split('\\')[-1].split('-')[2].split('.')
+                   [0]] = path.split('\\')[-1].split('-')[0]
 
     recog = cv2.face.LBPHFaceRecognizer_create()
 
@@ -83,7 +89,7 @@ def result():
 
         gray = cv2.cvtColor(frm, cv2.COLOR_BGR2GRAY)
 
-        faces = cascade.detectMultiScale(gray, 1.3, 2)
+        faces = cascade.detectMultiScale(gray, 1.4, 2)
 
         for x, y, w, h in faces:
             cv2.rectangle(frm, (x, y), (x+w, y+h), (0, 255, 0), 2)
@@ -93,9 +99,11 @@ def result():
 
             if label[1] < 100:
                 print("Found")
-                cv2.putText(frm, f"{labelslist[str(label[0])]}",
+                ids =  list(labelslist.keys())
+                cv2.putText(frm, f"{labelslist[str(label[0])]} Id ==> {ids[0]}",
                             (x, y), cv2.FONT_HERSHEY_SIMPLEX, 1, (0, 0, 255), 3)
-                print(label)
+               
+            
             else:
                 print("Not Found")
                 cv2.putText(frm, "unkown", (x, y),
@@ -109,4 +117,6 @@ def result():
             break
 
 
+# train_data()
+# train()
 result()
