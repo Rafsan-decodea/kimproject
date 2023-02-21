@@ -32,13 +32,12 @@ def train_data():
             count = count + 1
             cv2.putText(frm, f"{count}", (20, 20),
                         cv2.FONT_HERSHEY_PLAIN, 2, (0, 255, 0), 3)
-            cv2.imshow("new", roi)
+            #cv2.imshow("new", roi)
+        cv2.imshow("identify", frm)
         if cv2.waitKey(1) == 27:
             cv2.destroyAllWindows()
             cap.release()
             break
-
-        cv2.imshow("identify", frm)
 
 
 def train():
@@ -63,7 +62,7 @@ def train():
     recog.train(faces, np.array(ids))
 
     recog.save('xml/model.yml')
-    
+
     print("Finished")
 
 
@@ -99,11 +98,10 @@ def result():
 
             if label[1] < 100:
                 print("Found")
-                ids =  list(labelslist.keys())
+                ids = list(labelslist.keys())
                 cv2.putText(frm, f"{labelslist[str(label[0])]} Id ==> {ids[0]}",
                             (x, y), cv2.FONT_HERSHEY_SIMPLEX, 1, (0, 0, 255), 3)
-               
-            
+
             else:
                 print("Not Found")
                 cv2.putText(frm, "unkown", (x, y),
@@ -117,6 +115,6 @@ def result():
             break
 
 
-# train_data()
-# train()
+train_data()
+train()
 result()
