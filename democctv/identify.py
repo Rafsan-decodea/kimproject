@@ -102,12 +102,12 @@ def identify():
 
             if label[1] < 100:
                 print("Found")
-                # cv2.putText(frm, f"{labelslist[str(label[0])]} + {int(label[1])}",
-                #             (x, y), cv2.FONT_HERSHEY_SIMPLEX, 1, (0, 0, 255), 3)
+                cv2.putText(frm, f"{labelslist[str(label[0])]}",
+                            (x, y), cv2.FONT_HERSHEY_SIMPLEX, 1, (0, 0, 255), 3)
             else:
                 print("Not Found")
-                # cv2.putText(frm, "unkown", (x, y),
-                #             cv2.FONT_HERSHEY_SIMPLEX, 1, (0, 0, 255), 3)
+                cv2.putText(frm, "unkown", (x, y),
+                            cv2.FONT_HERSHEY_SIMPLEX, 1, (0, 0, 255), 3)
 
         cv2.imshow("identify", frm)
 

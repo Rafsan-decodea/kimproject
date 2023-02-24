@@ -3,10 +3,9 @@ import os
 import numpy as np
 import tkinter as tk
 import tkinter.font as font
-import time
 
 
-def train_data():
+def collect_data():
     name = input("Enter name of person : ")
 
     count = 1
@@ -17,6 +16,7 @@ def train_data():
     filename = "xml/haarcascade_frontalface_default.xml"
 
     cascade = cv2.CascadeClassifier(filename)
+
     while True:
         _, frm = cap.read()
 
@@ -32,11 +32,14 @@ def train_data():
             count = count + 1
             cv2.putText(frm, f"{count}", (20, 20),
                         cv2.FONT_HERSHEY_PLAIN, 2, (0, 255, 0), 3)
-            #cv2.imshow("new", roi)
+            # cv2.imshow("new", roi)
+
         cv2.imshow("identify", frm)
-        if cv2.waitKey(1) == 27:
+
+        if cv2.waitKey(1) == 27 or count > 300:
             cv2.destroyAllWindows()
             cap.release()
+            train()
             break
 
 
@@ -61,12 +64,13 @@ def train():
 
     recog.train(faces, np.array(ids))
 
-    recog.save('xml/model.yml')
-
+    recog.save('model.yml')
     print("Finished")
 
+    return
 
-def result():
+
+def identify():
     cap = cv2.VideoCapture(0)
 
     filename = "xml/haarcascade_frontalface_default.xml"
@@ -74,12 +78,13 @@ def result():
     paths = [os.path.join("train", im) for im in os.listdir("train")]
     labelslist = {}
     for path in paths:
-        labelslist[path.split('\\')[-1].split('-')[2].split('.')
-                   [0]] = path.split('\\')[-1].split('-')[0]
+        labelslist[path.split('/')[-1].split('-')[2].split('.')
+                   [0]] = path.split('/')[-1].split('-')[0]
 
+    print(labelslist)
     recog = cv2.face.LBPHFaceRecognizer_create()
 
-    recog.read('xml/model.yml')
+    recog.read('model.yml')
 
     cascade = cv2.CascadeClassifier(filename)
 
@@ -88,7 +93,7 @@ def result():
 
         gray = cv2.cvtColor(frm, cv2.COLOR_BGR2GRAY)
 
-        faces = cascade.detectMultiScale(gray, 1.4, 2)
+        faces = cascade.detectMultiScale(gray, 1.3, 2)
 
         for x, y, w, h in faces:
             cv2.rectangle(frm, (x, y), (x+w, y+h), (0, 255, 0), 2)
@@ -98,23 +103,47 @@ def result():
 
             if label[1] < 100:
                 print("Found")
-                ids = list(labelslist.keys())
-                cv2.putText(frm, f"{labelslist[str(label[0])]} Id ==> {ids[0]}",
+                cv2.putText(frm, f"{labelslist[str(label[0])]}",
                             (x, y), cv2.FONT_HERSHEY_SIMPLEX, 1, (0, 0, 255), 3)
-
             else:
                 print("Not Found")
                 cv2.putText(frm, "unkown", (x, y),
                             cv2.FONT_HERSHEY_SIMPLEX, 1, (0, 0, 255), 3)
 
-        cv2.namedWindow("window name", cv2.WINDOW_NORMAL)
-        cv2.imshow("window name", frm)
+        cv2.imshow("identify", frm)
+
         if cv2.waitKey(1) == 27:
             cv2.destroyAllWindows()
             cap.release()
             break
 
 
-train_data()
-train()
-result()
+def maincall():
+
+    root = tk.Tk()
+
+    root.geometry("480x100")
+    root.title("identify")
+
+    label = tk.Label(root, text="Select below buttons ")
+    label.grid(row=0, columnspan=2)
+    label_font = font.Font(size=10, weight='bold', family='Helvetica')
+    label['font'] = label_font
+
+    btn_font = font.Font(size=10)
+
+    button1 = tk.Button(root, text="Add Member ",
+                        command=collect_data, height=2, width=20)
+    button1.grid(row=1, column=0, pady=(10, 10), padx=(5, 5))
+    button1['font'] = btn_font
+
+    button2 = tk.Button(root, text="Start with known ",
+                        command=identify, height=2, width=20)
+    button2.grid(row=1, column=1, pady=(10, 10), padx=(5, 5))
+    button2['font'] = btn_font
+    root.mainloop()
+
+    return
+
+
+maincall()

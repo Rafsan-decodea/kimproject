@@ -1,6 +1,44 @@
 import cv2
 
 
+def sifi():
+
+    # Initialize the video stream
+    cap = cv2.VideoCapture(0)
+
+    # Create a tracker
+    tracker = cv2.TrackerKCF_create()
+
+    # Get the initial bounding box
+    ret, frame = cap.read()
+    bbox = cv2.selectROI(frame, False)
+    tracker.init(frame, bbox)
+
+    # Loop over the frames in the video stream
+    while True:
+        # Read a frame from the video stream
+        ret, frame = cap.read()
+
+        # Update the tracker
+        ret, bbox = tracker.update(frame)
+
+        # Draw the bounding box on the frame
+        if ret:
+            x, y, w, h = [int(i) for i in bbox]
+            cv2.rectangle(frame, (x, y), (x + w, y + h), (0, 255, 0), 2)
+
+        # Display the resulting frame
+        cv2.imshow('Frame', frame)
+
+        # Exit if the user presses 'q'
+        if cv2.waitKey(1) & 0xFF == ord('q'):
+            break
+
+    # Cleanup
+    cap.release()
+    cv2.destroyAllWindows()
+
+
 def open(camindex, camname):
     cap = cv2.VideoCapture(camindex)
     if not cap.isOpened():
@@ -8,7 +46,8 @@ def open(camindex, camname):
         exit()
     while True:
         ret, frame = cap.read()
-        cv2.imshow(camname, frame)
+        edges = cv2.Canny(frame, 50, 150)
+        cv2.imshow(camname, edges)
         if cv2.waitKey(1) & 0xFF == ord('q'):
             break
     cap.release()
@@ -64,4 +103,4 @@ def DetectFace(camindex, camname):
     cv2.destroyAllWindows()
 
 
-DetectFace(0, "Capture")
+open(0, "asd")
