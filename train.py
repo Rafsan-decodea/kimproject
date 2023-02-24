@@ -3,6 +3,7 @@ import os
 import numpy as np
 import tkinter as tk
 import tkinter.font as font
+from datetime import datetime
 
 
 def collect_data():
@@ -94,6 +95,8 @@ def identify():
         gray = cv2.cvtColor(frm, cv2.COLOR_BGR2GRAY)
 
         faces = cascade.detectMultiScale(gray, 1.3, 2)
+        cv2.putText(frm, f'{datetime.now().strftime("%D-%H-%M-%S")}', (50, 50), cv2.FONT_HERSHEY_COMPLEX,
+                    0.6, (255, 255, 255), 2)
 
         for x, y, w, h in faces:
             cv2.rectangle(frm, (x, y), (x+w, y+h), (0, 255, 0), 2)
