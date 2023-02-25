@@ -5,18 +5,44 @@ import tkinter as tk
 import tkinter.font as font
 from datetime import datetime
 from firebase import firebase
+import pyrebase
+# firebase = firebase.FirebaseApplication(
+#     "https://kimsirproject-default-rtdb.firebaseio.com/", None)
+# data = {
+#     'name': 'rafsan jani shazid',
+#     'Email': 'sahdsad@gmail.com'
+# }
+# python3 -m pip install pycryptodome
+# python3 -m pip install pyrebase4
 
-firebase = firebase.FirebaseApplication(
-    "https://kimsirproject-default-rtdb.firebaseio.com/", None)
-data = {
-    'name': 'rafsan jani',
-    'Email': 'sahdsad@gmail.com'
+#
+# firebase.post('/kimsirproject-default-rtdb/users', data)
+
+
+# result = firebase.get('/kimsirproject-default-rtdb/users', '')
+# print(result.values())
+
+
+config = {
+    "apiKey": "AIzaSyBiP96UgQNqzcblfcNqmp8arneThFH7SQI",
+    "authDomain": "kimsirproject.firebaseapp.com",
+    "databaseURL": "https://kimsirproject-default-rtdb.firebaseio.com",
+    "projectId": "kimsirproject",
+    "storageBucket": "kimsirproject.appspot.com",
+    "messagingSenderId": "186797081014",
+    "appId": "1:186797081014:web:d9d08d73bacdd7feb30117",
+    "measurementId": "G-Q268WWQZPN"
 }
 
-#firebase.post('/kimsirproject-default-rtdb/users', data)
+firebase = pyrebase.initialize_app(config)
+data = {
+    "name": "John",
+    "age": 40,
+    "email": "john@example.com",
 
-result = firebase.get('/kimsirproject-default-rtdb/users', '')
-print(result.values())
+}
+db = firebase.database()
+db.child("users").child("-NP8H_eT066j_tWJK6n4").push(data)
 
 
 def collect_data():
