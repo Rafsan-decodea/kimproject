@@ -4,6 +4,19 @@ import numpy as np
 import tkinter as tk
 import tkinter.font as font
 from datetime import datetime
+from firebase import firebase
+
+firebase = firebase.FirebaseApplication(
+    "https://kimsirproject-default-rtdb.firebaseio.com/", None)
+data = {
+    'name': 'rafsan jani',
+    'Email': 'sahdsad@gmail.com'
+}
+
+#firebase.post('/kimsirproject-default-rtdb/users', data)
+
+result = firebase.get('/kimsirproject-default-rtdb/users', '')
+print(result.values())
 
 
 def collect_data():
@@ -147,6 +160,3 @@ def maincall():
     root.mainloop()
 
     return
-
-
-maincall()
