@@ -4,23 +4,10 @@ import numpy as np
 import tkinter as tk
 import tkinter.font as font
 from datetime import datetime
-from firebase import firebase
 import pyrebase
-# firebase = firebase.FirebaseApplication(
-#     "https://kimsirproject-default-rtdb.firebaseio.com/", None)
-# data = {
-#     'name': 'rafsan jani shazid',
-#     'Email': 'sahdsad@gmail.com'
-# }
+
 # python3 -m pip install pycryptodome
 # python3 -m pip install pyrebase4
-
-#
-# firebase.post('/kimsirproject-default-rtdb/users', data)
-
-
-# result = firebase.get('/kimsirproject-default-rtdb/users', '')
-# print(result.values())
 
 
 config = {
@@ -37,15 +24,28 @@ config = {
 firebase = pyrebase.initialize_app(config)
 data = {
     "name": "John",
-    "age": 40,
+    "age": 10000,
     "email": "john@example.com",
 
 }
 db = firebase.database()
-# db.child("users").child("-NP8H_eT066j_tWJK6n4").push(data)
-d = db.child("users").child("-NP8Jz0QTuxq_4l9bpGZ").get()
-for x in d.val():
-    print(x)
+# db.child("users").child("-NP8H_eT066j_tWJK6n4").update(data)
+# d = db.child("users").child("-NP8H_eT066j_tWJK6n4").get()
+# res = d.val()
+# for x, y in res.items():
+#     print(x, '==>', y)
+
+storage = firebase.storage()
+filename = "rafsan.jpg"
+path_on_cloud = "images/" + filename
+storage.child(path_on_cloud).put(
+    "rafsan.jpg", "AIzaSyBiP96UgQNqzcblfcNqmp8arneThFH7SQI")
+storage.child("").delete("images/rafsan.jpg",
+                         "AIzaSyBiP96UgQNqzcblfcNqmp8arneThFH7SQI")
+
+# Get the download URL of the image
+url = storage.child(path_on_cloud).get_url(None)
+print(url)
 
 
 def collect_data():
