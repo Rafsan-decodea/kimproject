@@ -42,7 +42,10 @@ data = {
 
 }
 db = firebase.database()
-db.child("users").child("-NP8H_eT066j_tWJK6n4").push(data)
+# db.child("users").child("-NP8H_eT066j_tWJK6n4").push(data)
+d = db.child("users").child("-NP8Jz0QTuxq_4l9bpGZ").get()
+for x in d.val():
+    print(x)
 
 
 def collect_data():
