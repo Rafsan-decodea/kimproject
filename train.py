@@ -3,49 +3,63 @@ import os
 import numpy as np
 import tkinter as tk
 import tkinter.font as font
+import datetime
 from datetime import datetime
 import pyrebase
 
 # python3 -m pip install pycryptodome
 # python3 -m pip install pyrebase4
-
-
 config = {
-    "apiKey": "AIzaSyBiP96UgQNqzcblfcNqmp8arneThFH7SQI",
-    "authDomain": "kimsirproject.firebaseapp.com",
-    "databaseURL": "https://kimsirproject-default-rtdb.firebaseio.com",
-    "projectId": "kimsirproject",
-    "storageBucket": "kimsirproject.appspot.com",
-    "messagingSenderId": "186797081014",
-    "appId": "1:186797081014:web:d9d08d73bacdd7feb30117",
-    "measurementId": "G-Q268WWQZPN"
-}
+        "apiKey": "AIzaSyBiP96UgQNqzcblfcNqmp8arneThFH7SQI",
+        "authDomain": "kimsirproject.firebaseapp.com",
+        "databaseURL": "https://kimsirproject-default-rtdb.firebaseio.com",
+        "projectId": "kimsirproject",
+        "storageBucket": "kimsirproject.appspot.com",
+        "messagingSenderId": "186797081014",
+        "appId": "1:186797081014:web:d9d08d73bacdd7feb30117",
+        "measurementId": "G-Q268WWQZPN"
+    }
 
 firebase = pyrebase.initialize_app(config)
-data = {
-    "name": "John",
-    "age": 10000,
-    "email": "john@example.com",
-
-}
-db = firebase.database()
-# db.child("users").child("-NP8H_eT066j_tWJK6n4").update(data)
-# d = db.child("users").child("-NP8H_eT066j_tWJK6n4").get()
-# res = d.val()
-# for x, y in res.items():
-#     print(x, '==>', y)
-
 storage = firebase.storage()
-filename = "rafsan.jpg"
-path_on_cloud = "images/" + filename
-storage.child(path_on_cloud).put(
-    "rafsan.jpg", "AIzaSyBiP96UgQNqzcblfcNqmp8arneThFH7SQI")
-storage.child("").delete("images/rafsan.jpg",
-                         "AIzaSyBiP96UgQNqzcblfcNqmp8arneThFH7SQI")
 
-# Get the download URL of the image
-url = storage.child(path_on_cloud).get_url(None)
-print(url)
+def databasetest():
+    config = {
+        "apiKey": "AIzaSyBiP96UgQNqzcblfcNqmp8arneThFH7SQI",
+        "authDomain": "kimsirproject.firebaseapp.com",
+        "databaseURL": "https://kimsirproject-default-rtdb.firebaseio.com",
+        "projectId": "kimsirproject",
+        "storageBucket": "kimsirproject.appspot.com",
+        "messagingSenderId": "186797081014",
+        "appId": "1:186797081014:web:d9d08d73bacdd7feb30117",
+        "measurementId": "G-Q268WWQZPN"
+    }
+
+    firebase = pyrebase.initialize_app(config)
+    data = {
+        "name": "John",
+        "age": 10000,
+        "email": "john@example.com",
+
+    }
+    db = firebase.database()
+    # db.child("users").child("-NP8H_eT066j_tWJK6n4").update(data)
+    # d = db.child("users").child("-NP8H_eT066j_tWJK6n4").get()
+    # res = d.val()
+    # for x, y in res.items():
+    #     print(x, '==>', y)
+
+    storage = firebase.storage()
+    filename = "rafsan.jpg"
+    path_on_cloud = "images/" + filename
+    storage.child(path_on_cloud).put(
+        "rafsan.jpg", "AIzaSyBiP96UgQNqzcblfcNqmp8arneThFH7SQI")
+    storage.child("").delete("images/rafsan.jpg",
+                            "AIzaSyBiP96UgQNqzcblfcNqmp8arneThFH7SQI")
+
+    # Get the download URL of the image
+    url = storage.child(path_on_cloud).get_url(None)
+    print(url)
 
 
 def collect_data():
@@ -115,7 +129,7 @@ def train():
 
 def identify():
     cap = cv2.VideoCapture(0)
-
+    count = 1
     filename = "xml/haarcascade_frontalface_default.xml"
 
     paths = [os.path.join("train", im) for im in os.listdir("train")]
@@ -154,6 +168,27 @@ def identify():
                 print("Not Found")
                 cv2.putText(frm, "unkown", (x, y),
                             cv2.FONT_HERSHEY_SIMPLEX, 1, (0, 0, 255), 3)
+                current_datetime = datetime.now()
+                formatted_datetime = current_datetime.strftime('%Y-%m-%d')
+                imagename = f'intruder/{formatted_datetime}.jpg'
+                cv2.imwrite(imagename, roi)
+                
+                path_on_cloud = "images/" + imagename
+                storage.child(path_on_cloud).put(imagename, "AIzaSyBiP96UgQNqzcblfcNqmp8arneThFH7SQI")
+                url = storage.child(path_on_cloud).get_url(None)
+                print (url)
+                data = {
+                    "type": "intruder",
+                    "date":datetime.now().strftime("%D-%H-%M-%S"),
+                    "image":url
+
+                    }
+                db = firebase.database()
+                db.child("users").child(count).push(data)
+                
+                
+                
+                
 
         cv2.imshow("identify", frm)
 
@@ -189,3 +224,4 @@ def maincall():
     root.mainloop()
 
     return
+maincall()
