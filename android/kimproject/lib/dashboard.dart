@@ -78,7 +78,7 @@ class _DashboardState extends State<Dashboard> {
   Widget build(BuildContext context) {
     return Scaffold(
       extendBodyBehindAppBar: true,
-      backgroundColor: Colors.black,
+      backgroundColor: Color.fromARGB(255, 255, 254, 254),
       appBar: AppBar(
         elevation: 0,
         backgroundColor: Colors.transparent,
@@ -148,8 +148,8 @@ class _DashboardState extends State<Dashboard> {
                   child: Padding(
                     padding: const EdgeInsets.only(left: 25),
                     child: Image.asset(
-                      'assests/rafsan.png',
-                      height: 400,
+                      'images/cctv.png',
+                      height: 350,
                       fit: BoxFit.contain,
                     ),
                   ),
@@ -161,19 +161,19 @@ class _DashboardState extends State<Dashboard> {
                     top: MediaQuery.of(context).size.height * 0.49),
                 child: Column(
                   children: [
-                    Text('Your Company name',
+                    Text('FaceRecognization Project',
                         style: TextStyle(
                             fontFamily: "Soho",
-                            color: Colors.white,
-                            fontSize: 35,
+                            color: Color.fromARGB(255, 8, 8, 8),
+                            fontSize: 25,
                             fontWeight: FontWeight.bold)),
                     SizedBox(
                       height: 2,
                     ),
                     Text(
-                      'Rafsan Software Developer',
+                      'Using CCTV',
                       style: TextStyle(
-                          color: Colors.white,
+                          color: Color.fromARGB(255, 10, 8, 8),
                           fontFamily: "Soho",
                           fontSize: 20),
                     ),
@@ -198,7 +198,7 @@ class _DashboardState extends State<Dashboard> {
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
                       aboutAchivements('100%', ' Quality'),
-                      aboutAchivements('100%', ' Clients Satisfaction'),
+                      aboutAchivements('100%', ' Cap intruder'),
                     ],
                   ),
                   SizedBox(
@@ -219,7 +219,7 @@ class _DashboardState extends State<Dashboard> {
                       Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
-                          mySpec(FontAwesomeIcons.home, 'Home\nDelivary',
+                          mySpec(FontAwesomeIcons.dashboard, 'Dashboard',
                               '/homedelivary'),
                           mySpec(FontAwesomeIcons.checkCircle,
                               'Client\nSatisfied', '/clientsatisfied'),

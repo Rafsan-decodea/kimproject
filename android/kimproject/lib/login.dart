@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:kimproject/dashboard.dart';
 
 class MyLogin extends StatefulWidget {
   const MyLogin({Key? key}) : super(key: key);
@@ -8,6 +9,8 @@ class MyLogin extends StatefulWidget {
 }
 
 class _MyLoginState extends State<MyLogin> {
+  TextEditingController username = TextEditingController();
+  TextEditingController password = TextEditingController();
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -39,11 +42,12 @@ class _MyLoginState extends State<MyLogin> {
                       child: Column(
                         children: [
                           TextField(
+                            controller: username,
                             style: TextStyle(color: Colors.black),
                             decoration: InputDecoration(
                                 fillColor: Colors.grey.shade100,
                                 filled: true,
-                                hintText: "Email",
+                                hintText: "Username",
                                 border: OutlineInputBorder(
                                   borderRadius: BorderRadius.circular(10),
                                 )),
@@ -52,6 +56,7 @@ class _MyLoginState extends State<MyLogin> {
                             height: 30,
                           ),
                           TextField(
+                            controller: password,
                             style: TextStyle(),
                             obscureText: true,
                             decoration: InputDecoration(
@@ -78,7 +83,43 @@ class _MyLoginState extends State<MyLogin> {
                                 backgroundColor: Color(0xff4c505b),
                                 child: IconButton(
                                     color: Colors.white,
-                                    onPressed: () {},
+                                    onPressed: () {
+                                      if (username.text == 'admin' &&
+                                          password.text == 'password') {
+                                        Navigator.pushReplacement(
+                                          context,
+                                          PageRouteBuilder(
+                                            pageBuilder: (context, animation,
+                                                    secondaryAnimation) =>
+                                                const Dashboard(),
+                                            transitionsBuilder: (context,
+                                                animation,
+                                                secondaryAnimation,
+                                                child) {
+                                              return SlideTransition(
+                                                position: Tween<Offset>(
+                                                  begin: const Offset(1.0, 0.0),
+                                                  end: Offset.zero,
+                                                ).animate(animation),
+                                                child: child,
+                                              );
+                                            },
+                                          ),
+                                        );
+                                      } else {
+                                        showDialog(
+                                          context: context,
+                                          builder: (BuildContext context) {
+                                            return AlertDialog(
+                                              title:
+                                                  Text('Invalid Credentials'),
+                                              content: Text(
+                                                  'The username and password you entered do not match.'),
+                                            );
+                                          },
+                                        );
+                                      }
+                                    },
                                     icon: Icon(
                                       Icons.arrow_forward,
                                     )),
