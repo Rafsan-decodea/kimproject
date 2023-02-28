@@ -132,30 +132,30 @@ class _MyLoginState extends State<MyLogin> {
                           Row(
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: [
-                              TextButton(
-                                onPressed: () {
-                                  Navigator.pushNamed(context, 'register');
-                                },
-                                child: Text(
-                                  'Sign Up',
-                                  textAlign: TextAlign.left,
-                                  style: TextStyle(
-                                      decoration: TextDecoration.underline,
-                                      color: Color(0xff4c505b),
-                                      fontSize: 18),
-                                ),
-                                style: ButtonStyle(),
-                              ),
-                              TextButton(
-                                  onPressed: () {},
-                                  child: Text(
-                                    'Forgot Password',
-                                    style: TextStyle(
-                                      decoration: TextDecoration.underline,
-                                      color: Color(0xff4c505b),
-                                      fontSize: 18,
-                                    ),
-                                  )),
+                              // TextButton(
+                              //   onPressed: () {
+                              //     Navigator.pushNamed(context, 'register');
+                              //   },
+                              //   child: Text(
+                              //     'Sign Up',
+                              //     textAlign: TextAlign.left,
+                              //     style: TextStyle(
+                              //         decoration: TextDecoration.underline,
+                              //         color: Color(0xff4c505b),
+                              //         fontSize: 18),
+                              //   ),
+                              //   style: ButtonStyle(),
+                              // ),
+                              // TextButton(
+                              //     onPressed: () {},
+                              //     child: Text(
+                              //       'Forgot Password',
+                              //       style: TextStyle(
+                              //         decoration: TextDecoration.underline,
+                              //         color: Color(0xff4c505b),
+                              //         fontSize: 18,
+                              //       ),
+                              //     )),
                             ],
                           )
                         ],

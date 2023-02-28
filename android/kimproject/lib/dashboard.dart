@@ -34,7 +34,7 @@ class _DashboardState extends State<Dashboard> {
     );
   }
 
-  mySpec(icon, text, link) {
+  mySpec(icon, text, link, text2) {
     return Container(
       child: Card(
         margin: EdgeInsets.all(0),
@@ -46,8 +46,15 @@ class _DashboardState extends State<Dashboard> {
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
+              Text(
+                text2,
+                style: const TextStyle(
+                    fontSize: 16, fontFamily: "Soho", color: Colors.white),
+                textAlign: TextAlign.center,
+              ),
               IconButton(
                 splashColor: Colors.green,
+                iconSize: 50,
                 icon: Icon(
                   icon,
                   color: Colors.white,
@@ -69,7 +76,7 @@ class _DashboardState extends State<Dashboard> {
           ),
         ),
       ),
-      height: 115,
+      height: 150,
       width: 105,
     );
   }
@@ -83,36 +90,36 @@ class _DashboardState extends State<Dashboard> {
         elevation: 0,
         backgroundColor: Colors.transparent,
         leading: PopupMenuButton(
-            color: Colors.white,
+            color: Color.fromARGB(255, 20, 3, 3),
             shape: RoundedRectangleBorder(
               borderRadius: BorderRadius.circular(7),
             ),
             icon: Icon(Icons.menu),
             itemBuilder: (context) => [
-                  // PopupMenuItem(
-                  //   child: TextButton(
-                  //       child: Text(
-                  //         'Projects',
-                  //         style: TextStyle(
-                  //           color: Color.fromARGB(255, 8, 8, 8),
-                  //         ),
-                  //       ),
-                  //       onPressed: () {
-                  //         Navigator.pushNamed(context, '/project');
-                  //       }),
-                  //   value: 1,
-                  // ),
                   PopupMenuItem(
                     child: TextButton(
                         child: Text(
-                          'About Me',
-                          style:
-                              TextStyle(color: Color.fromARGB(255, 17, 17, 17)),
+                          'LogOut',
+                          style: TextStyle(
+                            color: Color.fromARGB(255, 247, 246, 246),
+                          ),
+                        ),
+                        onPressed: () {
+                          Navigator.pushNamed(context, '/logout');
+                        }),
+                    value: 2,
+                  ),
+                  PopupMenuItem(
+                    child: TextButton(
+                        child: Text(
+                          'About US',
+                          style: TextStyle(
+                              color: Color.fromARGB(255, 255, 254, 254)),
                         ),
                         onPressed: () {
                           Navigator.pushNamed(context, '/about');
                         }),
-                    value: 2,
+                    value: 1,
                   )
                 ]),
       ),
@@ -189,7 +196,7 @@ class _DashboardState extends State<Dashboard> {
           // height of the sheet.
           return Container(
             margin: EdgeInsets.only(left: 20, top: 30, right: 20),
-            height: 1000,
+            height: 300,
             child: Container(
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
@@ -217,13 +224,14 @@ class _DashboardState extends State<Dashboard> {
                   Column(
                     children: [
                       Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                         children: [
-                          mySpec(FontAwesomeIcons.dashboard, 'Dashboard',
-                              '/homedelivary'),
-                          mySpec(FontAwesomeIcons.checkCircle,
-                              'Client\nSatisfied', '/clientsatisfied'),
-                          mySpec(FontAwesomeIcons.flag, 'AboutUS', '/aboutus'),
+                          mySpec(FontAwesomeIcons.idCard, 'Total Known ',
+                              '/homedelivary', '1'),
+                          mySpec(FontAwesomeIcons.userSecret, "Intruder's",
+                              '/clientsatisfied', '20'),
+                          // mySpec(FontAwesomeIcons.flag, 'AboutUS', '/aboutus',
+                          //     '100'),
                         ],
                       ),
                     ],

@@ -4,6 +4,8 @@ import 'package:flutter/material.dart';
 import 'package:kimproject/dashboard.dart';
 import 'package:kimproject/login.dart';
 
+import 'about.dart';
+
 void main() {
   runApp(const MyApp());
 }
@@ -91,7 +93,10 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       home: SplashScreen(),
-      //   routes: {'/project': (context) => const MyProject()},
+      routes: {
+        '/about': (context) => const AboutUs(),
+        '/logout': (context) => const MyLogin(),
+      },
     );
   }
 }
