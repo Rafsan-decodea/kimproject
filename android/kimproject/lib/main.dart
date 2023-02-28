@@ -2,6 +2,7 @@ import 'dart:async';
 import 'package:animated_text_kit/animated_text_kit.dart';
 import 'package:flutter/material.dart';
 import 'package:kimproject/dashboard.dart';
+import 'package:kimproject/login.dart';
 
 void main() {
   runApp(const MyApp());
@@ -16,7 +17,7 @@ class SplashScreen extends StatelessWidget {
         context,
         PageRouteBuilder(
           pageBuilder: (context, animation, secondaryAnimation) =>
-              const Dashboard(),
+              const MyLogin(),
           transitionsBuilder: (context, animation, secondaryAnimation, child) {
             return SlideTransition(
               position: Tween<Offset>(
@@ -87,9 +88,10 @@ class MyApp extends StatelessWidget {
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
-    return const MaterialApp(
+    return MaterialApp(
       debugShowCheckedModeBanner: false,
       home: SplashScreen(),
+      //   routes: {'/project': (context) => const MyProject()},
     );
   }
 }
