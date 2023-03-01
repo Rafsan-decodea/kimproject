@@ -212,7 +212,7 @@ class _DashboardState extends State<Dashboard> {
                     height: 30,
                   ),
                   const Text(
-                    'Check Out Our Detailes',
+                    'Check Our Menu',
                     style: TextStyle(
                         fontSize: 20,
                         fontFamily: "Soho",

@@ -3,7 +3,7 @@ import 'package:animated_text_kit/animated_text_kit.dart';
 import 'package:flutter/material.dart';
 import 'package:kimproject/dashboard.dart';
 import 'package:kimproject/login.dart';
-
+import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'about.dart';
 
 void main() {
