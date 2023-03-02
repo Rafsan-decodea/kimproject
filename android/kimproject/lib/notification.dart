@@ -2,6 +2,7 @@ import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:rxdart/subjects.dart';
 import 'package:timezone/timezone.dart' as tz;
 import 'package:timezone/data/latest.dart' as tz;
+import 'package:flutter/material.dart';
 
 class LocalNotificationService {
   LocalNotificationService();
@@ -27,11 +28,14 @@ class LocalNotificationService {
 
   Future<NotificationDetails> _notificationDetails() async {
     const AndroidNotificationDetails androidNotificationDetails =
-        AndroidNotificationDetails('channel_id', 'channel_name',
-            channelDescription: 'description',
-            importance: Importance.max,
-            priority: Priority.max,
-            playSound: true);
+        AndroidNotificationDetails(
+      'channel_id',
+      'channel_name',
+      channelDescription: 'description',
+      importance: Importance.max,
+      priority: Priority.max,
+      playSound: true,
+    );
 
     return const NotificationDetails(
       android: androidNotificationDetails,

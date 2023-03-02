@@ -62,8 +62,8 @@ class _DashboardState extends State<Dashboard> {
                   color: Colors.white,
                 ),
                 onPressed: () async {
-                  // await service.showNotification(
-                  //     id: 0, title: "Intruder", body: "Intruder Detected");
+                  await service.showNotification(
+                      id: 0, title: "Intruder", body: "Intruder Detected");
                   Navigator.pushNamed(context, link);
                 },
               ),

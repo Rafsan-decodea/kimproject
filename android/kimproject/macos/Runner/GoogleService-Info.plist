@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>CLIENT_ID</key>
+	<string>186797081014-pa8pc42r2hp1avmg4dr8vgfaj1jgggdg.apps.googleusercontent.com</string>
+	<key>REVERSED_CLIENT_ID</key>
+	<string>com.googleusercontent.apps.186797081014-pa8pc42r2hp1avmg4dr8vgfaj1jgggdg</string>
+	<key>API_KEY</key>
+	<string>AIzaSyA3kJof5aKrmBIWVu-iPUeUGmMB2xwC9II</string>
+	<key>GCM_SENDER_ID</key>
+	<string>186797081014</string>
+	<key>PLIST_VERSION</key>
+	<string>1</string>
+	<key>BUNDLE_ID</key>
+	<string>com.example.kimproject</string>
+	<key>PROJECT_ID</key>
+	<string>kimsirproject</string>
+	<key>STORAGE_BUCKET</key>
+	<string>kimsirproject.appspot.com</string>
+	<key>IS_ADS_ENABLED</key>
+	<false></false>
+	<key>IS_ANALYTICS_ENABLED</key>
+	<false></false>
+	<key>IS_APPINVITE_ENABLED</key>
+	<true></true>
+	<key>IS_GCM_ENABLED</key>
+	<true></true>
+	<key>IS_SIGNIN_ENABLED</key>
+	<true></true>
+	<key>GOOGLE_APP_ID</key>
+	<string>1:186797081014:ios:e5297ea5a0fcb70db30117</string>
+	<key>DATABASE_URL</key>
+	<string>https://kimsirproject-default-rtdb.firebaseio.com</string>
+</dict>
+</plist>
