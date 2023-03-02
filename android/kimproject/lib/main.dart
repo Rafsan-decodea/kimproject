@@ -1,16 +1,21 @@
 import 'dart:async';
 import 'package:animated_text_kit/animated_text_kit.dart';
+import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/material.dart';
-import 'package:kimproject/dashboard.dart';
+import 'package:kimproject/dashboard/dashboard.dart';
 import 'package:kimproject/login.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:firebase_core/firebase_core.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
+import 'library/firebase_options.dart';
 import 'about.dart';
-import 'firebase_options.dart';
+
+import 'package:kimproject/library/notification.dart';
 
 main() {
   WidgetsFlutterBinding.ensureInitialized();
-  Firebase.initializeApp();
+  Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
   runApp(const MyApp());
 }
 
@@ -88,9 +93,16 @@ class SplashScreen extends StatelessWidget {
 }
 
 //Entry Point
-class MyApp extends StatelessWidget {
+class MyApp extends StatefulWidget {
   const MyApp({super.key});
 
+  @override
+  State<MyApp> createState() => _MyAppState();
+}
+
+class _MyAppState extends State<MyApp> {
+  final auth = FirebaseAuth.instance;
+  final ref = FirebaseDatabase.instance.ref("users");
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {

@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:sliding_sheet/sliding_sheet.dart';
-import 'package:kimproject/notification.dart';
+import 'package:kimproject/library/notification.dart';
 
 class Dashboard extends StatefulWidget {
   const Dashboard({Key? key}) : super(key: key);
