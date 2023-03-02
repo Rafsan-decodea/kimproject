@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:sliding_sheet/sliding_sheet.dart';
+import 'package:kimproject/notification.dart';
 
 class Dashboard extends StatefulWidget {
   const Dashboard({Key? key}) : super(key: key);
@@ -10,6 +11,7 @@ class Dashboard extends StatefulWidget {
 }
 
 class _DashboardState extends State<Dashboard> {
+  late final LocalNotificationService service;
   aboutAchivements(num, type) {
     return Row(
       children: [
@@ -59,8 +61,10 @@ class _DashboardState extends State<Dashboard> {
                   icon,
                   color: Colors.white,
                 ),
-                onPressed: () {
-                  Navigator.pushNamed(context, link);
+                onPressed: () async {
+                  await service.showNotification(
+                      id: 0, title: "Intruder", body: "Intruder Detected");
+                  // Navigator.pushNamed(context, link);
                 },
               ),
               SizedBox(
@@ -82,6 +86,12 @@ class _DashboardState extends State<Dashboard> {
   }
 
   @override
+  void initState() {
+    service = LocalNotificationService();
+    service.intialize();
+    super.initState();
+  }
+
   Widget build(BuildContext context) {
     return Scaffold(
       extendBodyBehindAppBar: true,
