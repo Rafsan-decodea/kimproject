@@ -4,9 +4,12 @@ import 'package:flutter/material.dart';
 import 'package:kimproject/dashboard.dart';
 import 'package:kimproject/login.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
+import 'package:firebase_core/firebase_core.dart';
 import 'about.dart';
 
-void main() {
+main() {
+  WidgetsFlutterBinding.ensureInitialized();
+  Firebase.initializeApp();
   runApp(const MyApp());
 }
 
@@ -14,7 +17,7 @@ class SplashScreen extends StatelessWidget {
   // Space Screen For Automatice Redirect
   const SplashScreen({super.key});
   void _redirect(BuildContext context) {
-    Timer(Duration(seconds: 5), () {
+    Timer(const Duration(seconds: 5), () {
       Navigator.pushReplacement(
         context,
         PageRouteBuilder(
