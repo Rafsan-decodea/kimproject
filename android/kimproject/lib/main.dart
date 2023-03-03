@@ -13,9 +13,9 @@ import 'about.dart';
 
 import 'package:kimproject/library/notification.dart';
 
-main() {
+main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
+  await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
   runApp(const MyApp());
 }
 
