@@ -8,6 +8,7 @@ import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'dashboard/knownperson.dart';
 import 'library/firebase_options.dart';
 import 'about.dart';
 
@@ -101,8 +102,7 @@ class MyApp extends StatefulWidget {
 }
 
 class _MyAppState extends State<MyApp> {
-  final auth = FirebaseAuth.instance;
-  final ref = FirebaseDatabase.instance.ref("users");
+ 
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
@@ -112,6 +112,7 @@ class _MyAppState extends State<MyApp> {
       routes: {
         '/about': (context) => const AboutUs(),
         '/logout': (context) => const MyLogin(),
+        '/knownpersone': (context) => const KnownPerson()
       },
     );
   }

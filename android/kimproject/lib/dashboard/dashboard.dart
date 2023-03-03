@@ -62,8 +62,8 @@ class _DashboardState extends State<Dashboard> {
                   color: Colors.white,
                 ),
                 onPressed: () async {
-                  await service.showNotification(
-                      id: 0, title: "Intruder", body: "Intruder Detected");
+                  // await service.showNotification(
+                  //     id: 0, title: "Intruder", body: "Intruder Detected");
                   Navigator.pushNamed(context, link);
                 },
               ),
@@ -237,7 +237,7 @@ class _DashboardState extends State<Dashboard> {
                         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                         children: [
                           mySpec(FontAwesomeIcons.idCard, 'Total Known ',
-                              '/homedelivary', '1'),
+                              '/knownpersone', '1'),
                           mySpec(FontAwesomeIcons.userSecret, "Intruder's",
                               '/clientsatisfied', '20'),
                           // mySpec(FontAwesomeIcons.flag, 'AboutUS', '/aboutus',
