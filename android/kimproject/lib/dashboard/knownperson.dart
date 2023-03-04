@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_database/firebase_database.dart';
 import 'package:firebase_database/ui/firebase_animated_list.dart';
@@ -13,19 +15,37 @@ class KnownPerson extends StatefulWidget {
 }
 
 class _KnownPersonState extends State<KnownPerson> {
+  final auth = FirebaseAuth.instance;
+  final ref = FirebaseDatabase.instance.ref("users");
+  Future<Object?> getData() async {
+    DataSnapshot snapshot = (await ref.once()) as DataSnapshot;
+    Object? data = snapshot.value;
+    return data;
+  }
+
   @override
   Widget build(BuildContext context) {
-    // final auth = FirebaseAuth.instance;
-    // final ref = FirebaseDatabase.instance.ref("users");
-    //  snapshot.child('date').value.toString(),
     return Scaffold(
-      extendBodyBehindAppBar: true,
+      //extendBodyBehindAppBar: true,
       backgroundColor: Color.fromARGB(255, 255, 254, 254),
       appBar: AppBar(
         title: Text("Known Person"),
       ),
       body: Column(
-        children: [Text("data")],
+        children: [
+          Expanded(
+              child: FirebaseAnimatedList(
+            query: ref,
+            defaultChild: Text("loading"),
+            itemBuilder: (context, snapshot, animation, index) {
+              return ListTile(
+                title: Text(snapshot.child('date').value.toString()),
+                subtitle: Text(snapshot.child('image').value.toString()),
+              );
+            },
+          )),
+          
+        ],
       ),
     );
   }
