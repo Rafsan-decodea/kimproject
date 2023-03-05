@@ -1,6 +1,8 @@
 import 'dart:async';
+import 'dart:isolate';
 import 'package:animated_text_kit/animated_text_kit.dart';
 import 'package:firebase_database/firebase_database.dart';
+import 'package:firebase_database/ui/firebase_animated_list.dart';
 import 'package:flutter/material.dart';
 import 'package:kimproject/dashboard/dashboard.dart';
 import 'package:kimproject/login.dart';
@@ -14,11 +16,15 @@ import 'about.dart';
 
 import 'package:kimproject/library/notification.dart';
 
+import 'library/firebasefile.dart';
+
 main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
   runApp(const MyApp());
 }
+
+// This widget is the root of your application.
 
 class SplashScreen extends StatelessWidget {
   // Space Screen For Automatice Redirect
@@ -102,9 +108,35 @@ class MyApp extends StatefulWidget {
 }
 
 class _MyAppState extends State<MyApp> {
- 
-  // This widget is the root of your application.
+  late final LocalNotificationService service;
   @override
+  initState() {
+    super.initState();
+    service = LocalNotificationService(); //inisilizie Backgroud Prcess
+    notification();
+  }
+
+  notification() async {
+    await service.showNotification(
+        id: 0, title: "Intruder", body: "Intruder Detected");
+
+    Timer.periodic(Duration(seconds: 1), (timer) async {
+      print("background task running");
+      // await service.showNotification(
+      //     id: 0, title: "Intruder", body: "Intruder Detected");
+      //snapshot.child('date').value.toString()
+    });
+
+    // FirebaseAnimatedList(
+    //   query: ref,
+    //   defaultChild: Text("loading"),
+    //   itemBuilder: (context, snapshot, animation, index) {
+    //     service.showNotification(
+    //         id: 0, title: "Intruder", body: "Intruder Detected");
+    //   },
+    // );
+  }
+
   Widget build(BuildContext context) {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
