@@ -117,11 +117,12 @@ class _MyAppState extends State<MyApp> {
   }
 
   notification() async {
+    // print("What Are you Doing ");
     await service.showNotification(
-        id: 0, title: "Intruder", body: "Intruder Detected");
+        id: 0, title: "App Starting", body: "Starting");
 
-    Timer.periodic(Duration(seconds: 1), (timer) async {
-      print("background task running");
+    Timer.periodic(Duration(seconds: 2), (timer) async {
+      // print("background task running");
       // await service.showNotification(
       //     id: 0, title: "Intruder", body: "Intruder Detected");
       //snapshot.child('date').value.toString()
