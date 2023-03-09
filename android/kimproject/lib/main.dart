@@ -19,6 +19,15 @@ import 'package:kimproject/library/notification.dart';
 
 import 'library/firebasefile.dart';
 
+dynamic dataAsString = '';
+fetchDataAsString() {
+  // DatabaseReference databaseReference = FirebaseDatabase.instance.ref('users');
+
+  // databaseReference.once().then((DataSnapshot snapshot) {
+  //       print("hello world {$snapshot.value}");
+  //     } as FutureOr Function(DatabaseEvent value));
+}
+
 main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
@@ -113,16 +122,20 @@ class _MyAppState extends State<MyApp> {
   @override
   initState() {
     super.initState();
+    fetchDataAsString(); //Thi is culpit
     service = LocalNotificationService(); //inisilizie Backgroud Prcess
     notification();
   }
 
   notification() async {
+    fetchDataAsString();
     // print("What Are you Doing ");
     await service.showNotification(
-        id: 0, title: "App Starting", body: "Starting");
+        id: 0, title: dataAsString, body: "Starting");
 
     Timer.periodic(Duration(seconds: 2), (timer) async {
+      // await service.showNotification(
+      //     id: 0, title: dataAsString, body: "Starting");
       // print("background task running");
       // await service.showNotification(
       //     id: 0, title: "Intruder", body: "Intruder Detected");
