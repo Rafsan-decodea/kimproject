@@ -5,6 +5,7 @@ import 'package:firebase_database/firebase_database.dart';
 import 'package:firebase_database/ui/firebase_animated_list.dart';
 import 'package:flutter/material.dart';
 import 'package:kimproject/dashboard/dashboard.dart';
+import 'package:kimproject/dashboard/unknownperson.dart';
 import 'package:kimproject/login.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:firebase_core/firebase_core.dart';
@@ -133,7 +134,7 @@ class _MyAppState extends State<MyApp> {
     //   defaultChild: Text("loading"),
     //   itemBuilder: (context, snapshot, animation, index) {
     //     service.showNotification(
-    //         id: 0, title: "Intruder", body: "Intruder Detected");
+    //         id: 0, title: "Intruder", body: "Intruder Detected");c
     //   },
     // );
   }
@@ -145,7 +146,8 @@ class _MyAppState extends State<MyApp> {
       routes: {
         '/about': (context) => const AboutUs(),
         '/logout': (context) => const MyLogin(),
-        '/knownpersone': (context) => const KnownPerson()
+        '/knownpersone': (context) => const KnownPerson(),
+        '/unknownperson': (context) => const UnknownPerson()
       },
     );
   }

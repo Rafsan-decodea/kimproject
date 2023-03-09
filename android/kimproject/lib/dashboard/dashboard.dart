@@ -36,7 +36,7 @@ class _DashboardState extends State<Dashboard> {
     );
   }
 
-  mySpec(icon, text, link, text2) {
+  mySpec(icon, text, link, text2, notiHead, notiBody) {
     return Container(
       child: Card(
         margin: EdgeInsets.all(0),
@@ -63,7 +63,7 @@ class _DashboardState extends State<Dashboard> {
                 ),
                 onPressed: () async {
                   await service.showNotification(
-                      id: 0, title: "Intruder", body: "Intruder Detected");
+                      id: 0, title: notiHead, body: notiBody);
 
                   Navigator.pushNamed(context, link);
                 },
@@ -237,10 +237,20 @@ class _DashboardState extends State<Dashboard> {
                       Row(
                         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                         children: [
-                          mySpec(FontAwesomeIcons.idCard, 'Total Known ',
-                              '/knownpersone', '1'),
-                          mySpec(FontAwesomeIcons.userSecret, "Intruder's",
-                              '/clientsatisfied', '20'),
+                          mySpec(
+                              FontAwesomeIcons.idCard,
+                              'Total Known ',
+                              '/knownpersone',
+                              '1',
+                              "UpComing",
+                              "Upcoming on Future Update"),
+                          mySpec(
+                              FontAwesomeIcons.userSecret,
+                              "Intruder's",
+                              '/unknownperson',
+                              '20',
+                              "Intruder",
+                              "Some Intruder Registered"),
                           // mySpec(FontAwesomeIcons.flag, 'AboutUS', '/aboutus',
                           //     '100'),
                         ],

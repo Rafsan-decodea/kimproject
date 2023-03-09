@@ -29,18 +29,13 @@ class _KnownPersonState extends State<KnownPerson> {
         backgroundColor: Colors.transparent,
       ),
       body: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          Expanded(
-              child: FirebaseAnimatedList(
-            query: ref,
-            defaultChild: Text("loading"),
-            itemBuilder: (context, snapshot, animation, index) {
-              return ListTile(
-                title: Text(snapshot.child('date').value.toString()),
-                subtitle: Text(snapshot.child('image').value.toString()),
-              );
-            },
-          )),
+          Center(
+              child: Text(
+            "That Fetuers UpComing\n       On Next Update",
+            style: TextStyle(fontSize: 30),
+          ))
         ],
       ),
     );
