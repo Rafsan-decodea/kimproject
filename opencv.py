@@ -104,3 +104,13 @@ def DetectFace(camindex, camname):
 
 
 open(0, "asd")
+
+
+# frm = cv2.imread("images/male-femail/male.jpg")
+#             gray = cv2.cvtColor(frm, cv2.COLOR_BGR2GRAY)
+#             edges = cv2.Canny(gray, 100, 200)
+#             backgroundd = 255 * np.ones_like(frm)
+#             masked_img = cv2.bitwise_and(frm, frm, mask=edges)
+#             masked_img[np.where((masked_img == [0, 0, 0]).all(
+#                 axis=2))] = backgroundd[np.where((masked_img == [0, 0, 0]).all(axis=2))]
+#             cv2.imwrite('result.jpg', masked_img)

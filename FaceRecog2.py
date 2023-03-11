@@ -6,7 +6,7 @@ import time
 
 
 def facecap():
-
+    # Male And Femail Detected Mechanijm
     male_image = face_recognition.load_image_file(
         "images/male-femail/male.jpg")
     female_image = face_recognition.load_image_file(
@@ -14,6 +14,7 @@ def facecap():
     male_encoding = face_recognition.face_encodings(male_image)[0]
     female_encoding = face_recognition.face_encodings(female_image)[0]
     labels = ['Female', 'Male']
+    # Make and Femail Detect Mechanizm finished
 
     cap = cv2.VideoCapture(0)
     #cv2.namedWindow('Video', cv2.WINDOW_FREERATIO)
@@ -68,6 +69,7 @@ def facecap():
                           (255, 20, 0), cv2.FILLED)
             cv2.putText(imgWithBG, f"Reading({label})", (x1+6, y2-6),
                         cv2.FONT_HERSHEY_COMPLEX, 1, (255, 255, 255), 2)
+            # cv2.imwrite(f"train/{name}-1.jpg", )
 
         cv2.imshow("Video", imgWithBG)
         if cv2.waitKey(1) & 0xFF == ord('q'):
@@ -103,12 +105,7 @@ def identify():
     opacity = 0.9
     imageBackground = cv2.addWeighted(
         imageBackground, opacity, imageBackground, 1 - opacity, 0)
-    # Set Opacity
-    # alpha = imageBackground[:, :, 3]
-    # alpha = (alpha * 0.1).astype(np.uint8)
-    # imageBackground[:, :, 3] = alpha
-    # Set Opacity Complete
-    # resize backgroud Image as demand
+
     background = cv2.resize(imageBackground, (width, height))
 
     while True:
