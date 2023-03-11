@@ -25,14 +25,18 @@ def identify():
         faceEncodeList.append(encodefaces)
 
     cap = cv2.VideoCapture(0)
+    #cv2.namedWindow('Video', cv2.WINDOW_FREERATIO)
     width = int(cap.get(cv2.CAP_PROP_FRAME_WIDTH))
     height = int(cap.get(cv2.CAP_PROP_FRAME_HEIGHT))
     # Set BackGroud and resize
     imageBackground = cv2.imread('sifi.png', cv2.IMREAD_UNCHANGED)
+    opacity = 0.9
+    imageBackground = cv2.addWeighted(
+        imageBackground, opacity, imageBackground, 1 - opacity, 0)
     # Set Opacity
-    alpha = imageBackground[:, :, 3]
-    alpha = (alpha * 100).astype(np.uint8)
-    imageBackground[:, :, 3] = alpha
+    # alpha = imageBackground[:, :, 3]
+    # alpha = (alpha * 0.1).astype(np.uint8)
+    # imageBackground[:, :, 3] = alpha
     # Set Opacity Complete
     # resize backgroud Image as demand
     background = cv2.resize(imageBackground, (width, height))
@@ -92,7 +96,7 @@ def identify():
                 cv2.putText(imgWithBG, "Unknown", (x1+6, y2-6),
                             cv2.FONT_HERSHEY_COMPLEX, 1, (255, 255, 255), 2)
 
-        cv2.imshow("webcam", imgWithBG)
+        cv2.imshow("Video", imgWithBG)
         if cv2.waitKey(1) & 0xFF == ord('q'):
             break
     cap.release()
