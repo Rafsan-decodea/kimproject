@@ -7,6 +7,7 @@ import time
 
 def facecap():
     imagename = input("Enter name of person : ")
+    ids = input("Enter Face Id :")
     # Male And Femail Detected Mechanijm
     male_image = face_recognition.load_image_file(
         "male-femail/male.jpg")
@@ -84,7 +85,8 @@ def facecap():
 
         cv2.imshow("Video", imgWithBG)
         if cv2.waitKey(1) & 0xFF == ord('q'):
-            cv2.imwrite(f"images/{imagename}.jpg", img)
+            #img = cv2.resize(img, (0, 0), None, 0.25, 0.25)
+            cv2.imwrite(f"images/{imagename}-{ids}.jpg", img)
             break
     cap.release()
     cv2.destroyAllWindows()
