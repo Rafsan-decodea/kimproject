@@ -170,7 +170,7 @@ def identify():
                 cv2.rectangle(imgWithBG, (x1, y1), (x2, y2), (0, 255, 0), 2)
                 cv2.rectangle(imgWithBG, (x1, y2-35), (x2, y2),
                               (0, 255, 0), cv2.FILLED)
-                cv2.putText(imgWithBG, name, (x1+6, y2-6),
+                cv2.putText(imgWithBG, f"{name} ID-{Id}", (x1+6, y2-6),
                             cv2.FONT_HERSHEY_COMPLEX, 1, (255, 255, 255), 2)
             else:
                 y1, x2, y2, x1 = faceLoc
@@ -189,8 +189,8 @@ def identify():
     cv2.destroyAllWindows()
 
 
-identify()
-# facecap()
+# identify()
+facecap()
 
 # imagerafsan1 = face_recognition.load_image_file('images/rafsan.jpg')
 # imagerafsan1 = cv2.cvtColor(imagerafsan1, cv2.COLOR_BGR2RGB)
