@@ -93,15 +93,21 @@ def facecap():
 
 
 def identify():
+
     path = 'images'
     images = []
+    ids = []
     clasName = []
     mylist = os.listdir(path)
     faceEncodeList = []
     for cl in mylist:
         image = cv2.imread(f'{path}/{cl}')
-        images.append(image)
-        clasName.append(os.path.splitext(cl)[0])
+        # That is for Substract Name and Ids
+        if cl.endswith('.jpg'):
+            parts = cl.split('-')
+            images.append(image)
+            clasName.append(parts[0])
+            ids.append(parts[1].split('.')[0])
     for imgWithBG in images:
         imgWithBG = cv2.cvtColor(imgWithBG, cv2.COLOR_BGR2RGB)
         encodefaces = face_recognition.face_encodings(imgWithBG)[0]
@@ -157,6 +163,7 @@ def identify():
 
             if matches[matchindex]:
                 name = clasName[matchindex]
+                Id = ids[matchindex]
                 y1, x2, y2, x1 = faceLoc
                 # Because Previous We reside  image 4 times so now we Multyply that
                 y1, x2, y2, x1 = y1*4, x2*4, y2*4, x1*4
