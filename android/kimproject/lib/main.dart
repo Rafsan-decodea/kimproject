@@ -21,7 +21,13 @@ import 'library/firebasefile.dart';
 
 dynamic dataAsString = '';
 fetchDataAsString() {
-  // DatabaseReference databaseReference = FirebaseDatabase.instance.ref('users');
+  DatabaseReference databaseReference = FirebaseDatabase.instance.reference();
+  DatabaseReference child = databaseReference.child("users");
+
+  child.get().then((DataSnapshot snapshot) {
+    print('Data :=========================> ${snapshot.value}');
+    dataAsString = snapshot.value.toString();
+  });
 
   // databaseReference.once().then((DataSnapshot snapshot) {
   //       print("hello world {$snapshot.value}");
