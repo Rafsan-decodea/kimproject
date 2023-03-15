@@ -25,8 +25,17 @@ fetchDataAsString() {
   DatabaseReference child = databaseReference.child("users");
 
   child.get().then((DataSnapshot snapshot) {
-    print('Data :=========================> ${snapshot.value}');
-    dataAsString = snapshot.value.toString();
+    //print('Data :=========================> ${snapshot.value}');
+    dynamic data = snapshot.value;
+    if (data != null) {
+      data.forEach((key, value) {
+        String date = value["date"];
+        String image = value["image"];
+        String type = value["type"];
+        // print('Key: $key, Date: $date, Image: $image, Type: $type');
+        print(date);
+      });
+    }
   });
 
   // databaseReference.once().then((DataSnapshot snapshot) {
@@ -128,7 +137,6 @@ class _MyAppState extends State<MyApp> {
   @override
   initState() {
     super.initState();
-    fetchDataAsString(); //Thi is culpit
     service = LocalNotificationService(); //inisilizie Backgroud Prcess
     notification();
   }
@@ -136,6 +144,7 @@ class _MyAppState extends State<MyApp> {
   notification() async {
     fetchDataAsString();
     // print("What Are you Doing ");
+
     await service.showNotification(
         id: 0, title: dataAsString, body: "Starting");
 
