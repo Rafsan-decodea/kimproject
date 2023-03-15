@@ -19,29 +19,24 @@ import 'package:kimproject/library/notification.dart';
 
 import 'library/firebasefile.dart';
 
-dynamic dataAsString = '';
-fetchDataAsString() {
-  DatabaseReference databaseReference = FirebaseDatabase.instance.reference();
-  DatabaseReference child = databaseReference.child("users");
+// dynamic dataAsString = '';
+// fetchDataAsString() {
+//   DatabaseReference databaseReference = FirebaseDatabase.instance.reference();
+//   DatabaseReference child = databaseReference.child("users");
 
-  child.get().then((DataSnapshot snapshot) {
-    //print('Data :=========================> ${snapshot.value}');
-    dynamic data = snapshot.value;
-    if (data != null) {
-      data.forEach((key, value) {
-        String date = value["date"];
-        String image = value["image"];
-        String type = value["type"];
-        // print('Key: $key, Date: $date, Image: $image, Type: $type');
-        print(date);
-      });
-    }
-  });
-
-  // databaseReference.once().then((DataSnapshot snapshot) {
-  //       print("hello world {$snapshot.value}");
-  //     } as FutureOr Function(DatabaseEvent value));
-}
+//   child.get().then((DataSnapshot snapshot) {
+//     dynamic data = snapshot.value;
+//     if (data != null) {
+//       data.forEach((key, value) {
+//         String date = value["date"];
+//         String image = value["image"];
+//         String type = value["type"];
+//         // print('Key: $key, Date: $date, Image: $image, Type: $type');
+//         //print(date);
+//       });
+//     }
+//   });
+// }
 
 main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -134,28 +129,61 @@ class MyApp extends StatefulWidget {
 
 class _MyAppState extends State<MyApp> {
   late final LocalNotificationService service;
+  late DatabaseReference _databaseRef;
+  String? _date;
   @override
   initState() {
     super.initState();
+    // that is use for fetch data from firbase
+    _databaseRef = FirebaseDatabase.instance.reference().child('users');
+    _databaseRef.onValue.listen((event) {
+      // null value protection
+      if (event.snapshot.value != null) {
+        setState(() {
+          dynamic data = event.snapshot.value;
+          // if (data != null) {
+          //   data.forEach((key, value) {
+          //     String date = value["date"];
+          //     String image = value["image"];
+          //     String type = value["type"];
+          //     // print('Key: $key, Date: $date, Image: $image, Type: $type');
+          //     // print(date);
+          //   });
+          // }
+          if (data != null) {
+            Map<String, dynamic> mapData = Map<String, dynamic>.from(data);
+            List<String> keys = mapData.keys.toList();
+            print(keys.length);
+            for (int i = keys.length - 1; i >= 0;) {
+              String key = keys[i];
+              String date = data[key]["date"];
+              String image = data[key]["image"];
+              String type = data[key]["type"];
+              print("=====>{$date}");
+              // if any intruder Detected then get a notification
+              notification(date);
+              // compute(notification, date);
+              break;
+            }
+          }
+        });
+      }
+    });
     service = LocalNotificationService(); //inisilizie Backgroud Prcess
-    notification();
+    // notification();
   }
 
-  notification() async {
-    fetchDataAsString();
-    // print("What Are you Doing ");
+  notification(getdate) async {
+    service.showNotification(id: 0, title: getdate, body: "intruder Detected");
 
-    await service.showNotification(
-        id: 0, title: dataAsString, body: "Starting");
-
-    Timer.periodic(Duration(seconds: 2), (timer) async {
-      // await service.showNotification(
-      //     id: 0, title: dataAsString, body: "Starting");
-      // print("background task running");
-      // await service.showNotification(
-      //     id: 0, title: "Intruder", body: "Intruder Detected");
-      //snapshot.child('date').value.toString()
-    });
+    // Timer.periodic(Duration(seconds: 2), (timer) async {
+    //   // await service.showNotification(
+    //   //     id: 0, title: dataAsString, body: "Starting");
+    //   // print("background task running");
+    //   // await service.showNotification(
+    //   //     id: 0, title: "Intruder", body: "Intruder Detected");
+    //   //snapshot.child('date').value.toString()
+    // });
 
     // FirebaseAnimatedList(
     //   query: ref,

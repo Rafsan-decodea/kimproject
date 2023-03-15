@@ -1,3 +1,4 @@
+import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:sliding_sheet/sliding_sheet.dart';
@@ -12,6 +13,8 @@ class Dashboard extends StatefulWidget {
 
 class _DashboardState extends State<Dashboard> {
   late final LocalNotificationService service;
+  late DatabaseReference _databaseRef;
+  String? _howManyintruder = "0";
   aboutAchivements(num, type) {
     return Row(
       children: [
@@ -91,6 +94,37 @@ class _DashboardState extends State<Dashboard> {
     service = LocalNotificationService();
     service.intialize();
     super.initState();
+    _databaseRef = FirebaseDatabase.instance.reference().child('users');
+    _databaseRef.onValue.listen((event) {
+      // null value protection
+      if (event.snapshot.value != null) {
+        setState(() {
+          dynamic data = event.snapshot.value;
+          if (data != null) {
+            data.forEach((key, value) {
+              String date = value["date"];
+              String image = value["image"];
+              String type = value["type"];
+              // print('Key: $key, Date: $date, Image: $image, Type: $type');
+              // print(date);
+            });
+          }
+          if (data != null) {
+            Map<String, dynamic> mapData = Map<String, dynamic>.from(data);
+            List<String> keys = mapData.keys.toList();
+            _howManyintruder = keys.length.toString();
+            for (int i = keys.length - 1; i >= 0;) {
+              String key = keys[i];
+              String date = data[key]["date"];
+              String image = data[key]["image"];
+              String type = data[key]["type"];
+              print("=====>{$date}");
+              break;
+            }
+          }
+        });
+      }
+    });
   }
 
   Widget build(BuildContext context) {
@@ -248,7 +282,7 @@ class _DashboardState extends State<Dashboard> {
                               FontAwesomeIcons.userSecret,
                               "Intruder's",
                               '/unknownperson',
-                              '20',
+                              _howManyintruder,
                               "Intruder",
                               "Some Intruder Registered"),
                           // mySpec(FontAwesomeIcons.flag, 'AboutUS', '/aboutus',
