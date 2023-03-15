@@ -3,6 +3,34 @@ import cv2
 import numpy as np
 import os
 import time
+import pyrebase
+import datetime
+from datetime import datetime
+import threading
+
+
+def firebase():
+    config = {
+        "apiKey": "AIzaSyBiP96UgQNqzcblfcNqmp8arneThFH7SQI",
+        "authDomain": "kimsirproject.firebaseapp.com",
+        "databaseURL": "https://kimsirproject-default-rtdb.firebaseio.com",
+        "projectId": "kimsirproject",
+        "storageBucket": "kimsirproject.appspot.com",
+        "messagingSenderId": "186797081014",
+        "appId": "1:186797081014:web:d9d08d73bacdd7feb30117",
+        "measurementId": "G-Q268WWQZPN"
+    }
+
+    firebase = pyrebase.initialize_app(config)
+    storage = firebase.storage()
+    db = firebase.database()
+    data = {
+        "type": "intruder",
+                "date": datetime.now().strftime("%D-%H-%M-%S"),
+                "image": "hi"
+
+    }
+    db.child("users").child().push(data)
 
 
 def facecap():
@@ -182,6 +210,9 @@ def identify():
                 cv2.putText(imgWithBG, "Unknown", (x1+6, y2-6),
                             cv2.FONT_HERSHEY_COMPLEX, 1, (255, 255, 255), 2)
 
+                # ---------- Update Data  in database ------------------
+                threading.Thread(target=firebase).start()
+
         cv2.imshow("Video", imgWithBG)
         if cv2.waitKey(1) & 0xFF == ord('q'):
             break
@@ -189,8 +220,8 @@ def identify():
     cv2.destroyAllWindows()
 
 
-# identify()
-facecap()
+identify()
+# facecap()
 
 # imagerafsan1 = face_recognition.load_image_file('images/rafsan.jpg')
 # imagerafsan1 = cv2.cvtColor(imagerafsan1, cv2.COLOR_BGR2RGB)

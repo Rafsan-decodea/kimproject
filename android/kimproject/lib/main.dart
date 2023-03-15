@@ -3,6 +3,7 @@ import 'dart:isolate';
 import 'package:animated_text_kit/animated_text_kit.dart';
 import 'package:firebase_database/firebase_database.dart';
 import 'package:firebase_database/ui/firebase_animated_list.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:kimproject/dashboard/dashboard.dart';
 import 'package:kimproject/dashboard/unknownperson.dart';
@@ -162,7 +163,7 @@ class _MyAppState extends State<MyApp> {
               print("=====>{$date}");
               // if any intruder Detected then get a notification
               notification(date);
-              // compute(notification, date);
+              compute(notification, date);
               break;
             }
           }
@@ -174,7 +175,7 @@ class _MyAppState extends State<MyApp> {
   }
 
   notification(getdate) async {
-    service.showNotification(id: 0, title: getdate, body: "intruder Detected");
+    //service.showNotification(id: 0, title: getdate, body: "intruder Detected");
 
     // Timer.periodic(Duration(seconds: 2), (timer) async {
     //   // await service.showNotification(

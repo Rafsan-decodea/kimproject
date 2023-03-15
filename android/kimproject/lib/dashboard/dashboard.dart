@@ -65,8 +65,8 @@ class _DashboardState extends State<Dashboard> {
                   color: Colors.white,
                 ),
                 onPressed: () async {
-                  await service.showNotification(
-                      id: 0, title: notiHead, body: notiBody);
+                  // await service.showNotification(
+                  //     id: 0, title: notiHead, body: notiBody);
 
                   Navigator.pushNamed(context, link);
                 },
@@ -89,10 +89,20 @@ class _DashboardState extends State<Dashboard> {
     );
   }
 
+  notification() {
+    service.showNotification(
+        id: 0, title: "SuccessFull", body: "Login Succes Full");
+  }
+
+  notification2(getdate) async {
+    service.showNotification(id: 0, title: getdate, body: "intruder Detected");
+  }
+
   @override
   void initState() {
     service = LocalNotificationService();
     service.intialize();
+    notification(); // This is for intruder Detected Notification
     super.initState();
     _databaseRef = FirebaseDatabase.instance.reference().child('users');
     _databaseRef.onValue.listen((event) {
@@ -119,6 +129,7 @@ class _DashboardState extends State<Dashboard> {
               String image = data[key]["image"];
               String type = data[key]["type"];
               print("=====>{$date}");
+              notification2(date);
               break;
             }
           }
@@ -275,7 +286,7 @@ class _DashboardState extends State<Dashboard> {
                               FontAwesomeIcons.idCard,
                               'Total Known ',
                               '/knownpersone',
-                              '1',
+                              '0',
                               "UpComing",
                               "Upcoming on Future Update"),
                           mySpec(
