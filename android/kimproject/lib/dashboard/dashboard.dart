@@ -1,4 +1,5 @@
 import 'package:firebase_database/firebase_database.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:sliding_sheet/sliding_sheet.dart';
@@ -94,8 +95,9 @@ class _DashboardState extends State<Dashboard> {
         id: 0, title: "SuccessFull", body: "Login Succes Full");
   }
 
-  notification2(getdate) async {
-    service.showNotification(title: getdate, body: "intruder Detected");
+  notification2(getdate, ids) async {
+    service.showNotification(
+        id: ids, title: getdate, body: "intruder Detected");
   }
 
   @override
@@ -129,7 +131,8 @@ class _DashboardState extends State<Dashboard> {
               String image = data[key]["image"];
               String type = data[key]["type"];
               print("=====>{$date}");
-              notification2(date);
+              notification2(date, i);
+              //compute(notification2, date);
               break;
             }
           }

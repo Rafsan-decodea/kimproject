@@ -3,6 +3,36 @@ import cv2
 import numpy as np
 import os
 import time
+import pyrebase
+import datetime
+#from datetime import datetime
+import threading
+now = datetime.datetime.now()
+
+
+def firebase():
+
+    config = {
+        "apiKey": "AIzaSyBiP96UgQNqzcblfcNqmp8arneThFH7SQI",
+        "authDomain": "kimsirproject.firebaseapp.com",
+        "databaseURL": "https://kimsirproject-default-rtdb.firebaseio.com",
+        "projectId": "kimsirproject",
+        "storageBucket": "kimsirproject.appspot.com",
+        "messagingSenderId": "186797081014",
+        "appId": "1:186797081014:web:d9d08d73bacdd7feb30117",
+        "measurementId": "G-Q268WWQZPN"
+    }
+
+    firebase = pyrebase.initialize_app(config)
+    storage = firebase.storage()
+    db = firebase.database()
+    data = {
+        "type": "intruder",
+                "date": now.strftime("%Y-%m-%d %H:%M:%S"),
+                "image": "hi"
+
+    }
+    db.child("intruder").child().push(data)
 
 
 def facecap():
@@ -81,7 +111,6 @@ def facecap():
                           (255, 20, 0), cv2.FILLED)
             cv2.putText(imgWithBG, f"Reading({label})", (x1+6, y2-6),
                         cv2.FONT_HERSHEY_COMPLEX, 1, (255, 255, 255), 2)
-            # cv2.imwrite(f"train/{name}-1.jpg", )
 
         cv2.imshow("Video", imgWithBG)
         if cv2.waitKey(1) & 0xFF == ord('q'):
@@ -127,6 +156,7 @@ def identify():
 
     while True:
         success, imgWithBG = cap.read()
+        s, imgWithoutBG = cap.read()
         imgWithBG = cv2.cvtColor(imgWithBG, cv2.COLOR_BGR2BGRA)
         # Set Image Backgroud
         imgWithBG = cv2.addWeighted(background, 0.5, imgWithBG, 0.5, 0)
@@ -170,10 +200,8 @@ def identify():
                 cv2.rectangle(imgWithBG, (x1, y1), (x2, y2), (0, 255, 0), 2)
                 cv2.rectangle(imgWithBG, (x1, y2-35), (x2, y2),
                               (0, 255, 0), cv2.FILLED)
-                cv2.putText(imgWithBG, name, (x1+6, y2-6),
+                cv2.putText(imgWithBG, f"{name} ID-{Id}", (x1+6, y2-6),
                             cv2.FONT_HERSHEY_COMPLEX, 1, (255, 255, 255), 2)
-                # Here From Start Working With Fire Base Database
-
             else:
                 y1, x2, y2, x1 = faceLoc
                 # Because Previous We reside  image 4 times so now we Multyply that
@@ -183,6 +211,10 @@ def identify():
                               (0, 0, 255), cv2.FILLED)
                 cv2.putText(imgWithBG, "Unknown", (x1+6, y2-6),
                             cv2.FONT_HERSHEY_COMPLEX, 1, (255, 255, 255), 2)
+            
+
+                # ---------- Update Data  in database ------------------
+                threading.Thread(target=firebase).start()
 
         cv2.imshow("Video", imgWithBG)
         if cv2.waitKey(1) & 0xFF == ord('q'):

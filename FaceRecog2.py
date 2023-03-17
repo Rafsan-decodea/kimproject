@@ -7,10 +7,11 @@ import pyrebase
 import datetime
 #from datetime import datetime
 import threading
+now = datetime.datetime.now()
 
 
 def firebase():
-    now = datetime.datetime.now()
+
     config = {
         "apiKey": "AIzaSyBiP96UgQNqzcblfcNqmp8arneThFH7SQI",
         "authDomain": "kimsirproject.firebaseapp.com",
@@ -156,6 +157,7 @@ def identify():
 
     while True:
         success, imgWithBG = cap.read()
+        success, imgWithOutBg = cap.read()
         imgWithBG = cv2.cvtColor(imgWithBG, cv2.COLOR_BGR2BGRA)
         # Set Image Backgroud
         imgWithBG = cv2.addWeighted(background, 0.5, imgWithBG, 0.5, 0)
@@ -210,6 +212,9 @@ def identify():
                               (0, 0, 255), cv2.FILLED)
                 cv2.putText(imgWithBG, "Unknown", (x1+6, y2-6),
                             cv2.FONT_HERSHEY_COMPLEX, 1, (255, 255, 255), 2)
+                date = now.strftime("%Y-%m-%d %H:%M:%S")
+                print(date)
+                cv2.imwrite(f"intruderimg/{date}.jpg",  imgWithOutBg)
 
                 # ---------- Update Data  in database ------------------
                 threading.Thread(target=firebase).start()
