@@ -26,24 +26,29 @@ def firebase():
     firebase = pyrebase.initialize_app(config)
     storage = firebase.storage()
     mylist = os.listdir("intruderimg")
+    images = []
     for x in mylist:
-        # filename = "rafsan.jpg"
-        filename = x+".jpg"
-        path_on_cloud = "images/"
+        images.append(x)
+    for x in images:
+        path_on_cloud = "images/intruderimg/"
+        print(x)
+        filess = "intruderimg/"+x
         storage.child(path_on_cloud).put(
-            x, "AIzaSyBiP96UgQNqzcblfcNqmp8arneThFH7SQI")
+            filess, "AIzaSyBiP96UgQNqzcblfcNqmp8arneThFH7SQI")
+        url = storage.child(path_on_cloud).get_url()
+        print(url)
         # storage.child("").delete("images/rafsan.jpg",
-        #                         "AIzaSyBiP96UgQNqzcblfcNqmp8arneThFH7SQI")
+        #                          "AIzaSyBiP96UgQNqzcblfcNqmp8arneThFH7SQI")
 
-    url = storage.child(path_on_cloud).get_url(None)
-    db = firebase.database()
-    data = {
-        "type": "intruder",
-                "date": now.strftime("%Y-%m-%d %H:%M:%S"),
-                "image": url
+    # db = firebase.database()
+    # data = {
+    #     "type": "intruder",
+    #             "date": now.strftime("%Y-%m-%d %H:%M:%S"),
+    #             "image": "j"
 
-    }
-    db.child("intruder").child().push(data)
+    # }
+    # print(data)
+    # db.child("intruder").child().push(data)
 
 
 def facecap():
@@ -224,8 +229,9 @@ def identify():
                 cv2.putText(imgWithBG, "Unknown", (x1+6, y2-6),
                             cv2.FONT_HERSHEY_COMPLEX, 1, (255, 255, 255), 2)
                 date = now.strftime("%Y-%m-%d %H:%M:%S")
-                print(date)
-                cv2.imwrite(f"intruderimg/{date}.jpg",  imgWithOutBg)
+                timee = time.strftime("%H:%M:%S", time.localtime())
+                dateetimee = date+timee
+                cv2.imwrite(f"intruderimg/{dateetimee}.jpg",  imgWithOutBg)
 
                 # ---------- Update Data  in database ------------------
                 threading.Thread(target=firebase).start()
