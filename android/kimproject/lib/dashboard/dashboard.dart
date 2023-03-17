@@ -95,7 +95,7 @@ class _DashboardState extends State<Dashboard> {
   }
 
   notification2(getdate) async {
-    service.showNotification(id: 0, title: getdate, body: "intruder Detected");
+    service.showNotification(title: getdate, body: "intruder Detected");
   }
 
   @override
@@ -104,7 +104,7 @@ class _DashboardState extends State<Dashboard> {
     service.intialize();
     notification(); // This is for intruder Detected Notification
     super.initState();
-    _databaseRef = FirebaseDatabase.instance.reference().child('users');
+    _databaseRef = FirebaseDatabase.instance.reference().child('intruder');
     _databaseRef.onValue.listen((event) {
       // null value protection
       if (event.snapshot.value != null) {

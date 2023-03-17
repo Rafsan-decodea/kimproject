@@ -5,11 +5,12 @@ import os
 import time
 import pyrebase
 import datetime
-from datetime import datetime
+#from datetime import datetime
 import threading
 
 
 def firebase():
+    now = datetime.datetime.now()
     config = {
         "apiKey": "AIzaSyBiP96UgQNqzcblfcNqmp8arneThFH7SQI",
         "authDomain": "kimsirproject.firebaseapp.com",
@@ -26,11 +27,11 @@ def firebase():
     db = firebase.database()
     data = {
         "type": "intruder",
-                "date": datetime.now().strftime("%D-%H-%M-%S"),
+                "date": now.strftime("%Y-%m-%d %H:%M:%S"),
                 "image": "hi"
 
     }
-    db.child("users").child().push(data)
+    db.child("intruder").child().push(data)
 
 
 def facecap():

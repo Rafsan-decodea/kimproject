@@ -51,7 +51,7 @@ def databasetest():
 
     }
 
-    db.child("users").child().push(data)
+    db.child("intruder").child().push(data)
     # d = db.child("users").child("-NP8H_eT066j_tWJK6n4").get()
     # res = d.val()
     # for x, y in res.items():
