@@ -5,7 +5,7 @@ import os
 import time
 import pyrebase
 import datetime
-#from datetime import datetime
+# from datetime import datetime
 import threading
 now = datetime.datetime.now()
 
@@ -25,11 +25,22 @@ def firebase():
 
     firebase = pyrebase.initialize_app(config)
     storage = firebase.storage()
+    mylist = os.listdir("intruderimg")
+    for x in mylist:
+        # filename = "rafsan.jpg"
+        filename = x+".jpg"
+        path_on_cloud = "images/"
+        storage.child(path_on_cloud).put(
+            x, "AIzaSyBiP96UgQNqzcblfcNqmp8arneThFH7SQI")
+        # storage.child("").delete("images/rafsan.jpg",
+        #                         "AIzaSyBiP96UgQNqzcblfcNqmp8arneThFH7SQI")
+
+    url = storage.child(path_on_cloud).get_url(None)
     db = firebase.database()
     data = {
         "type": "intruder",
                 "date": now.strftime("%Y-%m-%d %H:%M:%S"),
-                "image": "hi"
+                "image": url
 
     }
     db.child("intruder").child().push(data)
@@ -49,7 +60,7 @@ def facecap():
     # Make and Femail Detect Mechanizm finished
 
     cap = cv2.VideoCapture(0)
-    #cv2.namedWindow('Video', cv2.WINDOW_FREERATIO)
+    # cv2.namedWindow('Video', cv2.WINDOW_FREERATIO)
     width = int(cap.get(cv2.CAP_PROP_FRAME_WIDTH))
     height = int(cap.get(cv2.CAP_PROP_FRAME_HEIGHT))
     # Set BackGroud and resize
@@ -115,7 +126,7 @@ def facecap():
 
         cv2.imshow("Video", imgWithBG)
         if cv2.waitKey(1) & 0xFF == ord('q'):
-            #img = cv2.resize(img, (0, 0), None, 0.25, 0.25)
+            # img = cv2.resize(img, (0, 0), None, 0.25, 0.25)
             cv2.imwrite(f"images/{imagename}-{ids}.jpg", img)
             break
     cap.release()
@@ -144,7 +155,7 @@ def identify():
         faceEncodeList.append(encodefaces)
 
     cap = cv2.VideoCapture(0)
-    #cv2.namedWindow('Video', cv2.WINDOW_FREERATIO)
+    # cv2.namedWindow('Video', cv2.WINDOW_FREERATIO)
     width = int(cap.get(cv2.CAP_PROP_FRAME_WIDTH))
     height = int(cap.get(cv2.CAP_PROP_FRAME_HEIGHT))
     # Set BackGroud and resize
