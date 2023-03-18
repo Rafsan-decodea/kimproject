@@ -11,7 +11,6 @@ now = datetime.datetime.now()
 
 
 def firebase():
-
     config = {
         "apiKey": "AIzaSyBiP96UgQNqzcblfcNqmp8arneThFH7SQI",
         "authDomain": "kimsirproject.firebaseapp.com",
@@ -29,26 +28,29 @@ def firebase():
     images = []
     for x in mylist:
         images.append(x)
+
+    print(f"{threading.current_thread().name} output images length is => {len(images)}")
+
     for x in images:
-        path_on_cloud = "images/intruderimg/"
-        print(x)
+        time.sleep(10)
+        path_on_cloud = "/images"
         filess = "intruderimg/"+x
-        storage.child(path_on_cloud).put(
-            filess, "AIzaSyBiP96UgQNqzcblfcNqmp8arneThFH7SQI")
-        url = storage.child(path_on_cloud).get_url()
+        storage.child(path_on_cloud+x).put(filess)
+        url = storage.child(
+            path_on_cloud+x).get_url("AIzaSyBiP96UgQNqzcblfcNqmp8arneThFH7SQI")
         print(url)
         # storage.child("").delete("images/rafsan.jpg",
         #                          "AIzaSyBiP96UgQNqzcblfcNqmp8arneThFH7SQI")
 
-    # db = firebase.database()
-    # data = {
-    #     "type": "intruder",
-    #             "date": now.strftime("%Y-%m-%d %H:%M:%S"),
-    #             "image": "j"
+        db = firebase.database()
+        data = {
+            "type": "intruder",
+                    "date": now.strftime("%Y-%m-%d %H:%M:%S"),
+                    "image": url
 
-    # }
-    # print(data)
-    # db.child("intruder").child().push(data)
+        }
+        db.child("intruder").child().push(data)
+        time.sleep(5)
 
 
 def facecap():
@@ -232,9 +234,9 @@ def identify():
                 timee = time.strftime("%H:%M:%S", time.localtime())
                 dateetimee = date+timee
                 cv2.imwrite(f"intruderimg/{dateetimee}.jpg",  imgWithOutBg)
-
-                # ---------- Update Data  in database ------------------
-                threading.Thread(target=firebase).start()
+                # ------- if image Write then Run that Firebase update Code ----------
+                if os.path.exists(f"intruderimg/{dateetimee}.jpg"):
+                    threading.Thread(target=firebase).start()
 
         cv2.imshow("Video", imgWithBG)
         if cv2.waitKey(1) & 0xFF == ord('q'):
