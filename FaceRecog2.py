@@ -44,9 +44,9 @@ def firebase():
         #                          "AIzaSyBiP96UgQNqzcblfcNqmp8arneThFH7SQI")
 
     # delete Files After Upload
-    # jpg_files = glob.glob(os.path.join("intruderimg", "*.jpg"))
-    # for file_path in jpg_files:
-    #     os.remove(file_path)
+    jpg_files = glob.glob(os.path.join("intruderimg", "*.jpg"))
+    for file_path in jpg_files:
+        os.remove(file_path)
 
     # Upload all data
     date = now.strftime("%Y-%m-%d")
@@ -60,6 +60,7 @@ def firebase():
 
     }
     db.child("intruder").child().push(data)
+    url = ''
 
 
 def facecap():

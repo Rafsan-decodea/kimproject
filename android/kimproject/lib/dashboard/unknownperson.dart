@@ -109,7 +109,8 @@ class _UnknownPersonState extends State<UnknownPerson> {
                       ),
                       ElevatedButton(
                         onPressed: () {
-                          deleteData(snapshot.key);
+                          deleteData(snapshot.key,
+                              snapshot.child('image').value.toString());
                           showDialog(
                             context: context,
                             builder: (BuildContext context) {
