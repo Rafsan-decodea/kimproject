@@ -2,7 +2,7 @@
     package="com.example.kimproject">
     <uses-permission android:name="android.permission.INTERNET"></uses-permission>
    <application
-        android:label="kimproject"
+        android:label="F.R CCTV"
         android:name="${applicationName}"
         android:icon="@mipmap/ic_launcher">
         <activity
