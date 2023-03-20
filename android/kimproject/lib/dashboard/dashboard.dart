@@ -95,8 +95,8 @@ class _DashboardState extends State<Dashboard> {
         id: 0, title: "SuccessFull", body: "Login Succes Full");
   }
 
-  notification2(getdate, ids) async {
-    service.showNotification(
+  Future<dynamic> notification2(getdate, ids) async {
+    await service.showNotification(
         id: ids, title: getdate, body: "intruder Detected");
   }
 

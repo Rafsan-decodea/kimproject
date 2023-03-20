@@ -33,11 +33,66 @@ class _UnknownPersonState extends State<UnknownPerson> {
           Expanded(
               child: FirebaseAnimatedList(
             query: ref,
-            defaultChild: Text("loading"),
+            defaultChild: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Center(
+                    child: Text(
+                  "Loading Data ....",
+                  style: TextStyle(fontSize: 30),
+                ))
+              ],
+            ),
             itemBuilder: (context, snapshot, animation, index) {
-              return ListTile(
-                title: Text(snapshot.child('date').value.toString()),
-                subtitle: Text(snapshot.child('image').value.toString()),
+              return Padding(
+                padding: const EdgeInsets.only(top: 6),
+                child: ListTile(
+                  title: Column(
+                    children: [
+                      Text(
+                        snapshot.child('date').value.toString(),
+                        style: TextStyle(
+                          color: Color.fromARGB(255, 5, 2, 2),
+                          fontSize: 20,
+                          fontWeight: FontWeight.bold,
+                          fontStyle: FontStyle.italic,
+                          letterSpacing: 2.0,
+                          shadows: [
+                            Shadow(
+                              color: Colors.grey,
+                              offset: Offset(2.0, 2.0),
+                              blurRadius: 3.0,
+                            )
+                          ],
+                        ),
+                      ),
+                      SizedBox(height: 10),
+                      // Text("hello world")
+                    ],
+                  ),
+                  subtitle: Stack(
+                    alignment: Alignment.center,
+                    children: [
+                      CircularProgressIndicator(), // show the progress indicator
+                      Container(
+                        decoration: BoxDecoration(
+                          border: Border.all(
+                            color: Color.fromARGB(255, 131, 11, 243),
+                            width: 2.0,
+                          ),
+                          borderRadius: BorderRadius.circular(10.0),
+                        ),
+                        padding: EdgeInsets.all(5.0),
+                        child: Image.network(
+                          snapshot.child('image').value.toString(),
+                          fit:
+                              BoxFit.cover, // set the scaling mode of the image
+                        ),
+                      ),
+                    ],
+                  ),
+                  splashColor: Colors.red,
+                ),
               );
             },
           )),
