@@ -23,8 +23,21 @@ class _UnknownPersonState extends State<UnknownPerson> {
       backgroundColor: Color.fromARGB(255, 255, 254, 254),
       appBar: AppBar(
         title: const Text(
-          "UnKnown Person",
-          style: TextStyle(color: Colors.black),
+          "Unknown Person",
+          style: TextStyle(
+            color: Color.fromARGB(255, 5, 2, 2),
+            fontSize: 20,
+            fontWeight: FontWeight.bold,
+            fontStyle: FontStyle.italic,
+            letterSpacing: 2.0,
+            shadows: [
+              Shadow(
+                color: Color.fromARGB(255, 248, 242, 242),
+                offset: Offset(2.0, 2.0),
+                blurRadius: 3.0,
+              )
+            ],
+          ),
         ),
         backgroundColor: Colors.transparent,
       ),
@@ -67,7 +80,60 @@ class _UnknownPersonState extends State<UnknownPerson> {
                         ),
                       ),
                       SizedBox(height: 10),
-                      // Text("hello world")
+                      ElevatedButton(
+                        onPressed: () {
+                          showDialog(
+                            context: context,
+                            builder: (BuildContext context) {
+                              return AlertDialog(
+                                title: Text('Notification'),
+                                content: Text('That Will be in Future Update'),
+                              );
+                            },
+                          );
+                        },
+                        child: Text('Register as Known'),
+                        style: ElevatedButton.styleFrom(
+                          primary: Colors
+                              .blue, // sets the background color of the button
+                          onPrimary:
+                              Colors.white, // sets the text color of the button
+                          padding: EdgeInsets.symmetric(
+                              horizontal: 16), // sets the padding of the button
+                          shape: RoundedRectangleBorder(
+                            // sets the shape of the button
+                            borderRadius: BorderRadius.circular(24),
+                          ),
+                          elevation: 5, // sets the elevation of the button
+                        ),
+                      ),
+                      ElevatedButton(
+                        onPressed: () {
+                          showDialog(
+                            context: context,
+                            builder: (BuildContext context) {
+                              return AlertDialog(
+                                title: Text('Notification'),
+                                content: Text('That Will be in Future Update'),
+                              );
+                            },
+                          );
+                        },
+                        child: Text('Delete This Data'),
+                        style: ElevatedButton.styleFrom(
+                          primary: Color.fromARGB(255, 241, 11,
+                              11), // sets the background color of the button
+                          onPrimary:
+                              Colors.white, // sets the text color of the button
+                          padding: EdgeInsets.symmetric(
+                              horizontal: 16), // sets the padding of the button
+                          shape: RoundedRectangleBorder(
+                            // sets the shape of the button
+                            borderRadius: BorderRadius.circular(24),
+                          ),
+                          elevation: 5, // sets the elevation of the button
+                        ),
+                      )
                     ],
                   ),
                   subtitle: Stack(
