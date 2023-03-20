@@ -32,10 +32,11 @@ def firebase():
         images.append(x)
 
     # Image upload from directory
+    url = ''
     for x in images:
         path_on_cloud = "/images"
         filess = "intruderimg/"+x
-        response = storage.child(path_on_cloud+x).put(filess)
+        storage.child(path_on_cloud+x).put(filess)
         url = storage.child(
             path_on_cloud+x).get_url("AIzaSyBiP96UgQNqzcblfcNqmp8arneThFH7SQI")
 
@@ -43,9 +44,9 @@ def firebase():
         #                          "AIzaSyBiP96UgQNqzcblfcNqmp8arneThFH7SQI")
 
     # delete Files After Upload
-    jpg_files = glob.glob(os.path.join("intruderimg", "*.jpg"))
-    for file_path in jpg_files:
-        os.remove(file_path)
+    # jpg_files = glob.glob(os.path.join("intruderimg", "*.jpg"))
+    # for file_path in jpg_files:
+    #     os.remove(file_path)
 
     # Upload all data
     date = now.strftime("%Y-%m-%d")

@@ -109,12 +109,13 @@ class _UnknownPersonState extends State<UnknownPerson> {
                       ),
                       ElevatedButton(
                         onPressed: () {
+                          deleteData(snapshot.key);
                           showDialog(
                             context: context,
                             builder: (BuildContext context) {
                               return AlertDialog(
                                 title: Text('Notification'),
-                                content: Text('That Will be in Future Update'),
+                                content: Text('Deleted Success Fully'),
                               );
                             },
                           );

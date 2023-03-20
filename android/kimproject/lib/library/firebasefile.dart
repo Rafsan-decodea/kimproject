@@ -3,3 +3,8 @@ import 'package:firebase_database/firebase_database.dart';
 
 final auth = FirebaseAuth.instance;
 final ref = FirebaseDatabase.instance.ref("intruder");
+
+void deleteData(dynamic key) {
+  final ref = FirebaseDatabase.instance.ref("intruder");
+  ref.child(key).remove();
+}
