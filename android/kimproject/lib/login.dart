@@ -108,14 +108,29 @@ class _MyLoginState extends State<MyLogin> {
                                           ),
                                         );
                                       } else {
-                                        showDialog(
+                                        showDialog<void>(
                                           context: context,
+                                          barrierDismissible:
+                                              false, // user must tap button to close dialog
                                           builder: (BuildContext context) {
                                             return AlertDialog(
-                                              title:
-                                                  Text('Invalid Credentials'),
-                                              content: Text(
-                                                  'The username and password you entered do not match.'),
+                                              title: Text('Login Error'),
+                                              content: SingleChildScrollView(
+                                                child: ListBody(
+                                                  children: <Widget>[
+                                                    Text(
+                                                        'Incorrect username or password.'),
+                                                  ],
+                                                ),
+                                              ),
+                                              actions: <Widget>[
+                                                TextButton(
+                                                  child: Text('OK'),
+                                                  onPressed: () {
+                                                    Navigator.of(context).pop();
+                                                  },
+                                                ),
+                                              ],
                                             );
                                           },
                                         );
