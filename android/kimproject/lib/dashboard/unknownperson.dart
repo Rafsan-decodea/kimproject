@@ -109,17 +109,29 @@ class _UnknownPersonState extends State<UnknownPerson> {
                       ),
                       ElevatedButton(
                         onPressed: () {
-                          deleteData(snapshot.key,
-                              snapshot.child('image').value.toString());
-                          showDialog(
-                            context: context,
-                            builder: (BuildContext context) {
-                              return AlertDialog(
-                                title: Text('Notification'),
-                                content: Text('Deleted Success Fully'),
-                              );
-                            },
-                          );
+                          try {
+                            deleteData(snapshot.key,
+                                snapshot.child('image').value.toString());
+                            showDialog(
+                              context: context,
+                              builder: (BuildContext context) {
+                                return AlertDialog(
+                                  title: Text('Notification'),
+                                  content: Text('Deleted Success Fully'),
+                                );
+                              },
+                            );
+                          } catch (e) {
+                            showDialog(
+                              context: context,
+                              builder: (BuildContext context) {
+                                return AlertDialog(
+                                  title: Text('Notification'),
+                                  content: Text('Error ==>{$e}'),
+                                );
+                              },
+                            );
+                          }
                         },
                         child: Text('Delete This Data'),
                         style: ElevatedButton.styleFrom(
