@@ -109,6 +109,16 @@ class _DashboardState extends State<Dashboard> {
     notification(); // This is for intruder Detected Notification
     super.initState();
     _databaseRef = FirebaseDatabase.instance.reference().child('intruder');
+
+    // that Have to be work
+    // _databaseRef.once().then((DataSnapshot snapshot) {
+    //   Map<dynamic, dynamic> data = snapshot.value;
+    //   data.forEach((key, value) {
+    //     Map<String, dynamic> mapData = Map<String, dynamic>.from(value);
+    //     mapData["key"] = key;
+    //     // Now the mapData object contains the Firebase Realtime Database store key
+    //   });
+    // });
     _databaseRef.onValue.listen((event) {
       // null value protection
       if (event.snapshot.value != null) {
@@ -132,8 +142,9 @@ class _DashboardState extends State<Dashboard> {
               String date = data[key]["date"];
               String image = data[key]["image"];
               String type = data[key]["type"];
-              print("=====>{$date}");
+              print("=====>{$date} ,key => {$key},  i value ==>{$i}");
               notification2(date, i);
+
               //compute(notification2, date);
               break;
             }
