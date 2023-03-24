@@ -102,6 +102,33 @@ class _DashboardState extends State<Dashboard> {
         id: ids, title: getdate, body: "intruder Detected");
   }
 
+// This Test Method For Database read once for Notification Show at once in same Page
+  test() {
+    _databaseRef = FirebaseDatabase.instance.reference().child('intruder');
+
+    _databaseRef.once().then((DatabaseEvent snapshot) {
+      setState(() {
+        dynamic data = snapshot.snapshot.value;
+        if (data != null) {
+          Map<String, dynamic> mapData = Map<String, dynamic>.from(data);
+          List<String> keys = mapData.keys.toList();
+          _howManyintruder = keys.length.toString();
+          for (int i = keys.length - 1; i >= 0;) {
+            String key = keys[i];
+            String date = data[key]["date"];
+            String image = data[key]["image"];
+            String type = data[key]["type"];
+            print("=====>Fuking {$date} ,key => {$key},  i value ==>{$i}");
+            notification2(date, i);
+
+            //compute(notification2, date);
+            break;
+          }
+        }
+      });
+    });
+  }
+
   @override
   void initState() {
     service = LocalNotificationService();
@@ -111,12 +138,25 @@ class _DashboardState extends State<Dashboard> {
     _databaseRef = FirebaseDatabase.instance.reference().child('intruder');
 
     // that Have to be work
-    // _databaseRef.once().then((DataSnapshot snapshot) {
-    //   Map<dynamic, dynamic> data = snapshot.value;
-    //   data.forEach((key, value) {
-    //     Map<String, dynamic> mapData = Map<String, dynamic>.from(value);
-    //     mapData["key"] = key;
-    //     // Now the mapData object contains the Firebase Realtime Database store key
+    // _databaseRef.once().then((DatabaseEvent snapshot) {
+    //   setState(() {
+    //     dynamic data = snapshot.snapshot.value;
+    //     if (data != null) {
+    //       Map<String, dynamic> mapData = Map<String, dynamic>.from(data);
+    //       List<String> keys = mapData.keys.toList();
+    //       _howManyintruder = keys.length.toString();
+    //       for (int i = keys.length - 1; i >= 0;) {
+    //         String key = keys[i];
+    //         String date = data[key]["date"];
+    //         String image = data[key]["image"];
+    //         String type = data[key]["type"];
+    //         print("=====>Fuking {$date} ,key => {$key},  i value ==>{$i}");
+    //         // notification2(date, i);
+
+    //         //compute(notification2, date);
+    //         break;
+    //       }
+    //     }
     //   });
     // });
     _databaseRef.onValue.listen((event) {
@@ -124,15 +164,13 @@ class _DashboardState extends State<Dashboard> {
       if (event.snapshot.value != null) {
         setState(() {
           dynamic data = event.snapshot.value;
-          if (data != null) {
-            data.forEach((key, value) {
-              String date = value["date"];
-              String image = value["image"];
-              String type = value["type"];
-              // print('Key: $key, Date: $date, Image: $image, Type: $type');
-              // print(date);
-            });
-          }
+          // if (data != null) {
+          //   data.forEach((key, value) {
+          //     String date = value["date"];
+          //     String image = value["image"];
+          //     String type = value["type"];
+          //   });
+          // }
           if (data != null) {
             Map<String, dynamic> mapData = Map<String, dynamic>.from(data);
             List<String> keys = mapData.keys.toList();
@@ -143,7 +181,8 @@ class _DashboardState extends State<Dashboard> {
               String image = data[key]["image"];
               String type = data[key]["type"];
               print("=====>{$date} ,key => {$key},  i value ==>{$i}");
-              notification2(date, i);
+              test();
+              // notification2(date, i);
 
               //compute(notification2, date);
               break;
