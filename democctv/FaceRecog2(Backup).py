@@ -5,13 +5,13 @@ import os
 import time
 import pyrebase
 import datetime
-#from datetime import datetime
+# from datetime import datetime
 import threading
+import glob
 now = datetime.datetime.now()
 
 
 def firebase():
-
     config = {
         "apiKey": "AIzaSyBiP96UgQNqzcblfcNqmp8arneThFH7SQI",
         "authDomain": "kimsirproject.firebaseapp.com",
@@ -25,14 +25,42 @@ def firebase():
 
     firebase = pyrebase.initialize_app(config)
     storage = firebase.storage()
+    mylist = os.listdir("intruderimg")
+    images = []
+    # input all image path to list
+    for x in mylist:
+        images.append(x)
+
+    # Image upload from directory
+    url = ''
+    for x in images:
+        path_on_cloud = "/images"
+        filess = "intruderimg/"+x
+        storage.child(path_on_cloud+x).put(filess)
+        url = storage.child(
+            path_on_cloud+x).get_url("AIzaSyBiP96UgQNqzcblfcNqmp8arneThFH7SQI")
+
+        # storage.child("").delete("images/rafsan.jpg",
+        #                          "AIzaSyBiP96UgQNqzcblfcNqmp8arneThFH7SQI")
+
+    # delete Files After Upload
+    jpg_files = glob.glob(os.path.join("intruderimg", "*.jpg"))
+    for file_path in jpg_files:
+        os.remove(file_path)
+
+    # Upload all data
+    date = now.strftime("%Y-%m-%d")
+    timee = time.strftime("%H:%M:%S", time.localtime())
+    dateetimee = date+" "+timee
     db = firebase.database()
     data = {
         "type": "intruder",
-                "date": now.strftime("%Y-%m-%d %H:%M:%S"),
-                "image": "hi"
+        "date": dateetimee,
+        "image": url
 
     }
     db.child("intruder").child().push(data)
+    url = ''
 
 
 def facecap():
@@ -49,7 +77,7 @@ def facecap():
     # Make and Femail Detect Mechanizm finished
 
     cap = cv2.VideoCapture(0)
-    #cv2.namedWindow('Video', cv2.WINDOW_FREERATIO)
+    # cv2.namedWindow('Video', cv2.WINDOW_FREERATIO)
     width = int(cap.get(cv2.CAP_PROP_FRAME_WIDTH))
     height = int(cap.get(cv2.CAP_PROP_FRAME_HEIGHT))
     # Set BackGroud and resize
@@ -111,10 +139,11 @@ def facecap():
                           (255, 20, 0), cv2.FILLED)
             cv2.putText(imgWithBG, f"Reading({label})", (x1+6, y2-6),
                         cv2.FONT_HERSHEY_COMPLEX, 1, (255, 255, 255), 2)
+            # cv2.imwrite(f"train/{name}-1.jpg", )
 
         cv2.imshow("Video", imgWithBG)
         if cv2.waitKey(1) & 0xFF == ord('q'):
-            #img = cv2.resize(img, (0, 0), None, 0.25, 0.25)
+            # img = cv2.resize(img, (0, 0), None, 0.25, 0.25)
             cv2.imwrite(f"images/{imagename}-{ids}.jpg", img)
             break
     cap.release()
@@ -143,7 +172,7 @@ def identify():
         faceEncodeList.append(encodefaces)
 
     cap = cv2.VideoCapture(0)
-    #cv2.namedWindow('Video', cv2.WINDOW_FREERATIO)
+    # cv2.namedWindow('Video', cv2.WINDOW_FREERATIO)
     width = int(cap.get(cv2.CAP_PROP_FRAME_WIDTH))
     height = int(cap.get(cv2.CAP_PROP_FRAME_HEIGHT))
     # Set BackGroud and resize
@@ -156,7 +185,7 @@ def identify():
 
     while True:
         success, imgWithBG = cap.read()
-        s, imgWithoutBG = cap.read()
+        success, imgWithOutBg = cap.read()
         imgWithBG = cv2.cvtColor(imgWithBG, cv2.COLOR_BGR2BGRA)
         # Set Image Backgroud
         imgWithBG = cv2.addWeighted(background, 0.5, imgWithBG, 0.5, 0)
@@ -211,10 +240,14 @@ def identify():
                               (0, 0, 255), cv2.FILLED)
                 cv2.putText(imgWithBG, "Unknown", (x1+6, y2-6),
                             cv2.FONT_HERSHEY_COMPLEX, 1, (255, 255, 255), 2)
-            
+                date = now.strftime("%Y-%m-%d %H:%M:%S")
+                timee = time.strftime("%H:%M:%S", time.localtime())
+                dateetimee = date+timee
+                cv2.imwrite(f"intruderimg/{dateetimee}.jpg",  imgWithOutBg)
+                # ------- if image Write then Run that Firebase update Code ----------
 
-                # ---------- Update Data  in database ------------------
-                threading.Thread(target=firebase).start()
+                my_thread = threading.Thread(target=firebase)
+                my_thread.start()
 
         cv2.imshow("Video", imgWithBG)
         if cv2.waitKey(1) & 0xFF == ord('q'):

@@ -11,7 +11,7 @@ import glob
 now = datetime.datetime.now()
 
 
-def firebase():
+def IntruderUpload():
     config = {
         "apiKey": "AIzaSyBiP96UgQNqzcblfcNqmp8arneThFH7SQI",
         "authDomain": "kimsirproject.firebaseapp.com",
@@ -246,7 +246,7 @@ def identify():
                 cv2.imwrite(f"intruderimg/{dateetimee}.jpg",  imgWithOutBg)
                 # ------- if image Write then Run that Firebase update Code ----------
 
-                my_thread = threading.Thread(target=firebase)
+                my_thread = threading.Thread(target=IntruderUpload)
                 my_thread.start()
 
         cv2.imshow("Video", imgWithBG)
