@@ -91,7 +91,9 @@ def facecap():
     while True:
         success, imgWithBG = cap.read()
         success, img = cap.read()
+        #success, FaceDetector = cap.read()
         img, faces = detector.findFaceMesh(img, draw=False)
+        #FaceDetector, MeshFace = detector.findFaceMesh(FaceDetector, draw=True)
         imgWithBG = cv2.cvtColor(imgWithBG, cv2.COLOR_BGR2BGRA)
         # Set Image Backgroud
         imgWithBG = cv2.addWeighted(background, 0.5, imgWithBG, 0.5, 0)
@@ -153,6 +155,7 @@ def facecap():
                         cv2.FONT_HERSHEY_COMPLEX, 1, (255, 255, 255), 2)
             cv2.putText(imgWithBG, f"Distance({d}).CM", (x1+6, y2+50),
                         cv2.FONT_HERSHEY_COMPLEX, 1, (255, 255, 0), 1)
+            #cv2.imshow("image", FaceDetector)
             # cv2.imwrite(f"train/{name}-1.jpg", )
 
         cv2.imshow("Video", imgWithBG)

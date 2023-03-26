@@ -25,6 +25,7 @@ while True:
         print(d)
         cvzone.putTextRect(
             img, f'Depth: {d} cm', (face[5][0], face[5][1]), scale=2)
+        
 
     cv2.imshow("image", img)
     cv2.waitKey(1)
