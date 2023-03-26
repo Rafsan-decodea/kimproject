@@ -8,6 +8,7 @@ import datetime
 # from datetime import datetime
 import threading
 import glob
+from cvzone.FaceMeshModule import FaceMeshDetector
 now = datetime.datetime.now()
 
 
@@ -86,10 +87,11 @@ def facecap():
     imageBackground = cv2.addWeighted(
         imageBackground, opacity, imageBackground, 1 - opacity, 0)
     background = cv2.resize(imageBackground, (width, height))
-
+    detector = FaceMeshDetector()
     while True:
         success, imgWithBG = cap.read()
         success, img = cap.read()
+        img, faces = detector.findFaceMesh(img, draw=False)
         imgWithBG = cv2.cvtColor(imgWithBG, cv2.COLOR_BGR2BGRA)
         # Set Image Backgroud
         imgWithBG = cv2.addWeighted(background, 0.5, imgWithBG, 0.5, 0)
@@ -124,6 +126,16 @@ def facecap():
         encodeCurrentFrame = face_recognition.face_encodings(
             imgS, faceCurFrame)
         for encodeFace, faceLoc in zip(encodeCurrentFrame, faceCurFrame):
+            # For Calculate Face Distance
+            face = faces[0]
+            pointLeft = face[145]
+            pointRight = face[374]
+            w, _ = detector.findDistance(pointLeft, pointRight)
+            W = 6.3
+            f = 840
+            d = (W*f)/w
+            d = int(d)
+
             # Captrure Signals
             cv2.putText(imgWithBG, "Press 'Q' For Capture", text_pos2,
                         cv2.FONT_HERSHEY_SIMPLEX, 0.5, (244, 100, 0), 1)
@@ -139,6 +151,8 @@ def facecap():
                           (255, 20, 0), cv2.FILLED)
             cv2.putText(imgWithBG, f"Reading({label})", (x1+6, y2-6),
                         cv2.FONT_HERSHEY_COMPLEX, 1, (255, 255, 255), 2)
+            cv2.putText(imgWithBG, f"Distance({d}).CM", (x1+6, y2+50),
+                        cv2.FONT_HERSHEY_COMPLEX, 1, (255, 255, 0), 1)
             # cv2.imwrite(f"train/{name}-1.jpg", )
 
         cv2.imshow("Video", imgWithBG)
@@ -256,8 +270,8 @@ def identify():
     cv2.destroyAllWindows()
 
 
-identify()
-# facecap()
+# identify()
+facecap()
 
 # imagerafsan1 = face_recognition.load_image_file('images/rafsan.jpg')
 # imagerafsan1 = cv2.cvtColor(imagerafsan1, cv2.COLOR_BGR2RGB)
