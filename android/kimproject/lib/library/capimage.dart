@@ -2,13 +2,13 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 
-class ImageCaptureDialog extends StatefulWidget {
+class ImageCapturePopup extends StatefulWidget {
   @override
-  _ImageCaptureDialogState createState() => _ImageCaptureDialogState();
+  _ImageCapturePopupState createState() => _ImageCapturePopupState();
 }
 
-class _ImageCaptureDialogState extends State<ImageCaptureDialog> {
-  late File? _image;
+class _ImageCapturePopupState extends State<ImageCapturePopup> {
+  File? _image;
 
   Future<void> _pickImage(ImageSource source) async {
     final picker = ImagePicker();
@@ -24,52 +24,50 @@ class _ImageCaptureDialogState extends State<ImageCaptureDialog> {
 
   @override
   Widget build(BuildContext context) {
-    return AlertDialog(
-      title: Text('Image Capture'),
-      content: Column(
-        mainAxisSize: MainAxisSize.min,
-        children: [
-          if (_image != null) ...[
-            Image.file(_image!),
-            SizedBox(height: 16.0),
-          ],
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-            children: [
-              ElevatedButton.icon(
-                onPressed: () => _pickImage(ImageSource.camera),
-                icon: Icon(Icons.camera),
-                label: Text('Capture from Camera'),
-              ),
-              ElevatedButton.icon(
-                onPressed: () => _pickImage(ImageSource.gallery),
-                icon: Icon(Icons.photo_library),
-                label: Text('Pick from Gallery'),
-              ),
-            ],
-          ),
+    return SimpleDialog(
+      title: Text('Capture Image'),
+      children: [
+        if (_image != null) ...[
+          Image.file(_image!),
+          SizedBox(height: 16.0),
         ],
-      ),
-      actions: [
-        TextButton(
-          onPressed: () => Navigator.pop(context, null),
-          child: Text('Cancel'),
+        ListTile(
+          leading: Icon(Icons.camera),
+          title: Text('Capture from Camera'),
+          onTap: () => _pickImage(ImageSource.camera),
+        ),
+        ListTile(
+          leading: Icon(Icons.photo_library),
+          title: Text('Pick from Gallery'),
+          onTap: () => _pickImage(ImageSource.gallery),
         ),
       ],
     );
   }
 }
 
-void _showImageCaptureDialog(BuildContext context) async {
-  final image = await showDialog<File>(
-    context: context,
-    builder: (BuildContext context) {
-      return ImageCaptureDialog();
-    },
-  );
-
-  if (image != null) {
-    // Perform desired actions with the captured image
-    // such as uploading, processing, etc.
+class MyApp extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return MaterialApp(
+      home: Scaffold(
+        appBar: AppBar(
+          title: Text('Image Capture Popup Example'),
+        ),
+        body: Center(
+          child: ElevatedButton(
+            onPressed: () {
+              showDialog(
+                context: context,
+                builder: (BuildContext context) {
+                  return ImageCapturePopup();
+                },
+              );
+            },
+            child: Text('Open Image Capture'),
+          ),
+        ),
+      ),
+    );
   }
 }

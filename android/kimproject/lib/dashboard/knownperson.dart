@@ -1,9 +1,9 @@
 import 'dart:async';
-
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_database/firebase_database.dart';
 import 'package:firebase_database/ui/firebase_animated_list.dart';
 import 'package:kimproject/library/personcard.dart';
+import '../library/capimage.dart';
 import '../library/firebasefile.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/framework.dart';
@@ -96,7 +96,7 @@ class _KnownPersonState extends State<KnownPerson> {
             bottom: 50.0,
             right: 140.0,
             child: AnimatedContainer(
-              duration: Duration(milliseconds: 500),
+              duration: Duration(milliseconds: 2),
               curve: Curves.easeInOut,
               width: 60.0,
               height: 60.0,
@@ -106,6 +106,12 @@ class _KnownPersonState extends State<KnownPerson> {
               ),
               child: IconButton(
                 onPressed: () {
+                  showDialog(
+                    context: context,
+                    builder: (BuildContext context) {
+                      return ImageCapturePopup();
+                    },
+                  );
                   // Add your logic for the "Add People" button here
                 },
                 icon: Icon(
