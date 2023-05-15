@@ -181,8 +181,8 @@ class _DashboardState extends State<Dashboard> {
               String image = data[key]["image"];
               String type = data[key]["type"];
               print("=====>{$date} ,key => {$key},  i value ==>{$i}");
-              test();
-              // notification2(date, i);
+              //test();
+              notification2(date, i);
 
               //compute(notification2, date);
               break;
