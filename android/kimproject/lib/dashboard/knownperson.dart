@@ -1,8 +1,10 @@
 import 'dart:async';
+import 'dart:io';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_database/firebase_database.dart';
 import 'package:firebase_database/ui/firebase_animated_list.dart';
 import 'package:kimproject/library/personcard.dart';
+import 'package:kimproject/library/publicvar.dart';
 import '../library/capimage.dart';
 import '../library/firebasefile.dart';
 import 'package:flutter/material.dart';
@@ -110,6 +112,26 @@ class _KnownPersonState extends State<KnownPerson> {
                     context: context,
                     builder: (BuildContext context) {
                       return ImageCapturePopup();
+                    },
+                  );
+                  showDialog(
+                    context: context,
+                    builder: (BuildContext context) {
+                      return Column(
+                        children: [
+                          Container(
+                            height: 200,
+                            width: 200,
+                            decoration: BoxDecoration(
+                              image: DecorationImage(
+                                image: FileImage(
+                                    PublicValue.imagePathValue.value as File),
+                                fit: BoxFit.cover,
+                              ),
+                            ),
+                          ),
+                        ],
+                      );
                     },
                   );
                   // Add your logic for the "Add People" button here
