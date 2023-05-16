@@ -144,7 +144,6 @@ class PersonInfo extends StatefulWidget {
 class _PersonInfoState extends State<PersonInfo> {
   @override
   Widget build(BuildContext context) {
-    return ImageInfoDialog(
-        imagePath: PubicImageStoreVar.imagePathValue.value.toString());
+    return ImageInfoDialog(imagePath: PubicImageStoreVar.imagePathValue.value);
   }
 }
