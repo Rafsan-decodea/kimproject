@@ -90,3 +90,104 @@ class _ImageCapturePopupState extends State<ImageCapturePopup> {
     );
   }
 }
+
+class ImageInfoDialog extends StatefulWidget {
+  final String imagePath;
+
+  ImageInfoDialog({required this.imagePath});
+
+  @override
+  _ImageInfoDialogState createState() => _ImageInfoDialogState();
+}
+
+class _ImageInfoDialogState extends State<ImageInfoDialog> {
+  String infoText = '';
+  File? capturedImage;
+
+  @override
+  void initState() {
+    super.initState();
+    capturedImage = File(widget.imagePath);
+  }
+
+  void showImage() {
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          content: Container(
+            width: double.maxFinite,
+            height: 200,
+            decoration: BoxDecoration(
+              image: DecorationImage(
+                image: FileImage(capturedImage!),
+                fit: BoxFit.cover,
+              ),
+            ),
+          ),
+          actions: [
+            TextButton(
+              onPressed: () => Navigator.pop(context),
+              child: Text('Close'),
+            ),
+          ],
+        );
+      },
+    );
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return AlertDialog(
+      title: Text('Image Information'),
+      content: Column(
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          if (capturedImage != null)
+            GestureDetector(
+              onTap: showImage,
+              child: Container(
+                width: 200,
+                height: 200,
+                decoration: BoxDecoration(
+                  image: DecorationImage(
+                    image: FileImage(capturedImage!),
+                    fit: BoxFit.cover,
+                  ),
+                ),
+              ),
+            ),
+          TextField(
+            onChanged: (value) {
+              setState(() {
+                infoText = value;
+              });
+            },
+            decoration: InputDecoration(
+              hintText: 'Enter necessary information',
+            ),
+          ),
+        ],
+      ),
+      actions: [
+        TextButton(
+          onPressed: () {
+            // Process the captured image and information here
+            // You can save the image, store the information, etc.
+
+            // Close the dialog
+            Navigator.pop(context);
+          },
+          child: Text('Save'),
+        ),
+        TextButton(
+          onPressed: () {
+            // Close the dialog
+            Navigator.pop(context);
+          },
+          child: Text('Cancel'),
+        ),
+      ],
+    );
+  }
+}

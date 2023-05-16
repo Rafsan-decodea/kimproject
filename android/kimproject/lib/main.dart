@@ -204,7 +204,8 @@ class _MyAppState extends State<MyApp> {
         '/about': (context) => const AboutUs(),
         '/logout': (context) => const MyLogin(),
         '/knownpersone': (context) => const KnownPerson(),
-        '/unknownperson': (context) => const UnknownPerson()
+        '/unknownperson': (context) => const UnknownPerson(),
+        '/personalinfo': (context) => const PersonInfo()
       },
     );
   }

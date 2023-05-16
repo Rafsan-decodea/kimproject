@@ -115,28 +115,7 @@ class _KnownPersonState extends State<KnownPerson> {
                       return ImageCapturePopup();
                     },
                   ).then((value) {
-                    if (value == true) {
-                      showDialog(
-                        context: context,
-                        builder: (BuildContext context) {
-                          return Column(
-                            children: [
-                              Container(
-                                height: 200,
-                                width: 200,
-                                decoration: BoxDecoration(
-                                  image: DecorationImage(
-                                    image: FileImage(File(PubicImageStoreVar
-                                        .imagePathValue.value)),
-                                    fit: BoxFit.cover,
-                                  ),
-                                ),
-                              ),
-                            ],
-                          );
-                        },
-                      );
-                    }
+                    Navigator.pushNamed(context, '/personalinfo');
                   });
 
                   // Add your logic for the "Add People" button here
@@ -152,5 +131,20 @@ class _KnownPersonState extends State<KnownPerson> {
         ],
       ),
     );
+  }
+}
+
+class PersonInfo extends StatefulWidget {
+  const PersonInfo({super.key});
+
+  @override
+  State<PersonInfo> createState() => _PersonInfoState();
+}
+
+class _PersonInfoState extends State<PersonInfo> {
+  @override
+  Widget build(BuildContext context) {
+    return ImageInfoDialog(
+        imagePath: PubicImageStoreVar.imagePathValue.value.toString());
   }
 }
