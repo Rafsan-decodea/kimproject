@@ -1,7 +1,7 @@
 import 'dart:io';
 import 'package:flutter/foundation.dart';
 
-class PublicValue {
+class PubicImageStoreVar {
   static final ValueNotifier<String> imagePathValue =
       ValueNotifier<String>('light');
 

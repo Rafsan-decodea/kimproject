@@ -59,7 +59,8 @@ class _ImageCapturePopupState extends State<ImageCapturePopup> {
     if (pickedImage != null) {
       setState(() {
         _image = File(pickedImage.path);
-        PublicValue.updateImagePathValue(File(pickedImage.path).toString());
+        PubicImageStoreVar.updateImagePathValue(
+            File(pickedImage.path).toString());
 
         // print(PublicValue.imagePathValue.value);
       });
@@ -74,7 +75,6 @@ class _ImageCapturePopupState extends State<ImageCapturePopup> {
       content: Column(
         mainAxisSize: MainAxisSize.min,
         children: [
-         
           ElevatedButton.icon(
             onPressed: () => _checkPermissionAndPickImage(ImageSource.camera),
             icon: Icon(Icons.camera),

@@ -108,32 +108,37 @@ class _KnownPersonState extends State<KnownPerson> {
               ),
               child: IconButton(
                 onPressed: () {
+                  print(PubicImageStoreVar.imagePathValue.value);
                   showDialog(
                     context: context,
                     builder: (BuildContext context) {
                       return ImageCapturePopup();
                     },
-                  );
-                  showDialog(
-                    context: context,
-                    builder: (BuildContext context) {
-                      return Column(
-                        children: [
-                          Container(
-                            height: 200,
-                            width: 200,
-                            decoration: BoxDecoration(
-                              image: DecorationImage(
-                                image: FileImage(
-                                    PublicValue.imagePathValue.value as File),
-                                fit: BoxFit.cover,
+                  ).then((value) {
+                    if (value == true) {
+                      showDialog(
+                        context: context,
+                        builder: (BuildContext context) {
+                          return Column(
+                            children: [
+                              Container(
+                                height: 200,
+                                width: 200,
+                                decoration: BoxDecoration(
+                                  image: DecorationImage(
+                                    image: FileImage(File(PubicImageStoreVar
+                                        .imagePathValue.value)),
+                                    fit: BoxFit.cover,
+                                  ),
+                                ),
                               ),
-                            ),
-                          ),
-                        ],
+                            ],
+                          );
+                        },
                       );
-                    },
-                  );
+                    }
+                  });
+
                   // Add your logic for the "Add People" button here
                 },
                 icon: Icon(
