@@ -208,7 +208,10 @@ class _ImageInfoDialogState extends State<ImageInfoDialog> {
                 // Close the dialog
                 Navigator.pop(context);
               },
-              child: Text('Cancel'),
+              child: Text(
+                'Cancel',
+                style: TextStyle(color: Colors.red),
+              ),
             ),
           ],
         ),
