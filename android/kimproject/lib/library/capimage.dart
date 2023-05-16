@@ -54,7 +54,7 @@ class _ImageCapturePopupState extends State<ImageCapturePopup> {
 
   Future<void> _pickImage(ImageSource source) async {
     final picker = ImagePicker();
-    final pickedImage = await picker.getImage(source: source);
+    final pickedImage = await picker.pickImage(source: source);
 
     if (pickedImage != null) {
       setState(() {
@@ -101,7 +101,9 @@ class ImageInfoDialog extends StatefulWidget {
 }
 
 class _ImageInfoDialogState extends State<ImageInfoDialog> {
-  String infoText = '';
+  late String name;
+  late String degicnation;
+  late String status;
   File? capturedImage;
 
   @override
@@ -163,7 +165,7 @@ class _ImageInfoDialogState extends State<ImageInfoDialog> {
               TextField(
                 onChanged: (value) {
                   setState(() {
-                    infoText = value;
+                    name = value;
                   });
                 },
                 decoration: InputDecoration(
@@ -173,7 +175,7 @@ class _ImageInfoDialogState extends State<ImageInfoDialog> {
               TextField(
                 onChanged: (value) {
                   setState(() {
-                    infoText = value;
+                    degicnation = value;
                   });
                 },
                 decoration: InputDecoration(
@@ -183,7 +185,7 @@ class _ImageInfoDialogState extends State<ImageInfoDialog> {
               TextField(
                 onChanged: (value) {
                   setState(() {
-                    infoText = value;
+                    status = value;
                   });
                 },
                 decoration: InputDecoration(

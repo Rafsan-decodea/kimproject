@@ -115,7 +115,9 @@ class _KnownPersonState extends State<KnownPerson> {
                       return ImageCapturePopup();
                     },
                   ).then((value) {
-                    Navigator.pushNamed(context, '/personalinfo');
+                    if (value != null) {
+                      Navigator.pushNamed(context, '/personalinfo');
+                    }
                   });
 
                   // Add your logic for the "Add People" button here
