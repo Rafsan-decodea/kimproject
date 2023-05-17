@@ -78,7 +78,7 @@ class _ImageCapturePopupState extends State<ImageCapturePopup> {
           files.where((file) => file.path.endsWith('.jpg')).toList();
 
       print('Number of saved images: ${imageFiles.length}');
-      imageFile.delete();
+      //imageFile.delete();
     } else {
       print('No image selected');
     }
@@ -231,7 +231,14 @@ class _ImageInfoDialogState extends State<ImageInfoDialog> {
               child: Text('Save'),
             ),
             TextButton(
-              onPressed: () {
+              onPressed: () async {
+                final file = File(PubicImageStoreVar.imagePathValue.value);
+                if (await file.exists()) {
+                  await file.delete();
+                  print('Image file deleted');
+                } else {
+                  print('Image file not found');
+                }
                 // Close the dialog
                 Navigator.pop(context);
               },
