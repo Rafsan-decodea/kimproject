@@ -2,7 +2,10 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:kimproject/library/publicvar.dart';
+import 'package:path_provider/path_provider.dart';
 import 'package:permission_handler/permission_handler.dart';
+
+import 'dart:io';
 
 class ImageCapturePopup extends StatefulWidget {
   @override
@@ -55,12 +58,34 @@ class _ImageCapturePopupState extends State<ImageCapturePopup> {
   Future<void> _pickImage(ImageSource source) async {
     final picker = ImagePicker();
     final pickedImage = await picker.pickImage(source: source);
+    if (pickedImage != null) {
+      final directory = await getApplicationSupportDirectory();
+      final fileName = '${DateTime.now().millisecondsSinceEpoch}.jpg';
+      final filePath = '${directory.path}/$fileName';
+
+      final imageFile = File(pickedImage.path);
+      await imageFile.copy(filePath);
+
+      print('Image saved to: $filePath');
+      PubicImageStoreVar.updateImagePathValue(filePath);
+      // How many image Save
+
+      final directoryy = await getApplicationSupportDirectory();
+      final files = Directory(directoryy.path).listSync();
+
+      // Filter the list to include only image files
+      final imageFiles =
+          files.where((file) => file.path.endsWith('.jpg')).toList();
+
+      print('Number of saved images: ${imageFiles.length}');
+      imageFile.delete();
+    } else {
+      print('No image selected');
+    }
 
     if (pickedImage != null) {
       setState(() {
         _image = File(pickedImage.path);
-        PubicImageStoreVar.updateImagePathValue(
-            File(pickedImage.path).toString());
 
         // print(PublicValue.imagePathValue.value);
       });
