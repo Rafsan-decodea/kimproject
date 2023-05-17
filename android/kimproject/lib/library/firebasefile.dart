@@ -3,7 +3,7 @@ import 'package:firebase_database/firebase_database.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 
 final auth = FirebaseAuth.instance;
-final ref = FirebaseDatabase.instance.ref("intruder");
+final intruderRef = FirebaseDatabase.instance.ref("intruder");
 
 void deleteData(dynamic key, dynamic imageURL) {
   final ref = FirebaseDatabase.instance.ref("intruder");
@@ -20,3 +20,4 @@ void deleteData(dynamic key, dynamic imageURL) {
     ref.child(key).remove();
   }
 }
+

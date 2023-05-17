@@ -45,7 +45,7 @@ class _UnknownPersonState extends State<UnknownPerson> {
         children: [
           Expanded(
               child: FirebaseAnimatedList(
-            query: ref,
+            query: intruderRef,
             defaultChild: Column(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
