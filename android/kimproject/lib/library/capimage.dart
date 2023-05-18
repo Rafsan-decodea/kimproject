@@ -1,6 +1,7 @@
 import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:kimproject/library/firebasefile.dart';
 import 'package:kimproject/library/publicvar.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:permission_handler/permission_handler.dart';
@@ -224,6 +225,12 @@ class _ImageInfoDialogState extends State<ImageInfoDialog> {
               onPressed: () {
                 // Process the captured image and information here
                 // You can save the image, store the information, etc.
+                addPerson(name, degicnation, status).then((value) => () {
+                      final file =
+                          File(PubicImageStoreVar.imagePathValue.value);
+                      file.delete();
+                      print("done");
+                    });
 
                 // Close the dialog
                 Navigator.pop(context);
