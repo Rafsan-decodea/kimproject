@@ -1,24 +1,24 @@
 import 'dart:async';
-import 'dart:isolate';
+//import 'dart:isolate';
 import 'package:animated_text_kit/animated_text_kit.dart';
 import 'package:firebase_database/firebase_database.dart';
-import 'package:firebase_database/ui/firebase_animated_list.dart';
+//import 'package:firebase_database/ui/firebase_animated_list.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-import 'package:kimproject/dashboard/dashboard.dart';
+//import 'package:kimproject/dashboard/dashboard.dart';
 import 'package:kimproject/dashboard/unknownperson.dart';
 import 'package:kimproject/login.dart';
-import 'package:flutter_local_notifications/flutter_local_notifications.dart';
+//import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:firebase_core/firebase_core.dart';
-import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:firebase_auth/firebase_auth.dart';
+//import 'package:cloud_firestore/cloud_firestore.dart';
+//import 'package:firebase_auth/firebase_auth.dart';
 import 'dashboard/knownperson.dart';
 import 'library/firebase_options.dart';
 import 'about.dart';
 
 import 'package:kimproject/library/notification.dart';
 
-import 'library/firebasefile.dart';
+//import 'library/firebasefile.dart';
 
 // dynamic dataAsString = '';
 // fetchDataAsString() {
@@ -131,7 +131,7 @@ class MyApp extends StatefulWidget {
 class _MyAppState extends State<MyApp> {
   late final LocalNotificationService service;
   late DatabaseReference _databaseRef;
-  String? _date;
+  // String? _date;
   @override
   initState() {
     super.initState();
@@ -158,8 +158,8 @@ class _MyAppState extends State<MyApp> {
             for (int i = keys.length - 1; i >= 0;) {
               String key = keys[i];
               String date = data[key]["date"];
-              String image = data[key]["image"];
-              String type = data[key]["type"];
+              //String image = data[key]["image"];
+              //String type = data[key]["type"];
               print("=====>{$date}");
               // if any intruder Detected then get a notification
               notification(date);

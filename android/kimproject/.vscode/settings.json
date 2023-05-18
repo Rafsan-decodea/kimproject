@@ -1,4 +1,5 @@
 {
     "cmake.configureOnOpen": false,
-    "editor.minimap.maxColumn": 120
+    "editor.minimap.maxColumn": 120,
+    "java.configuration.updateBuildConfiguration": "interactive"
 }

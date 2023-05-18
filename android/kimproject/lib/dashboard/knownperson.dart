@@ -1,15 +1,15 @@
 import 'dart:async';
-import 'dart:io';
-import 'package:firebase_auth/firebase_auth.dart';
-import 'package:firebase_database/firebase_database.dart';
-import 'package:firebase_database/ui/firebase_animated_list.dart';
+//import 'dart:io';
+//import 'package:firebase_auth/firebase_auth.dart';
+//import 'package:firebase_database/firebase_database.dart';
+//import 'package:firebase_database/ui/firebase_animated_list.dart';
 import 'package:kimproject/library/personcard.dart';
 import 'package:kimproject/library/publicvar.dart';
 import '../library/capimage.dart';
-import '../library/firebasefile.dart';
+//import '../library/firebasefile.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/framework.dart';
-import 'package:flutter/src/widgets/placeholder.dart';
+//import 'package:flutter/src/widgets/placeholder.dart';
 
 class KnownPerson extends StatefulWidget {
   const KnownPerson({super.key});

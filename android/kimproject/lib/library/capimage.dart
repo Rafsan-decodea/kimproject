@@ -5,7 +5,7 @@ import 'package:kimproject/library/publicvar.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:permission_handler/permission_handler.dart';
 
-import 'dart:io';
+//import 'dart:io';
 
 class ImageCapturePopup extends StatefulWidget {
   @override

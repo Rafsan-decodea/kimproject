@@ -116,8 +116,8 @@ class _DashboardState extends State<Dashboard> {
           for (int i = keys.length - 1; i >= 0;) {
             String key = keys[i];
             String date = data[key]["date"];
-            String image = data[key]["image"];
-            String type = data[key]["type"];
+            //String image = data[key]["image"];
+            //String type = data[key]["type"];
             print("=====>Fuking {$date} ,key => {$key},  i value ==>{$i}");
             notification2(date, i);
 
@@ -178,8 +178,8 @@ class _DashboardState extends State<Dashboard> {
             for (int i = keys.length - 1; i >= 0;) {
               String key = keys[i];
               String date = data[key]["date"];
-              String image = data[key]["image"];
-              String type = data[key]["type"];
+              // String image = data[key]["image"];
+              //String type = data[key]["type"];
               print("=====>{$date} ,key => {$key},  i value ==>{$i}");
               //test();
               notification2(date, i);
@@ -235,6 +235,8 @@ class _DashboardState extends State<Dashboard> {
                 ]),
       ),
       body: SlidingSheet(
+        //color: scrollSpec.overscrollColor ??
+        // Theme.of(context).colorScheme.secondary
         elevation: 8,
         cornerRadius: 50,
         snapSpec: const SnapSpec(
