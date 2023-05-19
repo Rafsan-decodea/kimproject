@@ -36,7 +36,7 @@ Future<void> addPerson(String string1, String string2, String string3) async {
 
     // Upload the image file to Firebase Storage
     UploadTask uploadTask =
-        storageReference.putFile(PubicImageStoreVar.imagePathValue.value);
+        storageReference.putFile(File(PubicImageStoreVar.imagePathValue.value));
     TaskSnapshot storageSnapshot = await uploadTask;
 
     // Get the download URL of the uploaded image

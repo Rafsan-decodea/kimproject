@@ -23,48 +23,66 @@ class PersonalCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Card(
-      elevation: 4.0,
-      margin: EdgeInsets.all(16.0),
-      child: Row(
-        children: [
-          Expanded(
-            flex: 1,
-            child: Image.network(
-              image,
-              fit: BoxFit.cover,
-            ),
-          ),
-          Expanded(
-            flex: 2,
-            child: Padding(
-              padding: EdgeInsets.all(16.0),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text(
-                    title,
-                    style: TextStyle(
-                      fontSize: 20.0,
-                      fontWeight: FontWeight.bold,
-                    ),
-                  ),
-                  SizedBox(height: 8.0),
-                  Text(
-                    description,
-                    style: TextStyle(fontSize: 16.0),
-                  ),
-                  SizedBox(height: 8.0),
-                  Text(
-                    additionalInfo,
-                    style: TextStyle(fontSize: 16.0),
-                  ),
-                ],
+    return IntrinsicHeight(
+      child: Card(
+        elevation: 4.0,
+        margin: EdgeInsets.all(16.0),
+        child: Row(
+          children: [
+            Expanded(
+              flex: 1,
+              child: Image.network(
+                image,
+                fit: BoxFit.cover,
               ),
             ),
-          ),
-        ],
+            Expanded(
+              flex: 2,
+              child: Padding(
+                padding: EdgeInsets.all(16.0),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(
+                      title,
+                      style: TextStyle(
+                        fontSize: 20.0,
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
+                    SizedBox(height: 8.0),
+                    Text(
+                      description,
+                      style: TextStyle(fontSize: 16.0),
+                    ),
+                    SizedBox(height: 8.0),
+                    Text(
+                      additionalInfo,
+                      style: TextStyle(fontSize: 16.0),
+                    ),
+                  ],
+                ),
+              ),
+            ),
+          ],
+        ),
       ),
     );
   }
 }
+
+
+ // PersonalCard(
+                                //   image: snapshot
+                                //       .child('image_url')
+                                //       .value
+                                //       .toString(),
+                                //   title:
+                                //       snapshot.child('name').value.toString(),
+                                //   description: snapshot
+                                //       .child('degination')
+                                //       .value
+                                //       .toString(),
+                                //   additionalInfo:
+                                //       snapshot.child('type').value.toString(),
+                                // ),
