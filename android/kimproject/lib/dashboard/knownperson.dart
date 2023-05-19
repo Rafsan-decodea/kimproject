@@ -52,62 +52,93 @@ class _KnownPersonState extends State<KnownPerson> {
         ),
         backgroundColor: Colors.transparent,
       ),
-      body: Column(
+      body: Stack(
         children: [
-          Expanded(
-              child: FirebaseAnimatedList(
-            query: intruderRef,
-            defaultChild: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                Center(
-                    child: Text(
-                  "Loading Data ....",
-                  style: TextStyle(fontSize: 30),
-                ))
-              ],
-            ),
-            itemBuilder: (context, snapshot, animation, index) {
-              return Padding(
-                padding: const EdgeInsets.only(top: 6),
-                child: ListTile(
-                  title: Column(
-                    children: [
-                      PersonalCard(
-                        image: snapshot.child('image_url').value.toString(),
-                        title: snapshot.child('name').value.toString(),
-                        description:
-                            snapshot.child('degination').value.toString(),
-                        additionalInfo: snapshot.child('type').value.toString(),
+          Column(
+            mainAxisAlignment: MainAxisAlignment.start,
+            children: [
+              FirebaseAnimatedList(
+                query: knownRef,
+                defaultChild: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Center(
+                      child: Text(
+                        "Loading Data ....",
+                        style: TextStyle(fontSize: 30),
                       ),
-                    ],
-                  ),
-                  subtitle: Stack(
-                    alignment: Alignment.center,
-                    children: [
-                      CircularProgressIndicator(), // show the progress indicator
-                      Container(
-                        decoration: BoxDecoration(
-                          border: Border.all(
-                            color: Color.fromARGB(255, 131, 11, 243),
-                            width: 2.0,
-                          ),
-                          borderRadius: BorderRadius.circular(10.0),
-                        ),
-                        padding: EdgeInsets.all(5.0),
-                        child: Image.network(
-                          snapshot.child('image').value.toString(),
-                          fit:
-                              BoxFit.cover, // set the scaling mode of the image
-                        ),
-                      ),
-                    ],
-                  ),
-                  splashColor: Colors.red,
+                    ),
+                  ],
                 ),
-              );
-            },
-          )),
+                itemBuilder: (context, snapshot, animation, index) {
+                  return Padding(
+                    padding: const EdgeInsets.only(top: 6),
+                    child: Container(
+                      height: 150, // Adjust the height as needed
+                      child: ListTile(
+                        title: Column(
+                          children: [
+                            Text(snapshot.child('image_url').value.toString()),
+                            // PersonalCard(
+                            //   image: snapshot
+                            //       .child('image_url')
+                            //       .value
+                            //       .toString(),
+                            //   title:
+                            //       snapshot.child('name').value.toString(),
+                            //   description: snapshot
+                            //       .child('degination')
+                            //       .value
+                            //       .toString(),
+                            //   additionalInfo:
+                            //       snapshot.child('type').value.toString(),
+                            // ),
+                          ],
+                        ),
+                        splashColor: Colors.red,
+                      ),
+                    ),
+                  );
+                },
+              )
+            ],
+          ),
+          Positioned(
+            bottom: 50.0,
+            right: 140.0,
+            child: AnimatedContainer(
+              duration: Duration(milliseconds: 2),
+              curve: Curves.easeInOut,
+              width: 60.0,
+              height: 60.0,
+              decoration: BoxDecoration(
+                shape: BoxShape.circle,
+                color: buttonColor,
+              ),
+              child: IconButton(
+                onPressed: () {
+                  print(PubicImageStoreVar.imagePathValue.value);
+                  showDialog(
+                    context: context,
+                    builder: (BuildContext context) {
+                      return ImageCapturePopup();
+                    },
+                  ).then((value) {
+                    if (value != null) {
+                      Navigator.pushNamed(context, '/personalinfo');
+                    }
+                  });
+
+                  // Add your logic for the "Add People" button here
+                },
+                icon: Icon(
+                  Icons.add,
+                  size: 36.0,
+                  color: Colors.white,
+                ),
+              ),
+            ),
+          )
         ],
       ),
     );
