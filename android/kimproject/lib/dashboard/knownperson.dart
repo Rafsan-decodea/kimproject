@@ -57,50 +57,43 @@ class _KnownPersonState extends State<KnownPerson> {
           Column(
             mainAxisAlignment: MainAxisAlignment.start,
             children: [
-              FirebaseAnimatedList(
-                query: knownRef,
-                defaultChild: Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    Center(
-                      child: Text(
-                        "Loading Data ....",
-                        style: TextStyle(fontSize: 30),
+              Expanded(
+                child: FirebaseAnimatedList(
+                  query: knownRef,
+                  defaultChild: Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Center(
+                        child: Text(
+                          "Loading Data ....",
+                          style: TextStyle(fontSize: 30),
+                        ),
                       ),
-                    ),
-                  ],
-                ),
-                itemBuilder: (context, snapshot, animation, index) {
-                  return Padding(
-                    padding: const EdgeInsets.only(top: 6),
-                    child: Container(
+                    ],
+                  ),
+                  itemBuilder: (context, snapshot, animation, index) {
+                    return Container(
                       height: 150, // Adjust the height as needed
                       child: ListTile(
                         title: Column(
                           children: [
-                            Text(snapshot.child('image_url').value.toString()),
-                            // PersonalCard(
-                            //   image: snapshot
-                            //       .child('image_url')
-                            //       .value
-                            //       .toString(),
-                            //   title:
-                            //       snapshot.child('name').value.toString(),
-                            //   description: snapshot
-                            //       .child('degination')
-                            //       .value
-                            //       .toString(),
-                            //   additionalInfo:
-                            //       snapshot.child('type').value.toString(),
-                            // ),
+                            PersonalCard(
+                              image:
+                                  snapshot.child('image_url').value.toString(),
+                              title: snapshot.child('name').value.toString(),
+                              description:
+                                  snapshot.child('degination').value.toString(),
+                              additionalInfo:
+                                  snapshot.child('type').value.toString(),
+                            ),
                           ],
                         ),
                         splashColor: Colors.red,
                       ),
-                    ),
-                  );
-                },
-              )
+                    );
+                  },
+                ),
+              ),
             ],
           ),
           Positioned(

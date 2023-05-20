@@ -17,7 +17,9 @@ class Dashboard extends StatefulWidget {
 class _DashboardState extends State<Dashboard> {
   late final LocalNotificationService service;
   late DatabaseReference _databaseRef;
+  late DatabaseReference _databaseRef2;
   String? _howManyintruder = "0";
+  String? _howManyKnown = "0";
   aboutAchivements(num, type) {
     return Row(
       children: [
@@ -104,7 +106,7 @@ class _DashboardState extends State<Dashboard> {
 
 // This Test Method For Database read once for Notification Show at once in same Page
   test() {
-    _databaseRef = FirebaseDatabase.instance.reference().child('intruder');
+    _databaseRef = FirebaseDatabase.instance.ref('intruder');
 
     _databaseRef.once().then((DatabaseEvent snapshot) {
       setState(() {
@@ -135,7 +137,8 @@ class _DashboardState extends State<Dashboard> {
     service.intialize();
     notification(); // This is for intruder Detected Notification
     super.initState();
-    _databaseRef = FirebaseDatabase.instance.reference().child('intruder');
+    _databaseRef = FirebaseDatabase.instance.ref('intruder');
+    _databaseRef2 = FirebaseDatabase.instance.ref('knownperson');
 
     // that Have to be work
     // _databaseRef.once().then((DatabaseEvent snapshot) {
@@ -187,6 +190,27 @@ class _DashboardState extends State<Dashboard> {
               //compute(notification2, date);
               break;
             }
+          }
+        });
+      }
+    });
+
+    _databaseRef2.onValue.listen((event) {
+      // null value protection
+      if (event.snapshot.value != null) {
+        setState(() {
+          dynamic data = event.snapshot.value;
+          // if (data != null) {
+          //   data.forEach((key, value) {
+          //     String date = value["date"];
+          //     String image = value["image"];
+          //     String type = value["type"];
+          //   });
+          // }
+          if (data != null) {
+            Map<String, dynamic> mapData = Map<String, dynamic>.from(data);
+            List<String> keys = mapData.keys.toList();
+            _howManyKnown = keys.length.toString();
           }
         });
       }
@@ -343,7 +367,7 @@ class _DashboardState extends State<Dashboard> {
                               FontAwesomeIcons.idCard,
                               'Total Known ',
                               '/knownpersone',
-                              '0',
+                              _howManyKnown,
                               "UpComing",
                               "Upcoming on Future Update"),
                           mySpec(

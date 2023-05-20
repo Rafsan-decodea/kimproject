@@ -8,7 +8,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/framework.dart';
 //import 'package:flutter/src/widgets/placeholder.dart';
 
-class PersonalCard extends StatelessWidget {
+class PersonalCard extends StatefulWidget {
   final String image;
   final String title;
   final String description;
@@ -22,43 +22,48 @@ class PersonalCard extends StatelessWidget {
   });
 
   @override
+  State<PersonalCard> createState() => _PersonalCardState();
+}
+
+class _PersonalCardState extends State<PersonalCard> {
+  @override
   Widget build(BuildContext context) {
     return IntrinsicHeight(
       child: Card(
         elevation: 4.0,
-        margin: EdgeInsets.all(16.0),
+        margin: const EdgeInsets.all(16.0),
         child: Row(
           children: [
             Expanded(
-              flex: 1,
+              flex: 2,
               child: Image.network(
-                image,
-                fit: BoxFit.cover,
+                widget.image,
+                fit: BoxFit.fill,
               ),
             ),
             Expanded(
               flex: 2,
               child: Padding(
-                padding: EdgeInsets.all(16.0),
+                padding: const EdgeInsets.all(16.0),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text(
-                      title,
-                      style: TextStyle(
+                      widget.title,
+                      style: const TextStyle(
                         fontSize: 20.0,
                         fontWeight: FontWeight.bold,
                       ),
                     ),
-                    SizedBox(height: 8.0),
+                    const SizedBox(height: 8.0),
                     Text(
-                      description,
-                      style: TextStyle(fontSize: 16.0),
+                      widget.description,
+                      style: const TextStyle(fontSize: 16.0),
                     ),
-                    SizedBox(height: 8.0),
+                    const SizedBox(height: 8.0),
                     Text(
-                      additionalInfo,
-                      style: TextStyle(fontSize: 16.0),
+                      widget.additionalInfo,
+                      style: const TextStyle(fontSize: 16.0),
                     ),
                   ],
                 ),

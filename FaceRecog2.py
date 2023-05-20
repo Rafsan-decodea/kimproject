@@ -273,8 +273,8 @@ def identify():
     cv2.destroyAllWindows()
 
 
-# identify()
-facecap()
+identify()
+#facecap()
 
 # imagerafsan1 = face_recognition.load_image_file('images/rafsan.jpg')
 # imagerafsan1 = cv2.cvtColor(imagerafsan1, cv2.COLOR_BGR2RGB)
