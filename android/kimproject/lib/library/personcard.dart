@@ -36,9 +36,27 @@ class _PersonalCardState extends State<PersonalCard> {
           children: [
             Expanded(
               flex: 2,
-              child: Image.network(
-                widget.image,
-                fit: BoxFit.fill,
+              child: Stack(
+                alignment: Alignment.center,
+                children: [
+                  CircularProgressIndicator(), // show the progress indicator
+                  Container(
+                    decoration: BoxDecoration(
+                      border: Border.all(
+                        color: Color.fromARGB(255, 131, 11, 243),
+                        width: 2.0,
+                      ),
+                      borderRadius: BorderRadius.circular(10.0),
+                    ),
+                    padding: EdgeInsets.all(5.0),
+                    child: Image.network(
+                      widget.image,
+                      fit: BoxFit.cover,
+                      height: 100.0,
+                      width: 130.0, // set the scaling mode of the image
+                    ),
+                  ),
+                ],
               ),
             ),
             Expanded(
