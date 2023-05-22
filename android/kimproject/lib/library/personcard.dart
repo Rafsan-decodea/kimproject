@@ -86,6 +86,9 @@ class _PersonalCardState extends State<PersonalCard> {
                         style: const TextStyle(fontSize: 16.0),
                       ),
                       SizedBox(
+                        height: 2,
+                      ),
+                      SizedBox(
                         height: 25,
                         width: 8,
                         child: Row(
