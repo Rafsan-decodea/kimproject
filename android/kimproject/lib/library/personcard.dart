@@ -6,8 +6,8 @@
 //import '../library/firebasefile.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/framework.dart';
-//import 'package:flutter/src/widgets/placeholder.dart';
 
+//import 'package:flutter/src/widgets/placeholder.dart';
 class PersonalCard extends StatefulWidget {
   final String image;
   final String title;
@@ -30,8 +30,8 @@ class _PersonalCardState extends State<PersonalCard> {
   Widget build(BuildContext context) {
     return IntrinsicHeight(
       child: Card(
-        elevation: 4.0,
-        margin: const EdgeInsets.all(16.0),
+        elevation: 10.0,
+        margin: const EdgeInsets.all(3.0),
         child: Row(
           children: [
             Expanded(
@@ -53,7 +53,7 @@ class _PersonalCardState extends State<PersonalCard> {
                       widget.image,
                       fit: BoxFit.cover,
                       height: 100.0,
-                      width: 130.0, // set the scaling mode of the image
+                      width: 140.0, // set the scaling mode of the image
                     ),
                   ),
                 ],
@@ -63,27 +63,75 @@ class _PersonalCardState extends State<PersonalCard> {
               flex: 2,
               child: Padding(
                 padding: const EdgeInsets.all(16.0),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text(
-                      widget.title,
-                      style: const TextStyle(
-                        fontSize: 20.0,
-                        fontWeight: FontWeight.bold,
+                child: SingleChildScrollView(
+                  scrollDirection: Axis.vertical,
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(
+                        widget.title,
+                        style: const TextStyle(
+                          fontSize: 20.0,
+                          fontWeight: FontWeight.bold,
+                        ),
                       ),
-                    ),
-                    const SizedBox(height: 8.0),
-                    Text(
-                      widget.description,
-                      style: const TextStyle(fontSize: 16.0),
-                    ),
-                    const SizedBox(height: 8.0),
-                    Text(
-                      widget.additionalInfo,
-                      style: const TextStyle(fontSize: 16.0),
-                    ),
-                  ],
+                      const SizedBox(height: 8.0),
+                      Text(
+                        widget.description,
+                        style: const TextStyle(fontSize: 16.0),
+                      ),
+                      const SizedBox(height: 8.0),
+                      Text(
+                        widget.additionalInfo,
+                        style: const TextStyle(fontSize: 16.0),
+                      ),
+                      SizedBox(
+                        height: 25,
+                        width: 8,
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            OutlinedButton(
+                              onPressed: () {
+                                // Edit button logic
+                              },
+                              style: OutlinedButton.styleFrom(
+                                primary: Colors
+                                    .blue, // Set the color of the button text
+                                side: BorderSide(
+                                    color: Colors.blue), // Set the border color
+                                shape: RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.circular(
+                                      8.0), // Set the border radius
+                                ),
+                              ),
+                              child: Text('Edit'),
+                            ),
+                            SizedBox(
+                              width: 2,
+                            ),
+                            OutlinedButton(
+                              onPressed: () {
+                                // Edit button logic
+                              },
+                              style: OutlinedButton.styleFrom(
+                                primary: Color.fromARGB(255, 252, 10,
+                                    10), // Set the color of the button text
+                                side: BorderSide(
+                                    color: Color.fromARGB(255, 243, 4,
+                                        4)), // Set the border color
+                                shape: RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.circular(
+                                      8.0), // Set the border radius
+                                ),
+                              ),
+                              child: Text('Delete'),
+                            ),
+                          ],
+                        ),
+                      ),
+                    ],
+                  ),
                 ),
               ),
             ),
@@ -93,19 +141,3 @@ class _PersonalCardState extends State<PersonalCard> {
     );
   }
 }
-
-
- // PersonalCard(
-                                //   image: snapshot
-                                //       .child('image_url')
-                                //       .value
-                                //       .toString(),
-                                //   title:
-                                //       snapshot.child('name').value.toString(),
-                                //   description: snapshot
-                                //       .child('degination')
-                                //       .value
-                                //       .toString(),
-                                //   additionalInfo:
-                                //       snapshot.child('type').value.toString(),
-                                // ),
