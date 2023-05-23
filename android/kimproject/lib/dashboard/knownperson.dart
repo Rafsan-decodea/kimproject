@@ -73,7 +73,8 @@ class _KnownPersonState extends State<KnownPerson> {
                   ),
                   itemBuilder: (context, snapshot, animation, index) {
                     return Container(
-                      height: 150, // Adjust the height as needed
+                      height: 220,
+                      // Adjust the height as needed
                       child: ListTile(
                         title: Column(
                           children: [
