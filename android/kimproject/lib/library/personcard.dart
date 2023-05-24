@@ -6,6 +6,7 @@
 //import '../library/firebasefile.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/framework.dart';
+import 'package:kimproject/library/firebasefile.dart';
 
 //import 'package:flutter/src/widgets/placeholder.dart';
 class PersonalCard extends StatefulWidget {
@@ -13,8 +14,10 @@ class PersonalCard extends StatefulWidget {
   final String title;
   final String description;
   final String additionalInfo;
+  final dynamic index;
 
   PersonalCard({
+    required this.index,
     required this.image,
     required this.title,
     required this.description,
@@ -110,6 +113,29 @@ class _PersonalCardState extends State<PersonalCard> {
                               ),
                               OutlinedButton(
                                 onPressed: () {
+                                  try {
+                                    deleteData(widget.index, widget.image);
+                                    showDialog(
+                                      context: context,
+                                      builder: (BuildContext context) {
+                                        return AlertDialog(
+                                          title: Text('Notification'),
+                                          content:
+                                              Text('Deleted Success Fully'),
+                                        );
+                                      },
+                                    );
+                                  } catch (e) {
+                                    showDialog(
+                                      context: context,
+                                      builder: (BuildContext context) {
+                                        return AlertDialog(
+                                          title: Text('Notification'),
+                                          content: Text('Error ==>{$e}'),
+                                        );
+                                      },
+                                    );
+                                  }
                                   // Edit button logic
                                 },
                                 style: OutlinedButton.styleFrom(

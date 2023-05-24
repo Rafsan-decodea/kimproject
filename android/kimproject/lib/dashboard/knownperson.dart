@@ -79,6 +79,7 @@ class _KnownPersonState extends State<KnownPerson> {
                         title: Column(
                           children: [
                             PersonalCard(
+                              index: snapshot.key,
                               image:
                                   snapshot.child('image_url').value.toString(),
                               title: snapshot.child('name').value.toString(),

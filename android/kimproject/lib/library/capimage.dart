@@ -260,3 +260,37 @@ class _ImageInfoDialogState extends State<ImageInfoDialog> {
     );
   }
 }
+
+class ProgressBox extends StatefulWidget {
+  @override
+  _ProgressBoxState createState() => _ProgressBoxState();
+}
+
+class _ProgressBoxState extends State<ProgressBox>
+    with TickerProviderStateMixin {
+  @override
+  Widget build(BuildContext context) {
+    return AnimatedContainer(
+      duration: const Duration(seconds: 2),
+      decoration: BoxDecoration(
+        gradient: LinearGradient(
+          begin: Alignment.topLeft,
+          end: Alignment.bottomRight,
+          colors: [Colors.black45, Colors.white, Colors.yellow],
+        ),
+        borderRadius: BorderRadius.circular(10.0),
+      ),
+      width: 200.0,
+      height: 40.0,
+      child: Center(
+        child: Text(
+          'Loading...',
+          style: TextStyle(
+            color: Colors.white,
+            fontWeight: FontWeight.bold,
+          ),
+        ),
+      ),
+    );
+  }
+}
