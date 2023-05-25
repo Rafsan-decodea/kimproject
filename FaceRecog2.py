@@ -12,6 +12,26 @@ from cvzone.FaceMeshModule import FaceMeshDetector
 now = datetime.datetime.now()
 
 
+def KnownImages():
+    config = {
+        "apiKey": "AIzaSyBiP96UgQNqzcblfcNqmp8arneThFH7SQI",
+        "authDomain": "kimsirproject.firebaseapp.com",
+        "databaseURL": "https://kimsirproject-default-rtdb.firebaseio.com",
+        "projectId": "kimsirproject",
+        "storageBucket": "kimsirproject.appspot.com",
+        "messagingSenderId": "186797081014",
+        "appId": "1:186797081014:web:d9d08d73bacdd7feb30117",
+        "measurementId": "G-Q268WWQZPN"
+    }
+    firebase = pyrebase.initialize_app(config)
+    storage = firebase.storage()
+    path_on_cloud="/known"
+    url = storage.child(path_on_cloud).get_url("AIzaSyBiP96UgQNqzcblfcNqmp8arneThFH7SQI")
+    print (url)
+    
+
+
+
 def IntruderUpload():
     config = {
         "apiKey": "AIzaSyBiP96UgQNqzcblfcNqmp8arneThFH7SQI",
@@ -273,8 +293,9 @@ def identify():
     cv2.destroyAllWindows()
 
 
-identify()
+#identify()
 #facecap()
+KnownImages()
 
 # imagerafsan1 = face_recognition.load_image_file('images/rafsan.jpg')
 # imagerafsan1 = cv2.cvtColor(imagerafsan1, cv2.COLOR_BGR2RGB)
