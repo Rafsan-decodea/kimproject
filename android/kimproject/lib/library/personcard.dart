@@ -96,6 +96,16 @@ class _PersonalCardState extends State<PersonalCard> {
                             children: [
                               OutlinedButton(
                                 onPressed: () {
+                                  showDialog(
+                                      context: context,
+                                      builder: (context) {
+                                        return Column(
+                                          children: [
+                                            Text(
+                                                "This Will Come in Future Update"),
+                                          ],
+                                        );
+                                      });
                                   // Edit button logic
                                 },
                                 style: OutlinedButton.styleFrom(
