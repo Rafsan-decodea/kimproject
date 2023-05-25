@@ -149,7 +149,7 @@ class _UnknownPersonState extends State<UnknownPerson> {
                                     onPressed: () {
                                       Navigator.pop(context, false);
                                       try {
-                                        deleteData(
+                                        deleteDataFromIntruder(
                                             snapshot.key,
                                             snapshot
                                                 .child('image')

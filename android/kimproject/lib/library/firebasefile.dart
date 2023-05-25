@@ -9,8 +9,24 @@ final auth = FirebaseAuth.instance;
 final intruderRef = FirebaseDatabase.instance.ref("intruder");
 final knownRef = FirebaseDatabase.instance.ref("knownperson");
 
-void deleteData(dynamic key, dynamic imageURL) {
+void deleteDataFromIntruder(dynamic key, dynamic imageURL) {
   final ref = FirebaseDatabase.instance.ref("intruder");
+
+  try {
+    final storageRef = FirebaseStorage.instance.refFromURL(imageURL);
+    storageRef.delete().then((_) {
+      print("Storage data deleted successfully");
+    }).catchError((error) {
+      print("Failed to delete storage data: $error");
+    });
+    ref.child(key).remove();
+  } catch (e) {
+    ref.child(key).remove();
+  }
+}
+
+void deleteDataFromKnown(dynamic key, dynamic imageURL) {
+  final ref = FirebaseDatabase.instance.ref("knownperson");
 
   try {
     final storageRef = FirebaseStorage.instance.refFromURL(imageURL);
@@ -50,7 +66,8 @@ Future<void> addPerson(String string1, String string2, String string3) async {
       'type': string3,
       'timestamp': DateTime.now().toString(),
     });
-
+    final file = File(PubicImageStoreVar.imagePathValue.value);
+    file.delete();
     print('Image and strings uploaded successfully.');
   } catch (error) {
     print('Error uploading image and strings: $error');

@@ -164,6 +164,43 @@ class _ImageInfoDialogState extends State<ImageInfoDialog> {
     );
   }
 
+  showProgressDialog(BuildContext context) {
+    showDialog(
+      context: context,
+      barrierDismissible: false,
+      builder: (BuildContext context) {
+        return ProgressDialog();
+      },
+    );
+  }
+
+  showProgressDoneDialog(BuildContext context) {
+    showDialog(
+      context: context,
+      barrierDismissible: false,
+      builder: (BuildContext context) {
+        return ProgressDialogDone();
+      },
+    );
+  }
+
+  void performOperation(BuildContext context) {
+    // Goto Back
+    showProgressDialog(context);
+
+    addPerson(name, degicnation, status).then((value) {
+      final file = File(PubicImageStoreVar.imagePathValue.value);
+      file.delete();
+      print("Done");
+
+      // Close the progress dialog
+      Navigator.pop(context); //Goto Back
+      Navigator.pop(context);
+      //goto back
+      showProgressDoneDialog(context);
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return Padding(
@@ -225,15 +262,9 @@ class _ImageInfoDialogState extends State<ImageInfoDialog> {
               onPressed: () {
                 // Process the captured image and information here
                 // You can save the image, store the information, etc.
-                addPerson(name, degicnation, status).then((value) => () {
-                      final file =
-                          File(PubicImageStoreVar.imagePathValue.value);
-                      file.delete();
-                      print("done");
-                    });
+                performOperation(context);
 
                 // Close the dialog
-                Navigator.pop(context);
               },
               child: Text('Save'),
             ),
@@ -289,6 +320,68 @@ class _ProgressBoxState extends State<ProgressBox>
             color: Colors.white,
             fontWeight: FontWeight.bold,
           ),
+        ),
+      ),
+    );
+  }
+}
+
+class ProgressDialog extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return Dialog(
+      backgroundColor: Colors.transparent,
+      elevation: 0,
+      child: Container(
+        decoration: BoxDecoration(
+          color: Colors.white,
+          borderRadius: BorderRadius.circular(10.0),
+        ),
+        padding: EdgeInsets.all(16.0),
+        child: Column(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            CircularProgressIndicator(),
+            SizedBox(height: 16.0),
+            Text(
+              "Operation in Progress",
+              style: TextStyle(
+                fontSize: 16.0,
+                fontWeight: FontWeight.bold,
+              ),
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+}
+
+class ProgressDialogDone extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return Dialog(
+      backgroundColor: Colors.transparent,
+      elevation: 0,
+      child: Container(
+        decoration: BoxDecoration(
+          color: Colors.white,
+          borderRadius: BorderRadius.circular(10.0),
+        ),
+        padding: EdgeInsets.all(16.0),
+        child: Column(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            Icon(Icons.done_all_rounded),
+            SizedBox(height: 16.0),
+            Text(
+              "Done",
+              style: TextStyle(
+                fontSize: 16.0,
+                fontWeight: FontWeight.bold,
+              ),
+            ),
+          ],
         ),
       ),
     );

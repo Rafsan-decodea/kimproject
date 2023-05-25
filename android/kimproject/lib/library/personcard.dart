@@ -113,29 +113,91 @@ class _PersonalCardState extends State<PersonalCard> {
                               ),
                               OutlinedButton(
                                 onPressed: () {
-                                  try {
-                                    deleteData(widget.index, widget.image);
-                                    showDialog(
-                                      context: context,
-                                      builder: (BuildContext context) {
-                                        return AlertDialog(
-                                          title: Text('Notification'),
-                                          content:
-                                              Text('Deleted Success Fully'),
-                                        );
-                                      },
-                                    );
-                                  } catch (e) {
-                                    showDialog(
-                                      context: context,
-                                      builder: (BuildContext context) {
-                                        return AlertDialog(
-                                          title: Text('Notification'),
-                                          content: Text('Error ==>{$e}'),
-                                        );
-                                      },
-                                    );
-                                  }
+                                  showDialog<bool>(
+                                    context: context,
+                                    builder: (context) {
+                                      return AlertDialog(
+                                        shape: RoundedRectangleBorder(
+                                          borderRadius:
+                                              BorderRadius.circular(20.0),
+                                        ),
+                                        title: Text(
+                                          'Delete Item?',
+                                          style: TextStyle(
+                                            fontWeight: FontWeight.bold,
+                                            fontSize: 20.0,
+                                          ),
+                                        ),
+                                        content: Text(
+                                          'Are you sure you want to delete this item?',
+                                          style: TextStyle(
+                                            fontSize: 16.0,
+                                          ),
+                                        ),
+                                        actions: [
+                                          TextButton(
+                                            onPressed: () {
+                                              // alert Box Close
+                                              Navigator.pop(context, false);
+                                            },
+                                            child: Text(
+                                              'No',
+                                              style: TextStyle(
+                                                color: Colors.redAccent,
+                                                fontSize: 16.0,
+                                                fontWeight: FontWeight.bold,
+                                              ),
+                                            ),
+                                          ),
+                                          TextButton(
+                                            onPressed: () {
+                                              Navigator.pop(context, false);
+                                              try {
+                                                deleteDataFromKnown(
+                                                    widget.index, widget.image);
+                                                showDialog(
+                                                  context: context,
+                                                  builder:
+                                                      (BuildContext context) {
+                                                    return AlertDialog(
+                                                      title:
+                                                          Text('Notification'),
+                                                      content: Text(
+                                                          'Deleted Success Fully'),
+                                                    );
+                                                  },
+                                                );
+                                              } catch (e) {
+                                                showDialog(
+                                                  context: context,
+                                                  builder:
+                                                      (BuildContext context) {
+                                                    return AlertDialog(
+                                                      title:
+                                                          Text('Notification'),
+                                                      content:
+                                                          Text('Error ==>{$e}'),
+                                                    );
+                                                  },
+                                                );
+                                              }
+                                              // Alert Box Close After Delete
+                                            },
+                                            child: Text(
+                                              'Yes',
+                                              style: TextStyle(
+                                                color: Color.fromARGB(
+                                                    255, 12, 61, 223),
+                                                fontSize: 16.0,
+                                                fontWeight: FontWeight.bold,
+                                              ),
+                                            ),
+                                          ),
+                                        ],
+                                      );
+                                    },
+                                  );
+
                                   // Edit button logic
                                 },
                                 style: OutlinedButton.styleFrom(
