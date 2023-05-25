@@ -48,7 +48,7 @@ Future<void> addPerson(String string1, String string2, String string3) async {
 
     // Create a reference to the Firebase Storage location
     Reference storageReference =
-        FirebaseStorage.instance.ref().child('$imageName');
+        FirebaseStorage.instance.ref().child('/known/$imageName');
 
     // Upload the image file to Firebase Storage
     UploadTask uploadTask =

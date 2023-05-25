@@ -35,7 +35,7 @@ def IntruderUpload():
     # Image upload from directory
     url = ''
     for x in images:
-        path_on_cloud = "/images"
+        path_on_cloud = "/intruderimages"
         filess = "intruderimg/"+x
         storage.child(path_on_cloud+x).put(filess)
         url = storage.child(
