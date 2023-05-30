@@ -49,17 +49,17 @@ def IntruderUpload():
     mylist = os.listdir("intruderimg")
     images = []
     # input all image path to list
-    for x in mylist:
-        images.append(x)
+    for image in mylist:
+        images.append(image)
 
     # Image upload from directory
     url = ''
-    for x in images:
-        path_on_cloud = "/intruderimages"
-        filess = "intruderimg/"+x
-        storage.child(path_on_cloud+x).put(filess)
+    for image in images:
+        path_on_local = "/intruderimages"
+        filess = "intruderimg/"+image
+        storage.child(path_on_local+image).put(filess)
         url = storage.child(
-            path_on_cloud+x).get_url("AIzaSyBiP96UgQNqzcblfcNqmp8arneThFH7SQI")
+            path_on_local+image).get_url("AIzaSyBiP96UgQNqzcblfcNqmp8arneThFH7SQI")
 
         # storage.child("").delete("images/rafsan.jpg",
         #                          "AIzaSyBiP96UgQNqzcblfcNqmp8arneThFH7SQI")
