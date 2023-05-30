@@ -1,54 +1,28 @@
-import face_recognition
-import cv2
-import numpy as np
+import pyrebase
+from google.cloud import storage
+import os 
+config = {
+        "apiKey": "AIzaSyBiP96UgQNqzcblfcNqmp8arneThFH7SQI",
+        "authDomain": "kimsirproject.firebaseapp.com",
+        "databaseURL": "https://kimsirproject-default-rtdb.firebaseio.com",
+        "projectId": "kimsirproject",
+        "storageBucket": "kimsirproject.appspot.com",
+        "messagingSenderId": "186797081014",
+        "appId": "1:186797081014:web:d9d08d73bacdd7feb30117",
+        "measurementId": "G-Q268WWQZPN"
+    }
 
-# Load pre-trained Haar cascades for face detection
-face_cascade = cv2.CascadeClassifier("../xml/haarcascade_frontalface_default.xml")
+firebase = pyrebase.initialize_app(config)
+base_dir = os.getcwd()
+storage_client = storage.Client.from_service_account_json(base_dir+"/firebase.json")
 
-# Load pre-trained emotion detection model
-model = cv2.ml.SVM_load("svm_model.xml")
+def fetch_all_images():
+    bucket = storage_client.get_bucket("known")
+    blobs = bucket.list_blobs()
 
-# Define dictionary to map predicted labels to emotions
-emotions = {
-    0: "Angry",
-    1: "Disgust",
-    2: "Fear",
-    3: "Happy",
-    4: "Neutral",
-    5: "Sad",
-    6: "Surprise",
-}
+    for blob in blobs:
+        if blob.name.endswith('.jpg') or blob.name.endswith('.jpeg') or blob.name.endswith('.png'):
+            print('Image URL:', blob.public_url)  # Print the download URL
+            # Perform any further processing or display the images as needed
 
-# Load sample image
-img = cv2.imread("sample_image.jpg")
-
-# Convert image to grayscale
-gray = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
-
-# Detect faces in image using Haar cascades
-faces = face_cascade.detectMultiScale(gray, scaleFactor=1.1, minNeighbors=5)
-
-# Loop over detected faces
-for x, y, w, h in faces:
-    # Extract face ROI
-    roi = gray[y : y + h, x : x + w]
-    # Resize ROI to match model input size
-    roi = cv2.resize(roi, (48, 48), interpolation=cv2.INTER_AREA)
-    # Flatten ROI into 1D numpy array
-    roi = np.reshape(roi, (1, -1))
-    # Normalize ROI pixel values to range [0, 1]
-    roi = roi.astype(float) / 255.0
-    # Predict emotion label using model
-    label = int(model.predict(roi)[1][0])
-    # Map predicted label to emotion string
-    emotion = emotions[label]
-    # Draw bounding box and label on original image
-    cv2.rectangle(img, (x, y), (x + w, y + h), (0, 255, 0), 2)
-    cv2.putText(
-        img, emotion, (x, y - 10), cv2.FONT_HERSHEY_SIMPLEX, 0.9, (0, 255, 0), 2
-    )
-
-# Display resulting image
-cv2.imshow("Emotion detection", img)
-cv2.waitKey(0)
-cv2.destroyAllWindows()
+fetch_all_images()
