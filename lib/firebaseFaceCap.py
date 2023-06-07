@@ -1,6 +1,3 @@
-
-
-
 import cv2
 import numpy as np
 import firebase_admin
@@ -39,13 +36,13 @@ def get_image(bucket_name, image_name):
     image = cv2.imdecode(image_array, cv2.IMREAD_COLOR)
     return image
 
-bucket_name = "kimsirproject.appspot.com"
-directory = "known"  # Specify the directory path within the bucket
+# bucket_name = "kimsirproject.appspot.com"
+# directory = "known"  # Specify the directory path within the bucket
 
-images = get_images_from_directory(bucket_name, directory)
+# images = get_images_from_directory(bucket_name, directory)
 
-for image in images:
+# for image in images:
 
-    cv2.imshow("Image", image)
-    cv2.waitKey(0)
-    cv2.destroyAllWindows()
+#     cv2.imshow("Image", image)
+#     cv2.waitKey(0)
+#     cv2.destroyAllWindows()
