@@ -8,6 +8,7 @@ import datetime
 # from datetime import datetime
 import threading
 import glob
+import lib.firebaseFaceCap
 from cvzone.FaceMeshModule import FaceMeshDetector
 now = datetime.datetime.now()
 
