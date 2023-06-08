@@ -11,6 +11,7 @@ import glob
 import lib.firebaseFaceCap
 from cvzone.FaceMeshModule import FaceMeshDetector
 now = datetime.datetime.now()
+from lib.firebaseFaceCap import *
 
 
 def KnownImages():
@@ -206,7 +207,11 @@ def identify():
             ids.append(parts[1].split('.')[0])
     for imgWithBG in images:
         imgWithBG = cv2.cvtColor(imgWithBG, cv2.COLOR_BGR2RGB)
-        encodefaces = face_recognition.face_encodings(imgWithBG)[0]
+        #encodefaces = face_recognition.face_encodings(imgWithBG)[0]
+        # insert my image
+        directory = "known"
+        bucket_name = "kimsirproject.appspot.com"
+        encodefaces = get_images_from_directory(bucket_name, directory)
         faceEncodeList.append(encodefaces)
 
     cap = cv2.VideoCapture(0)
@@ -294,9 +299,9 @@ def identify():
     cv2.destroyAllWindows()
 
 
-#identify()
+identify()
 #facecap()
-KnownImages()
+#KnownImages()
 
 # imagerafsan1 = face_recognition.load_image_file('images/rafsan.jpg')
 # imagerafsan1 = cv2.cvtColor(imagerafsan1, cv2.COLOR_BGR2RGB)

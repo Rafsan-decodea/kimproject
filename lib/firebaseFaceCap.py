@@ -4,8 +4,9 @@ import firebase_admin
 from firebase_admin import credentials
 from firebase_admin import storage
 from io import BytesIO
+import os
 
-cred = credentials.Certificate("../firebase.json")
+cred = credentials.Certificate("firebase.json")
 firebase_admin.initialize_app(cred)
 
 def get_bucket(bucket_name):
@@ -36,8 +37,8 @@ def get_image(bucket_name, image_name):
     image = cv2.imdecode(image_array, cv2.IMREAD_COLOR)
     return image
 
-bucket_name = "kimsirproject.appspot.com"
-directory = ""  # Specify the directory path within the bucket
+#bucket_name = "kimsirproject.appspot.com"
+#directory = ""  # Specify the directory path within the bucket
 
 # images = get_images_from_directory(bucket_name, directory)
 
