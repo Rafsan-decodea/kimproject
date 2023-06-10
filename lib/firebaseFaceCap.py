@@ -6,7 +6,8 @@ from firebase_admin import storage
 from io import BytesIO
 import os
 
-cred = credentials.Certificate("firebase.json")
+
+cred = credentials.Certificate("/home/rafsan/myfile/program/python/kimproject/lib/firebase.json")
 firebase_admin.initialize_app(cred)
 
 def get_bucket(bucket_name):
@@ -36,6 +37,26 @@ def get_image(bucket_name, image_name):
     image_array = np.frombuffer(image_data, np.uint8)
     image = cv2.imdecode(image_array, cv2.IMREAD_COLOR)
     return image
+
+def download_images_from_directory(bucket_name, directory, save_directory):
+    bucket = get_bucket(bucket_name)
+    blobs = bucket.list_blobs(prefix=directory)
+
+    for blob in blobs:
+        image_name = blob.name+'.jpg'
+        save_path = os.path.join(save_directory, image_name)
+
+        # Create directory if it doesn't exist
+        os.makedirs(os.path.dirname(save_path), exist_ok=True)
+
+        # Download image data
+        blob.download_to_filename(save_path)
+
+        # Optionally, decode and display the image using OpenCV
+        # image = cv2.imread(save_path)
+        # cv2.imshow("Image", image)
+        # cv2.waitKey(0)
+        # cv2.destroyAllWindows()
 
 #bucket_name = "kimsirproject.appspot.com"
 #directory = ""  # Specify the directory path within the bucket

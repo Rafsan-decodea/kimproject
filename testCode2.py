@@ -13,6 +13,8 @@ from cvzone.FaceMeshModule import FaceMeshDetector
 now = datetime.datetime.now()
 from lib.firebaseFaceCap import *
 
+download_images_from_directory("kimsirproject.appspot.com","known","/home/rafsan/myfile/program/python/kimproject/images/")
+
 
 def KnownImages():
     config = {
@@ -183,7 +185,7 @@ def facecap():
         cv2.imshow("Video", imgWithBG)
         if cv2.waitKey(1) & 0xFF == ord('q'):
             # img = cv2.resize(img, (0, 0), None, 0.25, 0.25)
-            cv2.imwrite(f"images/{imagename}-{ids}.jpg", img)
+            cv2.imwrite(f"images/known/{imagename}-{ids}.jpg", img)
             break
     cap.release()
     cv2.destroyAllWindows()
@@ -191,7 +193,7 @@ def facecap():
 
 def identify():
 
-    path = 'images'
+    path = 'images/known'
     images = []
     ids = []
     clasName = []
@@ -207,11 +209,11 @@ def identify():
             ids.append(parts[1].split('.')[0])
     for imgWithBG in images:
         imgWithBG = cv2.cvtColor(imgWithBG, cv2.COLOR_BGR2RGB)
-        #encodefaces = face_recognition.face_encodings(imgWithBG)[0]
+        encodefaces = face_recognition.face_encodings(imgWithBG)[0]
         # insert my image
-        directory = "known"
-        bucket_name = "kimsirproject.appspot.com"
-        encodefaces = get_images_from_directory(bucket_name, directory)
+        # directory = "known"
+        # bucket_name = "kimsirproject.appspot.com"
+        # encodefaces = get_images_from_directory(bucket_name, directory)
         faceEncodeList.append(encodefaces)
 
     cap = cv2.VideoCapture(0)
