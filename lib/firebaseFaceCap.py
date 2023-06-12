@@ -6,6 +6,7 @@ from firebase_admin import storage
 from firebase_admin import db
 from io import BytesIO
 import os
+import requests
 
 firebasepath = os.getcwd() + "/lib/firebase.json"
 fireStorageCredit = credentials.Certificate(firebasepath)
@@ -18,22 +19,28 @@ def handle_new_data(event):
 
     # Process the new data
     # For example, download the image and use it with OpenCV
-    image_url = new_data['image_url']
-    image = download_image(image_url)
+    ref = db.reference('/knownperson')
+    data = ref.get()
+    for key, value in data.items():
+       image_url = value['image_url']
+       image_name = value['name']
+       print (image_name)
+    #    download_image(image_url,image_name)
     # Perform any additional processing or analysis as needed
     
     # Delete the data from the database (optional)
     # event.ref.delete()
 
-def download_image():
-    ref = db.reference('/knownperson')
-    data = ref.get()
-    for key, value in data.items():
-       print (value['name'],value['image_url'])
+def download_image(image_url,image_name):
+    url = "https://example.com/image.jpg"
+    response = requests.get(url)
+    with open("image.jpg", "wb") as f:
+        f.write(response.content)
 
 
 
 
-# data_ref = db.reference('/data')
 
-# data_ref.listen(handle_new_data)
+data_ref = db.reference('/knownperson')
+
+data_ref.listen(handle_new_data)
