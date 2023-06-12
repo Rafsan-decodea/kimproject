@@ -206,7 +206,7 @@ def facecap():
         cv2.imshow("Video", imgWithBG)
         if cv2.waitKey(1) & 0xFF == ord("q"):
             # img = cv2.resize(img, (0, 0), None, 0.25, 0.25)
-            cv2.imwrite(f"images/known/{imagename}-{ids}.jpg", img)
+            cv2.imwrite(f"images/known/{imagename}_{ids}.jpg", img)
             break
     cap.release()
     cv2.destroyAllWindows()
@@ -223,7 +223,7 @@ def identify():
         image = cv2.imread(f"{path}/{cl}")
         # That is for Substract Name and Ids
         if cl.endswith(".jpg"):
-            parts = cl.split("-")
+            parts = cl.split("_")
             images.append(image)
             clasName.append(parts[0])
             ids.append(parts[1].split(".")[0])

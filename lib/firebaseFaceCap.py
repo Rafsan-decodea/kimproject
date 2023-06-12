@@ -23,12 +23,12 @@ def handle_new_data(event):
     data = ref.get()
     for key, value in data.items():
        image_url = value['image_url']
-       image_name = value['name']+key+'.jpg'
+       image_name = value['name']+'_'+key+'.jpg'
        download_image(image_url,image_name)
     # Perform any additional processing or analysis as needed
     
     # Delete the data from the database (optional)
-       event.ref.delete()
+    
 
 def download_image(image_url,image_name):
     
