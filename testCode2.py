@@ -15,11 +15,13 @@ from cvzone.FaceMeshModule import FaceMeshDetector
 now = datetime.datetime.now()
 from lib.firebaseFaceCap import *
 
-download_images_from_directory(
-    "kimsirproject.appspot.com", "known", os.getcwd() + "/images/"
-)
+# download_images_from_directory(
+#     "kimsirproject.appspot.com", "known", os.getcwd() + "/images/"
+# )
 
+download_image()
 
+exit()
 def KnownImages():
     config = {
         "apiKey": "AIzaSyBiP96UgQNqzcblfcNqmp8arneThFH7SQI",
