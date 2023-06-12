@@ -29,7 +29,7 @@ def download_image():
     ref = db.reference('/knownperson')
     data = ref.get()
     for key, value in data.items():
-       print(key, value)
+       print (value['name'],value['image_url'])
 
 
 
