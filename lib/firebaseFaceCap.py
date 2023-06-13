@@ -32,11 +32,14 @@ def handle_new_data(event):
 def handle_deleted_data(event):
     # Get the deleted data
     deleted_key = event.path.strip('/-')
-    print (deleted_key)
+    deleteDataDetails = db.reference('/data/knownperson/' + deleted_key)
+    for x in deleteDataDetails:
+        print (x)
+    # for key,value in deleteDataDetails.items():
+    #     name = value['name']
+    # filename = name+'_'+deleted_key
+    # print (filename)
     
-    # Process the deleted data
-    # For example, delete the local image file
-    # image_name = deleted_data['name'] + '_' + deleted_data.key + '.jpg'
     
 
 def download_image(image_url,image_name):
