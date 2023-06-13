@@ -25,9 +25,18 @@ def handle_new_data(event):
        image_url = value['image_url']
        image_name = value['name']+'_'+key+'.jpg'
        download_image(image_url,image_name)
+       
     # Perform any additional processing or analysis as needed
     
     # Delete the data from the database (optional)
+def handle_deleted_data(event):
+    # Get the deleted data
+    deleted_key = event.path.strip('/-')
+    print (deleted_key)
+    
+    # Process the deleted data
+    # For example, delete the local image file
+    # image_name = deleted_data['name'] + '_' + deleted_data.key + '.jpg'
     
 
 def download_image(image_url,image_name):
@@ -37,10 +46,14 @@ def download_image(image_url,image_name):
     with open(path, "wb") as f:
         f.write(response.content)
 
-
+def delete_image(filename):
+    path =  os.getcwd()+"/images/known/"+filename
+    # Delete the local image file
+    os.remove(path)
 
 
 
 data_ref = db.reference('/knownperson')
 
-data_ref.listen(handle_new_data)
+# data_ref.listen(handle_new_data)
+data_ref.listen(handle_deleted_data)
