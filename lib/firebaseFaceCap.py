@@ -32,9 +32,11 @@ def handle_new_data(event):
 def handle_deleted_data(event):
     # Get the deleted data
     deleted_key = event.path.strip('/-')
-    deleteDataDetails = db.reference('/data/knownperson/' + deleted_key)
-    for x in deleteDataDetails:
+    for x in event:
         print (x)
+   # deleteDataDetails = db.reference('/data/knownperson/' + deleted_key)
+   # for x in deleteDataDetails:
+       # print (x)
     # for key,value in deleteDataDetails.items():
     #     name = value['name']
     # filename = name+'_'+deleted_key
