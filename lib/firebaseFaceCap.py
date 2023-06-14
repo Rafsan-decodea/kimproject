@@ -31,12 +31,13 @@ def handle_new_data(event):
     # Delete the data from the database (optional)
 def handle_deleted_data(event):
     # Get the deleted data
-    deleted_key = event.path.strip('/-')
-    for x in event:
-        print (x)
-   # deleteDataDetails = db.reference('/data/knownperson/' + deleted_key)
-   # for x in deleteDataDetails:
-       # print (x)
+    snapshot = event.data
+    if snapshot is None:
+         deleted_key = event.path.strip('/-')
+         print (deleted_key+'is Deleted')
+        #  deleteDataDetails = db.reference('/knownperson/' + deleted_key)
+        #  print (deleteDataDetails)
+    
     # for key,value in deleteDataDetails.items():
     #     name = value['name']
     # filename = name+'_'+deleted_key
