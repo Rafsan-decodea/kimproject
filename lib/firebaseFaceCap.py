@@ -34,7 +34,8 @@ def handle_deleted_data(event):
     snapshot = event.data
     if snapshot is None:
          deleted_key = event.path.strip('/-')
-         print (deleted_key+'is Deleted')
+         for key,value in snapshot.items():
+             print (key)
         #  deleteDataDetails = db.reference('/knownperson/' + deleted_key)
         #  print (deleteDataDetails)
     
