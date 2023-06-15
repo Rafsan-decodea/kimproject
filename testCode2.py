@@ -188,7 +188,7 @@ def facecap():
     cv2.destroyAllWindows()
 
 
-def identify():
+def identify(event):
 
     path = 'images/known'
     
@@ -294,8 +294,10 @@ def identify():
     cap.release()
     cv2.destroyAllWindows()
 
+db  = db.reference('/')
+db.listen(identify)
 
-identify()
+#identify()
 #facecap()
 # KnownImages()
 
