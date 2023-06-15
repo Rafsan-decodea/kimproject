@@ -32,12 +32,13 @@ def handle_new_data(event):
 def handle_deleted_data(event):
     # Get the deleted data
     snapshot = event.data
-   
+    
     if snapshot is None:
-          for key ,value in snapshot.items():
-               name = value['name']
-               filename = name+'_'+key
-               delete_image(filename)
+        print(event.path.strip('/-'))
+    #       for key ,value in event.data.items():
+    #            name = value['name']
+    #            filename = name+'_'+key
+    #            delete_image(filename)
            
         #  deleteDataDetails = db.reference('/knownperson/' + deleted_key)
         #  print (deleteDataDetails)
@@ -65,5 +66,5 @@ def delete_image(filename):
 
 data_ref = db.reference('/knownperson')
 
-data_ref.listen(handle_new_data)
+# data_ref.listen(handle_new_data)
 data_ref.listen(handle_deleted_data)
