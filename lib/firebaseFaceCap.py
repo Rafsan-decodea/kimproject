@@ -14,11 +14,7 @@ firebase_admin.initialize_app(fireStorageCredit,{'databaseURL':'https://kimsirpr
 
 
 def handle_new_data(event):
-    # Get the newly added data
     new_data = event.data
-
-    # Process the new data
-    # For example, download the image and use it with OpenCV
     ref = db.reference('/knownperson')
     data = ref.get()
     for key, value in data.items():
@@ -26,29 +22,12 @@ def handle_new_data(event):
        image_name = value['name']+'_'+key+'.jpg'
        download_image(image_url,image_name)
        
-    # Perform any additional processing or analysis as needed
-    
-    # Delete the data from the database (optional)
 def handle_deleted_data(event):
     # Get the deleted data
     snapshot = event.data
-    
     if snapshot is None:
-        print(event.path.strip('/-'))
-    #       for key ,value in event.data.items():
-    #            name = value['name']
-    #            filename = name+'_'+key
-    #            delete_image(filename)
-           
-        #  deleteDataDetails = db.reference('/knownperson/' + deleted_key)
-        #  print (deleteDataDetails)
-    
-    # for key,value in deleteDataDetails.items():
-    #     name = value['name']
-    # filename = name+'_'+deleted_key
-    # print (filename)
-    
-    
+         delete_image(event.path.strip('/'))
+
 
 def download_image(image_url,image_name):
     
@@ -58,13 +37,19 @@ def download_image(image_url,image_name):
         f.write(response.content)
 
 def delete_image(filename):
-    path =  os.getcwd()+"/images/known/"+filename
-    # Delete the local image file
-    os.remove(path)
+    imagelist = os.listdir("images/known")
+    print(filename)
+    # input all image path to list
+    for image in imagelist:
+        if filename in image:
+            path =  os.getcwd()+"/images/known/"+image 
+            os.remove(path)
+            
+            
 
 
 
 data_ref = db.reference('/knownperson')
 
-# data_ref.listen(handle_new_data)
+data_ref.listen(handle_new_data)
 data_ref.listen(handle_deleted_data)
