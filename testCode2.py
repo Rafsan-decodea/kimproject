@@ -13,7 +13,6 @@ from lib.firebaseFaceCap import *
 now = datetime.datetime.now()
 
 
-exit()
 def KnownImages():
     config = {
         "apiKey": "AIzaSyBiP96UgQNqzcblfcNqmp8arneThFH7SQI",
@@ -192,6 +191,7 @@ def facecap():
 def identify():
 
     path = 'images/known'
+    
     images = []
     ids = []
     clasName = []
@@ -285,8 +285,8 @@ def identify():
                 cv2.imwrite(f"images/unknown/{dateetimee}.jpg",  imgWithOutBg)
                 # ------- if image Write then Run that Firebase update Code ----------
 
-                my_thread = threading.Thread(target=IntruderUpload)
-                my_thread.start()
+                # my_thread = threading.Thread(target=IntruderUpload)
+                # my_thread.start()
 
         cv2.imshow("Video", imgWithBG)
         if cv2.waitKey(1) & 0xFF == ord('q'):
@@ -295,9 +295,9 @@ def identify():
     cv2.destroyAllWindows()
 
 
-#identify()
+identify()
 #facecap()
-KnownImages()
+# KnownImages()
 
 # imagerafsan1 = face_recognition.load_image_file('images/rafsan.jpg')
 # imagerafsan1 = cv2.cvtColor(imagerafsan1, cv2.COLOR_BGR2RGB)
