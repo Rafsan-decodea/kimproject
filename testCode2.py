@@ -57,7 +57,7 @@ def IntruderUpload():
     url = ''
     for image in images:
         path_on_local = "images/unknown"
-        filess = "images/unknown"+image
+        filess = "images/unknown/"+image
         storage.child(path_on_local+image).put(filess)
         url = storage.child(
             path_on_local+image).get_url("AIzaSyBiP96UgQNqzcblfcNqmp8arneThFH7SQI")
@@ -285,8 +285,8 @@ def identify(event):
                 cv2.imwrite(f"images/unknown/{dateetimee}.jpg",  imgWithOutBg)
                 # ------- if image Write then Run that Firebase update Code ----------
 
-                # my_thread = threading.Thread(target=IntruderUpload)
-                # my_thread.start()
+                my_thread = threading.Thread(target=IntruderUpload)
+                my_thread.start()
 
         cv2.imshow("Video", imgWithBG)
         if cv2.waitKey(1) & 0xFF == ord('q'):
