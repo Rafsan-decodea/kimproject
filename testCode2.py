@@ -13,6 +13,8 @@ from lib.firebaseFaceCap import *
 now = datetime.datetime.now()
 
 
+
+
 def KnownImages():
     config = {
         "apiKey": "AIzaSyBiP96UgQNqzcblfcNqmp8arneThFH7SQI",
@@ -188,27 +190,34 @@ def facecap():
     cv2.destroyAllWindows()
 
 
-def identify(event):
+def identify():
 
     path = 'images/known'
     
     images = []
     ids = []
     clasName = []
-    mylist = os.listdir(path)
     faceEncodeList = []
-    for cl in mylist:
-        image = cv2.imread(f'{path}/{cl}')
-        # That is for Substract Name and Ids
-        if cl.endswith('.jpg'):
-            parts = cl.split('-')
-            images.append(image)
-            clasName.append(parts[0])
-            ids.append(parts[1].split('.')[0])
+    def imgcheck():
+        while True:
+            mylist = os.listdir(path)
+            
+            for cl in mylist:
+                image = cv2.imread(f'{path}/{cl}')
+                # That is for Substract Name and Ids
+                if cl.endswith('.jpg'):
+                    parts = cl.split('-')
+                    images.append(image)
+                    clasName.append(parts[0])
+                    ids.append(parts[1].split('.')[0])
+         
+    
+    imgchk = threading.Thread(target=imgcheck)
+    imgchk.start()
     for imgWithBG in images:
-        imgWithBG = cv2.cvtColor(imgWithBG, cv2.COLOR_BGR2RGB)
-        encodefaces = face_recognition.face_encodings(imgWithBG)[0]
-        faceEncodeList.append(encodefaces)
+                imgWithBG = cv2.cvtColor(imgWithBG, cv2.COLOR_BGR2RGB)
+                encodefaces = face_recognition.face_encodings(imgWithBG)[0]
+                faceEncodeList.append(encodefaces) 
 
     cap = cv2.VideoCapture(0)
     # cv2.namedWindow('Video', cv2.WINDOW_FREERATIO)
@@ -294,10 +303,10 @@ def identify(event):
     cap.release()
     cv2.destroyAllWindows()
 
-db  = db.reference('/')
-db.listen(identify)
+# db  = db.reference('/')
+# db.listen(identify)
 
-#identify()
+identify()
 #facecap()
 # KnownImages()
 
