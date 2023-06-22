@@ -198,22 +198,18 @@ def identify():
     ids = []
     clasName = []
     faceEncodeList = []
-    def imgcheck():
-        while True:
-            mylist = os.listdir(path)
+ 
+    mylist = os.listdir(path)
             
-            for cl in mylist:
-                image = cv2.imread(f'{path}/{cl}')
+    for cl in mylist:
+        image = cv2.imread(f'{path}/{cl}')
                 # That is for Substract Name and Ids
-                if cl.endswith('.jpg'):
-                    parts = cl.split('-')
-                    images.append(image)
-                    clasName.append(parts[0])
-                    ids.append(parts[1].split('.')[0])
-         
-    
-    imgchk = threading.Thread(target=imgcheck)
-    imgchk.start()
+        if cl.endswith('.jpg'):
+            parts = cl.split('-')
+            images.append(image)
+            clasName.append(parts[0])
+            ids.append(parts[1].split('.')[0])
+        
     for imgWithBG in images:
                 imgWithBG = cv2.cvtColor(imgWithBG, cv2.COLOR_BGR2RGB)
                 encodefaces = face_recognition.face_encodings(imgWithBG)[0]
