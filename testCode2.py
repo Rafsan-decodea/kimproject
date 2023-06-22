@@ -10,10 +10,11 @@ import threading
 import glob
 from cvzone.FaceMeshModule import FaceMeshDetector
 from lib.firebaseFaceCap import *
+from lib.directoryWatcher import *
 now = datetime.datetime.now()
 
 
-
+exit()
 
 def KnownImages():
     config = {
