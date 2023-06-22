@@ -30,14 +30,14 @@ class Handler(FileSystemEventHandler):
             return None
 
         elif event.event_type == 'created':
-            # Take any action here when a file is first created.
+            # DO Some Operation
             print (event.src_path)
 
         elif event.event_type == 'modified':
-            # Taken any action here when a file is modified.
+            # Do Some Operation
             print (event.src_path)
 
 
-if __name__ == '__main__':
-    w = Watcher()
-    w.run()
+
+w = Watcher()
+w.run()
