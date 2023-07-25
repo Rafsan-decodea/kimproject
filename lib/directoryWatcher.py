@@ -1,6 +1,7 @@
 from watchdog.observers import Observer
 from watchdog.events import FileSystemEventHandler
 import time
+import threading
 
 class Watcher:
     DIRECTORY_TO_WATCH = "images/known"
@@ -40,4 +41,5 @@ class Handler(FileSystemEventHandler):
 
 
 w = Watcher()
-w.run()
+wrun= threading.Thread(target=w.run)
+wrun.start()

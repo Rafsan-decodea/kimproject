@@ -14,7 +14,7 @@ from lib.directoryWatcher import *
 now = datetime.datetime.now()
 
 
-exit()
+
 
 def KnownImages():
     config = {

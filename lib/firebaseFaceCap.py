@@ -10,6 +10,7 @@ import requests
 from plyer import notification
 
 
+
 firebasepath = os.getcwd() + "/lib/firebase.json"
 fireStorageCredit = credentials.Certificate(firebasepath)
 firebase_admin.initialize_app(
