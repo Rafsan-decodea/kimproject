@@ -1,6 +1,6 @@
 {
-    "name": "kimproject",
-    "short_name": "kimproject",
+    "name": "project",
+    "short_name": "project",
     "start_url": ".",
     "display": "standalone",
     "background_color": "#0175C2",

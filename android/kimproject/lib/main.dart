@@ -130,13 +130,14 @@ class MyApp extends StatefulWidget {
 
 class _MyAppState extends State<MyApp> {
   late final LocalNotificationService service;
-  late DatabaseReference _databaseRef;
   // String? _date;
   @override
   initState() {
     super.initState();
     // that is use for fetch data from firbase
-    _databaseRef = FirebaseDatabase.instance.reference().child('intruder');
+    final DatabaseReference _databaseRef =
+        FirebaseDatabase.instance.ref().child('intruder');
+
     _databaseRef.onValue.listen((event) {
       // null value protection
       if (event.snapshot.value != null) {

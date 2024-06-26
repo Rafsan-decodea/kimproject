@@ -1,4 +1,4 @@
-# kimproject
+# project
 
 A new Flutter project.
 
