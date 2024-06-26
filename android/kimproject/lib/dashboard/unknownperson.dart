@@ -94,10 +94,8 @@ class _UnknownPersonState extends State<UnknownPerson> {
                         },
                         child: Text('Register as Known'),
                         style: ElevatedButton.styleFrom(
-                          primary: Colors
-                              .blue, // sets the background color of the button
-                          onPrimary:
-                              Colors.white, // sets the text color of the button
+                          foregroundColor: Colors.white, backgroundColor: Colors
+                              .blue, // sets the text color of the button
                           padding: EdgeInsets.symmetric(
                               horizontal: 16), // sets the padding of the button
                           shape: RoundedRectangleBorder(
@@ -194,10 +192,8 @@ class _UnknownPersonState extends State<UnknownPerson> {
                         },
                         child: Text('Delete This Data'),
                         style: ElevatedButton.styleFrom(
-                          primary: Color.fromARGB(255, 241, 11,
-                              11), // sets the background color of the button
-                          onPrimary:
-                              Colors.white, // sets the text color of the button
+                          foregroundColor: Colors.white, backgroundColor: Color.fromARGB(255, 241, 11,
+                              11), // sets the text color of the button
                           padding: EdgeInsets.symmetric(
                               horizontal: 16), // sets the padding of the button
                           shape: RoundedRectangleBorder(

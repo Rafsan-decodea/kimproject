@@ -88,8 +88,7 @@ class _AboutUsState extends State<AboutUs> {
                       },
                       child: Text('Like Us Project'),
                       style: TextButton.styleFrom(
-                        primary: Color.fromARGB(255, 235, 230, 230),
-                        backgroundColor:
+                        foregroundColor: Color.fromARGB(255, 235, 230, 230), backgroundColor:
                             Color.fromARGB(255, 8, 8, 8), // Background Color
                       ),
                     ),

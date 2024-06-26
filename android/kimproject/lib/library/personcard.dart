@@ -109,9 +109,8 @@ class _PersonalCardState extends State<PersonalCard> {
                                   // Edit button logic
                                 },
                                 style: OutlinedButton.styleFrom(
-                                  primary: Colors
-                                      .blue, // Set the color of the button text
-                                  side: BorderSide(
+                                  foregroundColor: Colors
+                                      .blue, side: BorderSide(
                                       color:
                                           Colors.blue), // Set the border color
                                   shape: RoundedRectangleBorder(
@@ -211,9 +210,8 @@ class _PersonalCardState extends State<PersonalCard> {
                                   // Edit button logic
                                 },
                                 style: OutlinedButton.styleFrom(
-                                  primary: Color.fromARGB(255, 252, 10,
-                                      10), // Set the color of the button text
-                                  side: BorderSide(
+                                  foregroundColor: Color.fromARGB(255, 252, 10,
+                                      10), side: BorderSide(
                                       color: Color.fromARGB(255, 243, 4,
                                           4)), // Set the border color
                                   shape: RoundedRectangleBorder(
